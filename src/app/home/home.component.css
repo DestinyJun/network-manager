@@ -1,0 +1,17 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.main{
+  margin-left: 16vw;
+  margin-top:1vh;
+  border-radius: 5px;
+}
+.box{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1031;
+  height: 4px;
+  width: 100%;
+}

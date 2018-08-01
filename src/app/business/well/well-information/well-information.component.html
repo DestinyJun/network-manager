@@ -1,0 +1,83 @@
+<div class="usersmanager">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 index">
+        井信息
+      </div>
+    </div>
+    <div class="row options">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-default" (click)="openuserAdd(add)">
+          <span class="glyphicon glyphicon-plus"></span>增加
+        </button>
+        <button type="button" class="btn btn-default" (click)="deleteuser()">
+          <span class="glyphicon glyphicon-trash"></span>删除
+        </button>
+        <button type="button" class="btn btn-default" (click)="openuser(modify)">
+          <span class="glyphicon glyphicon-pencil"></span>修改
+        </button>
+        <button type="button" class="btn btn-default" (click)="openuser(lookdesc)">
+          <span class="glyphicon glyphicon-search"></span>查看
+        </button>
+      </div>
+    </div>
+    <div class="row content">
+      <div class="col-xs-12">
+        <table class="table table-responsive table-bordered">
+          <thead>
+          <tr>
+            <th class="check"><input type="checkbox">全选/全不选</th>
+            <th>井ID</th>
+            <th>省地区ID</th>
+            <th>市地区ID</th>
+            <th>（县/区）地区ID</th>
+            <th>（镇/乡）地区ID</th>
+            <th>传感器个数</th>
+            <th>材质</th>
+            <th>地址</th>
+            <th>数据搜集器ID</th>
+            <th>创建时间</th>
+            <th>GPS坐标</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of Users; let i = index">
+            <td><input type="checkbox"></td>
+            <td>{{user['idCardNo']}}</td>
+            <td>{{user['usename']}}</td>
+            <td>{{user['password']}}</td>
+            <td>
+              <span *ngIf="user['gender'] === 'm' || user['gender'] === '男'">男</span>
+              <span *ngIf="user['gender'] === 'w' || user['gender'] === '女'">女</span>
+            </td>
+            <td>{{user['age']}}</td>
+            <td>{{user['phone']}}</td>
+            <td>{{user['address']}}</td>
+            <td>{{user['name']}}</td>
+            <td>{{user['locked']}}</td>
+            <td>{{user['roleId']}}</td>
+            <td>{{user['provinceRegionId']}}</td>
+            <td>{{user['cityRegionId']}}</td>
+            <td>{{user['countyRegionId']}}</td>
+            <td>{{user['townRegionId']}}</td>
+            <td>{{user['managementArea']}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row text-center">
+    </div>
+  </div>
+</div>
+
+
+
+<!--<div>-->
+  <!--<form>-->
+    <!--<div>-->
+      <!--<input type="text" #lookdescInput>-->
+      <!--<button class="" (click)="lookdesc(lookdescInput.value)">提交</button>-->
+    <!--</div>-->
+  <!--</form>-->
+<!--</div>-->
