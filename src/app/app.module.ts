@@ -8,6 +8,7 @@ import {GlobalService} from './shared/global.service';
 import {ReqService} from './shared/req.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {TreeModule} from 'ng2-tree';
+import {CommonfunService} from './shared/commonfun.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {TreeModule} from 'ng2-tree';
   providers: [
     GlobalService,
     ReqService,
+    CommonfunService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

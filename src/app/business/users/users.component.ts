@@ -34,22 +34,22 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.addFields = [
-       new Form('身份证号码', 'idCardNo', [['required', '此项为必填']]),
-       new Form('账号', 'username', [['required', '此项为必填']]),
-       new Form('密码', 'password', [['required', '此项为必填']]),
-       new Form('用户性别', 'gender', [['required', '此项为必填']]),
-       new Form('用户年纪', 'age', [['required', '此项为必填']]),
-       new Form('用户电话', 'phone', [['required', '此项为必填']]),
-       new Form('用户住址', 'address', [['required', '此项为必填']]),
-       new Form('姓名', 'name', [['required', '此项为必填']]),
-       new Form('账号是否锁定', 'locked', [['required', '此项为必填']]),
-       new Form('角色id', 'roleId', [['required', '此项为必填']]),
-       new Form('省地区id', 'provinceRegionId', [['required', '此项为必填']]),
-       new Form('市地区Id', 'cityRegionId', [['required', '此项为必填']]),
-       new Form('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']]),
-       new Form('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']]),
-       new Form('管辖地区名称', 'managementArea', [['required', '此项为必填']]),
-      ]
+      new Form('身份证号码', 'idCardNo', [['required', '此项为必填']]),
+      new Form('账号', 'username', [['required', '此项为必填']]),
+      new Form('密码', 'password', [['required', '此项为必填']]),
+      new Form('用户性别', 'gender', [['required', '此项为必填']]),
+      new Form('用户年纪', 'age', [['required', '此项为必填']]),
+      new Form('用户电话', 'phone', [['required', '此项为必填']]),
+      new Form('用户住址', 'address', [['required', '此项为必填']]),
+      new Form('姓名', 'name', [['required', '此项为必填']]),
+      new Form('账号是否锁定', 'locked', [['required', '此项为必填']]),
+      new Form('角色id', 'roleId', [['required', '此项为必填']]),
+      new Form('省地区id', 'provinceRegionId', [['required', '此项为必填']]),
+      new Form('市地区Id', 'cityRegionId', [['required', '此项为必填']]),
+      new Form('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']]),
+      new Form('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']]),
+      new Form('管辖地区名称', 'managementArea', [['required', '此项为必填']]),
+    ]
     //  增加模态框表单
     this.userAddForm = this.fb.group({
       idCardNo: ['', Validators.required],
@@ -165,7 +165,7 @@ export class UsersComponent implements OnInit {
     } else {
       this.openstatus = false;
       for (let j = 0; j < haschecklen; j++) {
-        this.req.UsersManagerDelete({id: this.Users[this.hasChecked[j]].id})
+        this.req.deleteUser({id: this.Users[this.hasChecked[j]].id})
           .subscribe(status => {
             this.status = Number(status.status);
             if (j === haschecklen - 1) {
@@ -198,7 +198,7 @@ export class UsersComponent implements OnInit {
       this.openstatus = false;
       this.inputvalid = false;
       this.modalRef.hide();
-      this.req.UsersManagerAdd(this.userAddForm.value)
+      this.req.addUser(this.userAddForm.value)
         .subscribe(status => {
           this.status = Number(status.status);
           this.Update();
@@ -213,7 +213,7 @@ export class UsersComponent implements OnInit {
       this.openstatus = false;
       this.inputvalid = false;
       this.modalRef.hide();
-      this.req.UsersManagerModify(this.userModifyForm.value)
+      this.req.updateUser(this.userModifyForm.value)
         .subscribe(status => {
           this.status = Number(status.status);
           this.Update();
@@ -226,7 +226,7 @@ export class UsersComponent implements OnInit {
   public Update(): void {
     this.gtone = false;
     this.mustone = false;
-    this.req.getUsersManager(this.pageBody)
+    this.req.queryAllUser(this.pageBody)
       .subscribe(value => {
         this.Users = value.data;
         setTimeout(() => {
@@ -235,10 +235,6 @@ export class UsersComponent implements OnInit {
         }, 2500);
         this.hasChecked = [];
         this.checked = '';
-      });
-    this.req.getUsersManagerCount()
-      .subscribe(num => {
-        this.num = Math.ceil(num.data / 6);
       });
   }
 }

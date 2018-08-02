@@ -1,15 +1,43 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {observableToBeFn} from 'rxjs/testing/TestScheduler';
+import * as $ from 'jquery';
+import {UserInfo} from './global.service';
+import {CommonfunService} from './commonfun.service';
 
 @Injectable()
 export class ReqService {
-  private  headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-  constructor(private http: HttpClient) { }
+  private  headers = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})};
+  constructor(
+    private http: HttpClient,
+    private commonfun: CommonfunService
+  ) { }
+  // 请求函数封装, 返回一个promise
+  private ajaxRest(url: string, datas: any): Promise<any> {
+    datas = this.commonfun.serialize(datas);
+    return new Promise(function (resolve, reject) {
+      $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        cache: false,
+        data: datas,
+        headers: {
+          'accessToken': sessionStorage.getItem('token')
+        },
+        contentType: 'application/x-www-form-urlencoded',
+        success: (value) => {
+          resolve(value);
+        },
+        error: (err) => {
+          reject(err);
+        }
+      });
+    });
+  }
   // 登陆验证
   public Login(body): Observable<any> {
-    return this.http.post('192.168.138.1:8080', body);
+    return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/login', body, this.headers);
   }
   // 登出
   public Logout(body): Observable<any> {
@@ -31,58 +59,40 @@ export class ReqService {
   public UserInfoModify(body): Observable<any> {
     return this.http.post('', body);
   }
-  public getDepartment(body): Observable<any> {
-    return this.http.post('', body);
-  }
-  public getOrganization(body): Observable<any> {
-    return this.http.post('', body);
-  }
-  public getUsersManagerCount(): Observable<any> {
-    return this.http.post('', null, {
-      headers: this.headers
-    });
-  }
-  // 用户管理查询
-  public getUsersManager(body): Observable<any> {
-    console.log(body);
-    return this.http.post('', body, {
-      headers: this.headers
-    });
-  }
-  // 用户管理增加
-  public UsersManagerAdd(body): Observable<any> {
-    return this.http.post('http://120.78.138.104:8080/Intelligent-pipe-network-Server-side-0.0.1-SNAPSHOT/inserterUser', body);
-  }
-  // 用户管理删除
-  public UsersManagerDelete(body): Observable<any> {
-    return this.http.post('http://120.78.138.104:8080/Intelligent-pipe-network-Server-side-0.0.1-SNAPSHOT/inserterUser', body);
-  }
-  // 用户管理修改
-  public UsersManagerModify(body): Observable<any> {
-    return this.http.post('http://120.78.138.104:8080/Intelligent-pipe-network-Server-side-0.0.1-SNAPSHOT/inserterUser', body);
+  // 增加用户
+  // 接收实例化后的 user 对象
+  // 返回值数据
+  public addUser(newUser: UserInfo): Observable<any> {
+    return this.http.post('http://120.78.138.104:8080/pipe-network-Manager/insertUser', newUser);
   }
 
+  // 删除用户
+  public deleteUser(userId: any): Observable<any> {
+    return this.http.post('', userId);
+  }
+  // 更新用户
+  public updateUser(updateUserInfo: UserInfo): Observable<any> {
+    return this.http.post('http://120.78.137.182:8888/pipe-network//updateUser', updateUserInfo);
+  }
+  // 查询全部用户
+  public queryAllUser(params: any): Observable<any> {
+    return this.http.post('http://120.78.137.182:8888/pipe-network//paingUser', params);
+  }
+// ----------------------------------------------------------------------------------------------------------------------
   // 井管理查看
-  public findWelladd(body): Observable<any> {
-    return this.http.post('', body, {
-    });
+  public findWelladd(data): Promise<any> {
+    return this.ajaxRest('', data);
   }
   // 井管理增加
-  public addWelladd(body): Observable<any> {
-    return this.http.post('', body, {
-      headers: this.headers
-    });
+  public addWelladd(data): Promise<any> {
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertWell', data);
   }
   // 井管理删除
-  public deleteWelladd(body): Observable<any> {
-    return this.http.post('', body, {
-      headers: this.headers
-    });
+  public deleteWelladd(data): Promise<any> {
+    return this.ajaxRest('', data);
   }
   // 井管理修改
-  public updateWelladd(body): Observable<any> {
-    return this.http.post('', body, {
-      headers: this.headers
-    });
+  public updateWelladd(data): Promise<any> {
+    return this.ajaxRest('', data);
   }
 }
