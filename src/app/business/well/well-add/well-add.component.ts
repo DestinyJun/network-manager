@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-well-add',
@@ -7,7 +6,17 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./well-add.component.css']
 })
 export class WellAddComponent implements OnInit {
-  constructor() { }
+  private wellCoverInfo: any;
+  private wellEnterInfo: any;
+  private wellOutInfo: any;
+  private wellSensor: any;
+  public wellInfo = {
+    manholeCoverInfo: null,
+    inFlowManholelist: [],
+    flowOutManholelist: [],
+    sensorInfoList: []
+  };
+  constructor() {}
 
   ngOnInit() {
   }

@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {WellComponent} from './well.component';
-import {WellAddComponent} from './well-add/well-add.component';
-import {WellInformationComponent} from './well-information/well-information.component';
 
 const routes: Routes = [
   {path: '', component: WellComponent,
     children: [
-      {path: 'well-information', component: WellInformationComponent},
-      {path: 'well-add', component: WellAddComponent}
+      {path: 'well-information', loadChildren: './'},
+      {path: 'well-add', loadChildren: 'app/business/well/well-add/well-add.module#WellAddModule'},
+      {path: 'well-information', loadChildren: 'app/business/well/well-information/well-information.module#WellInformationModule'},
     ]},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule]
 })
 export class WellRoutingModule { }
