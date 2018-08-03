@@ -1,13 +1,18 @@
-<div class="container-fluid" style="padding-top: 10px;">
-    <div class="col-md-6 main">
-      <div class="row" style="padding: 0px 16px;">
-        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 title text-center">井盖添加</div>
-        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 title text-center">井进添加</div>
-        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 title text-center">井出添加</div>
-        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-6 title text-center">传感器添加</div>
-      </div>
-      <div class="row">
+<div class="container-fluid">
+  <div class="row">
+        <div class="col-xs-12" #wellTabsMenu>
+          <div class="title text-center pull-left"><a [routerLink]="['./cover']" (click)="changeBgColor($event, wellTabsMenu)">井盖添加</a></div>
+          <div class="title text-center pull-left"><a [routerLink]="['./enter']" (click)="changeBgColor($event, wellTabsMenu)">井进添加</a></div>
+          <div class="title text-center pull-left"><a [routerLink]="['./out']" (click)="changeBgColor($event, wellTabsMenu)">井出添加</a></div>
+          <div class="title text-center pull-left"><a [routerLink]="['./sensor']" (click)="changeBgColor($event, wellTabsMenu)">传感器添加</a></div>
+        </div>
+  </div>
+   <div class="row">
+      <div class="col-xs-12 body">
         <router-outlet></router-outlet>
       </div>
-    </div>
+  </div>
+  <div class="row text-center">
+    <button class="btn btn-primary">提交井信息</button>
+  </div>
 </div>

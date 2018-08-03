@@ -20,5 +20,14 @@ export class WellAddComponent implements OnInit {
 
   ngOnInit() {
   }
+  public changeBgColor(child, parent): void {
+    for (let i = 0; i < parent.children.length; ++i) {
+      if (parent.children[i].children[0] === child.target) {
+        child.target.style.backgroundColor = '#37606C';
+      }else {
+        parent.children[i].children[0].style.backgroundColor = 'rgba(0,0,0,0.5)';
+      }
+    }
+  }
 
 }

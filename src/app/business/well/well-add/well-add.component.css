@@ -1,147 +1,31 @@
+.container-fluid {
+  padding-left: 30px;
+  padding-right: 30px;
+}
 .title{
+  user-select: none;
   width: 110px;
   height: 30px;
   background: rgba(0,0,0,0.5);
   font-size: 1.5rem;
-  padding: 0.3vw 1vw;
   margin-left: 5px;
   color: white;
   cursor: pointer;
   border-bottom: 3px skyblue solid;
 }
-.title:hover{
-  color: #007400;
-}
-.main{
-  float: left;
-}
-.pagination ul li input{
-  width: 2vw;
-  outline: none;
-  background-color: transparent;
-  border-style: none;
-}
-.hasError{
-  border: 1px red solid;
-}
-.status{
-  padding: 15px;
-  width: 280px;
-  height: 45px;
-  position: fixed;
-  top: 20px;
-  left: 45%;
-  color: #FFFFFF;
-  border-radius: 3px;
-  z-index: 1100;
-}
-.success{
-  background: rgba(0,128,125,0.7);
-  box-shadow: 2px -2px 2px rgba(0,128,125,0.7) inset;
-  border: 1px #008069 solid;
-}
-.fail{
-  background: rgba(200,0,0,0.7);
-  box-shadow: 2px -2px 2px rgba(200,0,0,0.9) inset;
-  border: 1px #c30000 solid;
-}
-.remind{
-  color: red;
-}
-.button{
-  margin-left: 1vw;
-  padding: 6px 0 6px 0;
-}
-.button button{
-  margin-bottom: 3px;
-  font-size: 5px;
-  border: rgba(0,0,0,0.5);
-  float: right;
-  margin-right: 1vw;
-  padding: 5px;
+.title > a {
   color: white;
-  background: rgba(0,0,0,0.6);
-  outline: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.3vw 1vw;
+  text-decoration: none;
 }
-.box{
-  width: auto;
-  height: auto;
-  background: rgba(0,0,0,0.5);
-}
-.panel-heading{
-  background-color: rgba(55,96,108,0.5);
-  box-shadow:0 1px 1px 0 rgba(0,0,0,0.3);
-  border-radius: 5px 5px 0 0;
-  color: white;
-}
-.panel-heading > span{
-  font-size: 16px;
-}
-.panel-body{
-  height: 260px;
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
-  border-radius: 0;
-  color: white;
-}
-.panel-footer{
-  background-color: rgba(55,96,108,0.3);
-  box-shadow:0 2px 1px 0 rgba(0,0,0,0.2);
-  border-radius: 0 0 5px 5px;
-  border-top: none;
-  color: white;
-}
-.table-striped > tbody >tr:nth-of-type(odd){
-  background-color: rgba(33,51,63,0.5);
-}
-.table-striped > tbody > tr:hover{
-  cursor: pointer;
-  background-color: rgba(75, 117, 143, 0.55);
-}
-.table > tbody > tr > td, .table > tbody > tr > th{
-  border-top: none;
-}
-a{
-  cursor: pointer;
-}
-.modal-header{
-  background-color: rgba(55,96,108,0.8);
-  color: #FFFFFF;
-  border: none;
-}
-.modal-body{
+.body{
+  margin-top: 15px;
   background-color: rgba(55,96,108,0.5);
   color: #FFFFFF;
 }
-.modal-footer{
-  padding-top: 8px;
-  background-color: rgba(55,96,108,0.8);
-  height: 50px;
-  color: #FFFFFF;
-}
-.row > div{
-  margin-bottom: 15px;
-}
-input{
-  border-radius: 1px;
-  border: 0;
-  background: white;
-  color: black;
-  height: 20px;
-  display: block;
-}
-label{
-  margin: 10px;
-}
-.form-group{
-  display: block;
-  font-size: 8px;
-}
-.btn-raised{
-  margin: 5px 0;
-  width: 100px;
-}
-.btn-raised:hover{
-  transform: scale(1.2);
-  transition: all .1s ease;
+.btn-primary {
+  margin-top: 20px;
 }

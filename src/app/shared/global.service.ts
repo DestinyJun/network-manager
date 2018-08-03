@@ -95,7 +95,7 @@ export class SensorInfo {
 }
 
 // 表单类
-export class Form {
+export class FormHtml {
   constructor(
     public name: string,
     public content: string,
@@ -106,8 +106,10 @@ export class Form {
 
 // 分页类
 export class PageBody {
-  constructor(public page: number,
-              public row: number) {
+  constructor(
+              public page: number,
+              public row: number
+  ) {
   }
 }
 

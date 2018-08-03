@@ -1,0 +1,40 @@
+.row {
+  overflow: hidden;
+  padding: 1px;
+  border-bottom: 2px solid #32a8a3;
+}
+input:focus{
+  outline: none;
+}
+input{
+  padding-left: 1px;
+  padding-right: 1px;
+  border-radius: 1px;
+  outline: none;
+  border: 0;
+  background: white;
+  color: black;
+  height: 20px;
+  display: block;
+}
+input[type = "reset"], input[type="button"]{
+  margin-top: 5px;
+  padding: 0px 3px 0px 3px;
+  background-color: rgba(71, 249, 240, 0.6);
+  color: #FFFFFF;
+}
+.form-group{
+  display: block;
+  font-size: 10px;
+}
+.fa-plus-circle {
+  margin-top: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.fa-plus-circle:hover {
+  color: #47f9f4;
+}
+.form-group {
+  margin-left: 10px;
+}
