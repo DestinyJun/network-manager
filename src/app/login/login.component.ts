@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   public OnSubmit(): void {
+    this.router.navigate(['/home']);
     this.req.Login(this.commonfun.serialize(this.userLoginInfoForm.value)).subscribe((res) => {
       console.log(res);
       if (Number(res['msg']) === 14) {

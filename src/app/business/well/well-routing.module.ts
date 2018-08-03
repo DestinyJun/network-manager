@@ -5,9 +5,9 @@ import {WellComponent} from './well.component';
 const routes: Routes = [
   {path: '', component: WellComponent,
     children: [
-      {path: 'well-information', loadChildren: './'},
-      {path: 'well-add', loadChildren: 'app/business/well/well-add/well-add.module#WellAddModule'},
-      {path: 'well-information', loadChildren: 'app/business/well/well-information/well-information.module#WellInformationModule'},
+      {path: 'welladd', loadChildren: 'app/business/well/well-add/well-add.module#WellAddModule'},
+      // {path: 'welladd', component: WellAddComponent},
+      {path: 'wellinfo', loadChildren: 'app/business/well/well-information/well-information.module#WellInformationModule'},
     ]},
 ];
 

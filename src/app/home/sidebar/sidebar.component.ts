@@ -14,8 +14,8 @@ export class SidebarComponent implements OnInit {
     new NavList('首页', 'main', 'fa fa-laptop', true, [] , true),
     new NavList('用户管理', 'users', 'fa fa-graduation-cap', false, [] , true),
     new NavList('井管理', '', 'fa fa-cog fa-spin', false, [
-      new NavListChild('井信息', false, 'well/well-information'),
-      new NavListChild('井信息添加', false, 'well/well-add'),
+      new NavListChild('井信息', false, 'well/wellinfo'),
+      new NavListChild('井信息添加', false, 'well/welladd'),
     ] , true),
   ];
   public slidinghight: number;
@@ -49,9 +49,9 @@ export class SidebarComponent implements OnInit {
       this.navLists.forEach((item) => {
         item.open = true;
         item.clsstate = false;
-        if (item.children) {
-          console.log('hello');
-        }
+        // if (item.children) {
+        //   console.log('hello');
+        // }
         item.children.forEach((itemchild) => {
           itemchild.setState = false;
         });

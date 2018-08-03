@@ -1,11 +1,16 @@
 .title{
-  width: 140px;
+  width: 110px;
   height: 30px;
   background: rgba(0,0,0,0.5);
   font-size: 1.5rem;
   padding: 0.3vw 1vw;
+  margin-left: 5px;
   color: white;
+  cursor: pointer;
   border-bottom: 3px skyblue solid;
+}
+.title:hover{
+  color: #007400;
 }
 .main{
   float: left;
