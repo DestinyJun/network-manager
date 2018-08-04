@@ -62,12 +62,6 @@ export class WellEnterInfoComponent implements OnInit, OnDestroy {
   public deleteForm(form): void {
     this.forms.splice(this.forms.indexOf(form), 1);
   }
-  // 最后保存所有表单信息
-  public submitAllFormInfo(): void {
-    this.forms.forEach((form) => {
-      this.wellEnterFormsInfo.push(form);
-    });
-  }
   // 在组件路由当其他组件后所有表单保存数据 和 表单名
   ngOnDestroy(): void {
     const formsValue = [];

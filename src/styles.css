@@ -3,8 +3,9 @@
   padding: 0px;
 }
 /* You can add global styles to this file, and also import other style files */
-a{
-  text-decoration: none;
+/*// 取消所有输入框在获取焦点的时候的内边框*/
+input:focus{
+  outline: none;
 }
 body{
   background: url("assets/bj.jpg") no-repeat;
