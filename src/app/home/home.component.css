@@ -3,9 +3,8 @@
   padding: 0;
 }
 .main{
-  margin-left: 16vw;
-  margin-top:1vh;
   border-radius: 5px;
+  margin-top: 66px
 }
 .box{
   position: fixed;

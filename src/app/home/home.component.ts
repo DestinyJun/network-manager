@@ -9,7 +9,7 @@ import {GlobalService} from '../shared/global.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit , OnDestroy, DoCheck {
-  @Output() InfoTg = new EventEmitter();
+  public parentFoldValue: boolean;
   constructor(
     private localSessionStorage: GlobalService,
     private req: ReqService,
@@ -18,17 +18,15 @@ export class HomeComponent implements OnInit , OnDestroy, DoCheck {
   }
   ngDoCheck(): void {
   }
-  infoTg() {
-    this.InfoTg.emit(true);
-  }
   ngOnInit() {
+    this.parentFoldValue = true;
+  }
+  public rejectFoldValue(e): void {
+    this.parentFoldValue = e;
   }
 
   public ngOnDestroy(): void {
-    this.req.Logout(JSON.stringify({sid: this.localSessionStorage.get('sid')}))
-      .subscribe(res => {
-        alert('登出成功！');
-      });
+
   }
 
 }

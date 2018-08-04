@@ -1,13 +1,13 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" [ngStyle]="{marginLeft: sendFoldValue?'0px':'180px'}">
   <div class="container-fluid">
     <div class="navbar-header">
       <div class="title">
-        <i class="fa fa-navicon"></i>
+        <i class="fa fa-navicon" (click)="foldMenu()" title="菜单伸缩"></i>
       </div>
       <div class="user pull-right">
         <div class="user-admin">欢迎您，管理员</div>
-        <div class="user-photo" (click)="onToggleInfo($event)">
-          <img class="rounded-circle" src="./assets/Nasta.png" alt="">
+        <div class="user-photo">
+          <img class="rounded-circle" src="./assets/Nasta.png" alt="头像">
         </div>
       </div>
       <div class="">

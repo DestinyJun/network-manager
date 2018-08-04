@@ -1,16 +1,16 @@
 <div class="container-fluid">
   <div class="row">
     <div class="header">
-      <app-header ></app-header>
+      <app-header (sendFoldValueChange)="rejectFoldValue($event)"></app-header>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="parentFoldValue">
     <div class="sidebar">
       <app-sidebar></app-sidebar>
     </div>
   </div>
   <div class="row">
-    <div class="main" style="margin-left: 180px;margin-top: 66px">
+    <div class="main" [ngStyle]="{marginLeft: parentFoldValue?'180px':'0px'}">
         <router-outlet></router-outlet>
     </div>
   </div>
