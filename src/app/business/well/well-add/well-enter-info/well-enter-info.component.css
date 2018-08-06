@@ -1,5 +1,6 @@
 .row {
   overflow: hidden;
+  min-width: 850px;
   padding: 1px;
   border-bottom: 2px solid #32a8a3;
 }
@@ -14,6 +15,13 @@ input{
   height: 20px;
   display: block;
 }
+.sequence {
+  text-align: center;
+  vertical-align: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+}
 input[type = "reset"], input[type="button"]{
   margin-top: 5px;
   padding: 0px 3px 0px 3px;
@@ -24,14 +32,18 @@ input[type = "reset"], input[type="button"]{
   display: block;
   font-size: 10px;
 }
-.fa-plus-circle {
-  margin-top: 20px;
-  font-size: 30px;
-  cursor: pointer;
-}
-.fa-plus-circle:hover {
-  color: #47f9f4;
-}
 .form-group {
   margin-left: 10px;
+}
+.operateBtn {
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  width: 110px;
+  padding: 3px 4px;
+  background-color: rgba(42, 125, 125, 0.5);
+}
+.operateBtn:hover {
+  background-color: rgb(61, 181, 181);
 }

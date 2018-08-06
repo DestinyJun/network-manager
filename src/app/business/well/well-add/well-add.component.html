@@ -1,10 +1,11 @@
-<div class="container-fluid">
+<div class="container-fluid" [hidden]="isFillInWellId">
   <div class="row">
         <div class="col-xs-12" #wellTabsMenu>
-          <div class="title text-center pull-left active"><a [routerLink]="['./cover']" class="llllllllll" (click)="changeBgColor($event, wellTabsMenu)">井盖添加</a></div>
-          <div class="title text-center pull-left"><a [routerLink]="['./enter']" (click)="changeBgColor($event, wellTabsMenu)">井进添加</a></div>
-          <div class="title text-center pull-left"><a [routerLink]="['./out']" (click)="changeBgColor($event, wellTabsMenu)">井出添加</a></div>
+          <div class="title text-center pull-left active"><a [routerLink]="['./cover']" (click)="changeBgColor($event, wellTabsMenu)">井盖添加</a></div>
+          <div class="title text-center pull-left"><a [routerLink]="['./enter']" (click)="changeBgColor($event, wellTabsMenu)">进井添加</a></div>
+          <div class="title text-center pull-left"><a [routerLink]="['./out']" (click)="changeBgColor($event, wellTabsMenu)">出井添加</a></div>
           <div class="title text-center pull-left"><a [routerLink]="['./sensor']" (click)="changeBgColor($event, wellTabsMenu)">传感器添加</a></div>
+          <div class="wellID text-center pull-right"><span>当前井ID为：{{wellID}}</span></div>
         </div>
   </div>
    <div class="row">
@@ -14,5 +15,16 @@
   </div>
   <div class="row text-center">
     <button class="btn btn-primary" (click)="submitAllFormInfo()">提交井信息</button>
+  </div>
+</div>
+<div class="container-fluid fillInWellId" [hidden]="!isFillInWellId">
+  <div class="modal-header">
+    <h4 class="modal-title">请输入要添加井的ID</h4>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" #wellId>
+    <div class="row text-center">
+      <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+    </div>
   </div>
 </div>

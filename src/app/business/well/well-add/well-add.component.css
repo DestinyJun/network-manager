@@ -26,9 +26,20 @@
 }
 .body{
   margin-top: 15px;
+  min-width: 850px;
   background-color: rgba(55,96,108,0.5);
+  color: #FFFFFF;
+}
+.wellID {
   color: #FFFFFF;
 }
 .btn-primary {
   margin-top: 20px;
+}
+.fillInWellId {
+  width: 60%;
+  min-width: 280px;
+  color: #FFFFFF;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.5);
 }

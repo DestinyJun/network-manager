@@ -7,13 +7,15 @@ import { WellEnterInfoComponent } from './well-enter-info/well-enter-info.compon
 import { WellOutInfoComponent } from './well-out-info/well-out-info.component';
 import { WellSensorInfoComponent } from './well-sensor-info/well-sensor-info.component';
 import {WellCoverComponent} from './well-cover/well-cover.component';
+import {ModalModule} from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     WellAddRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot(),
   ],
   declarations: [
     WellAddComponent,

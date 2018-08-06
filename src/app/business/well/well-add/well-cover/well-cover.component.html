@@ -1,59 +1,15 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6 col-md-12 col-sm-6 col-xs-12">
-      <div class="panel-body">
-        <div class="form">
-          <form class="form-inline">
-          <div class="row">
-          <div class="col-md-3">
-          <div class="form-group"><label>井ID:</label><input type="text">
-          </div>
-          </div>
-          <div class="col-md-3">
-          <div class="form-group"><label>省地区ID: </label><input type="text">
-          </div>
-          </div>
-          <div class="col-md-3">
-          <div class="form-group"><label>市地区ID: </label><input type="text">
-          </div>
-          </div>
-          <div class="col-md-3">
-          <div class="form-group"><label>（县/区）地区ID: </label><input type="text">
-          </div>
-          </div>
-          </div>
-          <div class="row">
-          <div class="col-md-3">
-          <div class="form-group"><label>（镇/乡）地区ID: </label><input type="text">
-          </div>
-          </div>
-          <div class="col-md-3">
-          <div class="form-group"><label>传感器个数: </label><input type="text">
-          </div>
-          </div>
-          <div class="col-md-3">
-          <div class="form-group"><label>材质: </label><input type="text" >
-          </div>
-          </div>
-          <div class="col-md-3">
-          <div class="form-group"><label>地址: </label><input type="text" >
-          </div>
-          </div>
-          </div>
-          <div class="row">
-          <div class="col-md-3">
-          <div class="form-group"><label>数据收集器: </label><input type="text">
-          </div></div>
-          <div class="col-md-3">
-          <div class="form-group"><label>创建时间: </label><input type="text">
-          </div></div>
-          <div class="col-md-3">
-          <div class="form-group"><label>GPS坐标：</label><input type="text">
-          </div></div>
-          </div>
-          </form>
-        </div>
+    <form class="form-inline" [formGroup]="wellCoverForm">
+      <div class="form-group pull-left" *ngFor="let field of formBodyHtml">
+        <label>{{field.name}}&nbsp;:&nbsp;</label>
+        <input type="text" formControlName="{{field.content}}">
       </div>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <button type="button" class="operateBtn" (click)="save()">保存当前页</button>
     </div>
   </div>
 </div>

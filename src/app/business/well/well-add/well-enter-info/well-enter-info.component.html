@@ -3,7 +3,7 @@
     <form class="form-inline" [formGroup]="form">
       <div class="form-group pull-left">
         <label></label>
-        <input type="button" value="{{i + 1}}">
+        <input type="button" class="sequence" value="{{i + 1}}">
       </div>
       <div class="form-group pull-left" *ngFor="let f of formBodyHtml">
         <label>{{f.name}}:</label>
@@ -19,7 +19,25 @@
       </div>
     </form>
   </div>
-  <div class="col-xs-12 text-center">
-    <span class="fa fa-plus-circle" (click)="addForm()"></span>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <button type="button" class="operateBtn" (click)="addForm(formValidModal)">增加</button>
+      <button type="button" class="operateBtn" (click)="save()">保存当前页</button>
+      <button type="button" class="operateBtn" (click)="cleanAllForm()">清除全部</button>
+    </div>
   </div>
 </div>
+
+<ng-template #formValidModal>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">进井表单验证失败提示:</h5>
+    <button type="button" class="pull-right" (click)="modalRef.hide()">
+      <span>&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="text-center">
+        <h4>当前填写表单所有项输入能为空</h4>
+      </div>
+    </div>
+</ng-template>

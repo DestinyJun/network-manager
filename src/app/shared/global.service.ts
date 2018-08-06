@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class GlobalService {
@@ -33,14 +32,18 @@ export class GlobalService {
     this.sessionStorage.removeItem(key);
   }
 }
-
-// 响应式表单类
-export class ReactiveForm {
-  constructor(formName: FormGroup) {
-  }
+// 分页类
+export class UsePageQuery {
+  constructor(
+    public currentPage: number,
+    public pageSize: number,
+    public provinceRegionId: string,
+    public cityRegionId: string,
+    public countyRegionId: string,
+    public townRegionId: string,
+  ) {}
 }
-
-// 井信息类
+// 井盖信息类
 export class ManholeCoverInfo {
   constructor(public id: string, // 井id
               public manholeId: string, //井Id

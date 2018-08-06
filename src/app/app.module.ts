@@ -9,6 +9,7 @@ import {ReqService} from './shared/req.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {TreeModule} from 'ng2-tree';
 import {CommonfunService} from './shared/commonfun.service';
+import {WellAddFormsInfoService} from './shared/well-add-forms-info.service';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {CommonfunService} from './shared/commonfun.service';
     GlobalService,
     ReqService,
     CommonfunService,
+    WellAddFormsInfoService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })

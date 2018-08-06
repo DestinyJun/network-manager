@@ -1,10 +1,10 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {PageBody, UsersManager} from '../../shared/global.service';
+import {FormHtml, PageBody, UsersManager} from '../../shared/global.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReqService} from '../../shared/req.service';
 import * as $ from 'jquery';
+import {CommonfunService} from '../../shared/commonfun.service';
 
 @Component({
   selector: 'app-users',
@@ -27,29 +27,32 @@ export class UsersComponent implements OnInit {
   public inputvalid: boolean;
   public mustone: boolean;
   public gtone: boolean;
-  public addFields: Array<Form>;
-  constructor(public modalService: BsModalService,
+  public fields: Array<FormHtml>;
+  constructor(
+              public modalService: BsModalService,
               public req: ReqService,
-              public fb: FormBuilder) {}
+              public fb: FormBuilder,
+              private commonfun: CommonfunService
+              ) {}
 
   ngOnInit() {
-    this.addFields = [
-      new Form('身份证号码', 'idCardNo', [['required', '此项为必填']]),
-      new Form('账号', 'username', [['required', '此项为必填']]),
-      new Form('密码', 'password', [['required', '此项为必填']]),
-      new Form('用户性别', 'gender', [['required', '此项为必填']]),
-      new Form('用户年纪', 'age', [['required', '此项为必填']]),
-      new Form('用户电话', 'phone', [['required', '此项为必填']]),
-      new Form('用户住址', 'address', [['required', '此项为必填']]),
-      new Form('姓名', 'name', [['required', '此项为必填']]),
-      new Form('账号是否锁定', 'locked', [['required', '此项为必填']]),
-      new Form('角色id', 'roleId', [['required', '此项为必填']]),
-      new Form('省地区id', 'provinceRegionId', [['required', '此项为必填']]),
-      new Form('市地区Id', 'cityRegionId', [['required', '此项为必填']]),
-      new Form('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']]),
-      new Form('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']]),
-      new Form('管辖地区名称', 'managementArea', [['required', '此项为必填']]),
-    ]
+    this.fields = [
+      new FormHtml('身份证号码', 'idCardNo', [['required', '此项为必填']]),
+      new FormHtml('账号', 'username', [['required', '此项为必填']]),
+      new FormHtml('密码', 'password', [['required', '此项为必填']]),
+      new FormHtml('用户性别', 'gender', [['required', '此项为必填']]),
+      new FormHtml('用户年纪', 'age', [['required', '此项为必填']]),
+      new FormHtml('用户电话', 'phone', [['required', '此项为必填']]),
+      new FormHtml('用户住址', 'address', [['required', '此项为必填']]),
+      new FormHtml('姓名', 'name', [['required', '此项为必填']]),
+      new FormHtml('账号是否锁定', 'locked', [['required', '此项为必填']]),
+      new FormHtml('角色id', 'roleId', [['required', '此项为必填']]),
+      new FormHtml('省地区id', 'provinceRegionId', [['required', '此项为必填']]),
+      new FormHtml('市地区Id', 'cityRegionId', [['required', '此项为必填']]),
+      new FormHtml('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']]),
+      new FormHtml('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']]),
+      new FormHtml('管辖地区名称', 'managementArea', [['required', '此项为必填']]),
+    ];
     //  增加模态框表单
     this.userAddForm = this.fb.group({
       idCardNo: ['', Validators.required],
@@ -86,9 +89,6 @@ export class UsersComponent implements OnInit {
       townRegionId: ['', Validators.required],
       managementArea: ['', Validators.required]
     });
-    this.userModifyForm = this.fb.group({
-
-    });
 
     this.status = 0;
     this.openstatus = true;
@@ -96,16 +96,6 @@ export class UsersComponent implements OnInit {
     this.mustone = false;
     this.gtone = false;
     // 对表格的初始化
-  }
-  public SelectAddModalId(value): void {
-    this.userAddForm.patchValue({'WellId': value});
-  }
-  public SelectModifyModalId(value): void {
-    this.userModifyForm.patchValue({'WellId': value});
-  }
-  public getPageBody(event): void {
-    this.pageBody = event;
-    this.Update();
   }
   // 控制模态框
   public openuser(template: TemplateRef<any>): void {
@@ -178,34 +168,38 @@ export class UsersComponent implements OnInit {
   }
   // 用户的添加 并且 重新请求数据，防止增加的是第十一条表格
   public userAdd(): void {
-    $.ajax({
-      url: 'http://192.168.28.65:8080/pipe-network-Manager/insertUser',
-      type: 'POST',
-      async: false,
-      cache: false,
-      headers: {
-        'accessToken': sessionStorage.getItem('token')
-      },
-      contentType: 'application/x-www-form-urlencoded',
-      success: (datas) => {
-        console.log(datas);
-      },
-      error: (err) => {
-        console.log(err);
-      }
+    this.req.addUser(this.userAddForm.value).then(value => {
+      console.log(value);
     });
-    if (this.userAddForm.valid) {
-      this.openstatus = false;
-      this.inputvalid = false;
-      this.modalRef.hide();
-      this.req.addUser(this.userAddForm.value)
-        .subscribe(status => {
-          this.status = Number(status.status);
-          this.Update();
-        });
-    } else {
-      this.inputvalid = true;
-    }
+    // $.ajax({
+    //   url: 'http://192.168.28.151:8082/pipe-network-Manager/insertUser',
+    //   type: 'POST',
+    //   async: false,
+    //   cache: false,
+    //   headers: {
+    //     'accessToken': sessionStorage.getItem('token')
+    //   },
+    //   data: this.commonfun.serialize(this.userAddForm.value),
+    //   contentType: 'application/x-www-form-urlencoded',
+    //   success: (datas) => {
+    //     console.log(datas);
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   }
+    // });
+    // if (this.userAddForm.valid) {
+    //   this.openstatus = false;
+    //   this.inputvalid = false;
+    //   this.modalRef.hide();
+    //   this.req.addUser(this.userAddForm.value)
+    //     .subscribe(status => {
+    //       this.status = Number(status.status);
+    //       this.Update();
+    //     });
+    // } else {
+    //   this.inputvalid = true;
+    // }
   }
 //  修改表格内容
   public userModify(): void {
@@ -237,13 +231,4 @@ export class UsersComponent implements OnInit {
         this.checked = '';
       });
   }
-}
-
-
-export class Form {
-  constructor(
-    public name: string,
-    public content: string,
-    public valids: Array<Array<any>>,
-  ) {}
 }
