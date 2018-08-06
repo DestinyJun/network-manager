@@ -1,0 +1,10 @@
+.fillInWellId {
+  width: 60%;
+  min-width: 280px;
+  color: #FFFFFF;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.5);
+}
+.btn-primary {
+  margin-top: 20px;
+}

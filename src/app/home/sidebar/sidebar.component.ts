@@ -14,8 +14,10 @@ export class SidebarComponent implements OnInit {
     new NavList('首页', 'main', 'fa fa-laptop', true, [] , true),
     new NavList('用户管理', 'users', 'fa fa-graduation-cap', false, [] , true),
     new NavList('井管理', '', 'fa fa-cog fa-spin', false, [
-      new NavListChild('井信息', false, 'well/wellinfo'),
+      new NavListChild('井基本信息', false, 'well/wellinfo'),
       new NavListChild('井信息添加', false, 'well/welladd'),
+      new NavListChild('井详情信息', false, 'well/wellDetailInfo'),
+      new NavListChild('修改井', false, 'well/wellmodify'),
     ] , true),
   ];
   public slidinghight: number;

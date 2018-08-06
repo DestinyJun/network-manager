@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.service';
 import {ReqService} from '../../../shared/req.service';
 import * as $ from "jquery";

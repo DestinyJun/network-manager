@@ -87,7 +87,7 @@ export class WellInformationComponent implements OnInit {
   }
   // 按页差选请求
   public usePageQuery(): void {
-    this.req.findWell(this.pageBody).then(value => {
+    this.req.pagingWell(this.pageBody).then(value => {
       this.datas = value.paingmsg.datas;
       this.resDatas = value;
     });

@@ -1,0 +1,20 @@
+<div *ngIf="!isFillInWellId">
+  <div class="wellCover"></div>
+  <div class="enterWell"></div>
+  <div class="outWell"></div>
+  <div class="sensors"></div>
+</div>
+
+
+
+<div class="container-fluid fillInWellId" *ngIf="isFillInWellId">
+  <div class="modal-header">
+    <h4 class="modal-title">请输入要添加井的ID</h4>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" #wellId>
+    <div class="row text-center">
+      <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+    </div>
+  </div>
+</div>

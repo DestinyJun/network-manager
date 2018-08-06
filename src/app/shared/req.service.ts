@@ -79,19 +79,27 @@ export class ReqService {
     return this.http.post('http://120.78.137.182:8888/pipe-network//paingUser', params);
   }
 // ----------------------------------------------------------------------------------------------------------------------
-  // 井管理查看
+  // 按页查看井的基本信息
+  public pagingWell(data: any): Promise<any> {
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
+  }
+  // 井基本信息
   public findWell(data: any): Promise<any> {
     return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
   }
-  // 井管理增加
+  // 井详情信息
+  public wellDetailInfo(data: any): Promise<any> {
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/detailedManhole', this.commonfun.serialize(data));
+  }
+  // 井增加
   public addWell(data): Promise<any> {
     return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertWell', data);
   }
-  // 井管理删除
+  // 井删除
   public deleteWell(data): Promise<any> {
     return this.ajaxRest('', data);
   }
-  // 井管理修改
+  // 井修改
   public updateWell(data): Promise<any> {
     return this.ajaxRest('', data);
   }
