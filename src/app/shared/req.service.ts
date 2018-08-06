@@ -14,25 +14,24 @@ export class ReqService {
   ) { }
   // 请求函数封装, 返回一个promise
   private ajaxRest(url: string, datas: any): Promise<any> {
-    datas = this.commonfun.serialize(datas);
     return new Promise(function (resolve, reject) {
-      $.ajax({
-        url: url,
-        type: 'POST',
-        async: false,
-        cache: false,
-        data: datas,
-        headers: {
-          'accessToken': sessionStorage.getItem('token')
-        },
-        contentType: 'application/x-www-form-urlencoded',
-        success: (value) => {
-          resolve(value);
-        },
-        error: (err) => {
-          reject(err);
-        }
-      });
+        $.ajax({
+          url: url,
+          type: 'POST',
+          async: false,
+          cache: false,
+          headers: {
+            'accessToken': sessionStorage.getItem('token')
+          },
+          data: datas,
+          contentType: 'application/x-www-form-urlencoded',
+          success: (data) => {
+            resolve(data);
+          },
+          error: (err) => {
+            reject(err);
+          }
+        });
     });
   }
   // 登陆验证
@@ -62,8 +61,9 @@ export class ReqService {
   // 增加用户
   // 接收实例化后的 user 对象
   // 返回值数据
-  public addUser(newUser: UserInfo): Observable<any> {
-    return this.http.post('http://120.78.138.104:8080/pipe-network-Manager/insertUser', newUser);
+  public addUser(newUser: UserInfo): Promise<any> {
+    // const datas = this.commonfun.serialize(newUser);
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
   }
 
   // 删除用户
@@ -80,19 +80,19 @@ export class ReqService {
   }
 // ----------------------------------------------------------------------------------------------------------------------
   // 井管理查看
-  public findWelladd(data): Promise<any> {
-    return this.ajaxRest('', data);
+  public findWell(data: any): Promise<any> {
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
   }
   // 井管理增加
-  public addWelladd(data): Promise<any> {
+  public addWell(data): Promise<any> {
     return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertWell', data);
   }
   // 井管理删除
-  public deleteWelladd(data): Promise<any> {
+  public deleteWell(data): Promise<any> {
     return this.ajaxRest('', data);
   }
   // 井管理修改
-  public updateWelladd(data): Promise<any> {
+  public updateWell(data): Promise<any> {
     return this.ajaxRest('', data);
   }
 }

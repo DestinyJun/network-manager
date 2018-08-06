@@ -9,7 +9,6 @@ import {WellCoverComponent} from './well-cover/well-cover.component';
 const routes: Routes = [
   {path: '', component: WellAddComponent,
     children: [
-      {path: '', component: WellCoverComponent},
       {path: 'cover', component: WellCoverComponent},
       {path: 'enter', component: WellEnterInfoComponent},
       {path: 'out', component: WellOutInfoComponent},
