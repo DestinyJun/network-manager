@@ -39,7 +39,7 @@ export class ReqService {
     return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/login', body, this.headers);
   }
   // 登出
-  public Logout(body): Observable<any> {
+  public Loginout(body): Observable<any> {
     return this.http.post('', body);
   }
   // 强制登出

@@ -12,13 +12,15 @@ export class SidebarComponent implements OnInit {
   public BL: EventEmitter<boolean> =  new EventEmitter();
   public navLists: NavList[] = [
     new NavList('首页', 'main', 'fa fa-laptop', true, [] , true),
-    new NavList('用户管理', 'users', 'fa fa-graduation-cap', false, [] , true),
+    new NavList('用户管理', 'users', 'fa fa-user', false, [] , true),
     new NavList('井管理', '', 'fa fa-cog fa-spin', false, [
       new NavListChild('井基本信息', false, 'well/wellinfo'),
       new NavListChild('井信息添加', false, 'well/welladd'),
       new NavListChild('井详情信息', false, 'well/wellDetailInfo'),
       new NavListChild('修改井', false, 'well/wellmodify'),
     ] , true),
+    new NavList('维修管理', '', 'fa fa-refresh', true, [] , true),
+    new NavList('历史详情', '', 'fa fa-history', true, [] , true),
   ];
   public slidinghight: number;
   public slidingTop: number;
