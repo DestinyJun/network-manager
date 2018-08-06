@@ -1,13 +1,39 @@
 <div class="usersmanager">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12 index">
-        井信息
+      <div class="col-xs-12">
+        <div class="index pull-left">井信息</div>
+        <div class="whereSearch pull-right">
+          <div class="form-group pull-left">
+            <label>省：</label>
+            <select name="provinceRegionId" #provinceRegionId>
+              <option value="1">没有</option>
+            </select>
+          </div>
+          <div class="form-group pull-left">
+            <label>市：</label>
+            <select name="provinceRegionId" #cityRegionId>
+              <option value="1">没有</option>
+            </select>
+          </div>
+          <div class="form-group pull-left">
+            <label>区/县：</label>
+            <select name="provinceRegionId" #countyRegionId>
+              <option value="1">没有</option>
+            </select>
+          </div>
+          <div class="form-group pull-left">
+            <label>镇/乡：</label>
+            <select name="provinceRegionId" #townRegionId>
+              <option value="1">没有</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row options">
       <div class="col-xs-12">
-        <button type="button" class="btn btn-default" (click)="delete()">
+        <button type="button" class="btn btn-default pull-right" (click)="delete()">
           <span class="glyphicon glyphicon-trash"></span>删除
         </button>
       </div>

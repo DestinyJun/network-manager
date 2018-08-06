@@ -1,9 +1,6 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormHtml, ManholeCoverInfo, UsePageQuery} from '../../../shared/global.service';
-import {BsModalService} from 'ngx-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {ManholeCoverInfo, UsePageQuery} from '../../../shared/global.service';
 import {ReqService} from '../../../shared/req.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {CommonfunService} from '../../../shared/commonfun.service';
 
 @Component({
   selector: 'app-well-information',
@@ -12,7 +9,7 @@ import {CommonfunService} from '../../../shared/commonfun.service';
 })
 export class WellInformationComponent implements OnInit {
   // 用于表单显示的数据的格式
-  private fields: Array<FormHtml>;
+  // private fields: Array<FormHtml>;
   // pageBody 当前查看页发送请求的信息
   private pageBody: UsePageQuery;
   // resDatas 用来接收查看请求返回的数据
@@ -22,26 +19,26 @@ export class WellInformationComponent implements OnInit {
   // hasChecked 用于记录已勾选的表格
   private hasChecked: Array<ManholeCoverInfo>;
   constructor(
-    public req: ReqService,
+    public req: ReqService
   ) { }
 
   ngOnInit() {
     this.hasChecked = [];
     this.pageBody = new UsePageQuery(1, 10, '', '', '', '');
-    this.fields = [
-          new  FormHtml('井ID', 'id', [[]]),
-          new  FormHtml('井盖ID', 'manholeId', [[]]),
-          new  FormHtml('传感器个数', 'sensorsize', [[]]),
-          new  FormHtml('材质', 'material', [[]]),
-          new  FormHtml('地址', 'gpsPosition', [[]]),
-          new  FormHtml('数据收集器id', 'dataCollectorId', [[]]),
-          new  FormHtml('创建时间', 'creatTime', [[]]),
-          new  FormHtml('gps坐标', 'gpsId', [[]]),
-          new  FormHtml('省地区Id', 'provinceRegionId', [[]]),
-          new  FormHtml('市地区Id', 'cityRegionId', [[]]),
-          new  FormHtml('县地区Id', 'countyRegionId', [[]]),
-          new  FormHtml('镇地区Id', 'townRegionId', [[]])
-    ];
+    // this.fields = [
+    //       new  FormHtml('井ID', 'id', [[]]),
+    //       new  FormHtml('井盖ID', 'manholeId', [[]]),
+    //       new  FormHtml('传感器个数', 'sensorsize', [[]]),
+    //       new  FormHtml('材质', 'material', [[]]),
+    //       new  FormHtml('地址', 'gpsPosition', [[]]),
+    //       new  FormHtml('数据收集器id', 'dataCollectorId', [[]]),
+    //       new  FormHtml('创建时间', 'creatTime', [[]]),
+    //       new  FormHtml('gps坐标', 'gpsId', [[]]),
+    //       new  FormHtml('省地区Id', 'provinceRegionId', [[]]),
+    //       new  FormHtml('市地区Id', 'cityRegionId', [[]]),
+    //       new  FormHtml('县地区Id', 'countyRegionId', [[]]),
+    //       new  FormHtml('镇地区Id', 'townRegionId', [[]])
+    // ];
     // 初始化表格
     this.usePageQuery();
   }
@@ -56,7 +53,9 @@ export class WellInformationComponent implements OnInit {
     for (let i = 0; i < checks.length; i++) {
       if (checks[0]['checked'] === true) {
         checks[i]['checked'] = true;
-        this.hasChecked = this.datas;
+        this.datas.forEach(value => {
+          this.hasChecked.push(value);
+        });
       }else {
         checks[i]['checked'] = false;
         this.hasChecked = [];
@@ -69,6 +68,7 @@ export class WellInformationComponent implements OnInit {
     if (e.srcElement['checked'] === true) {
       this.hasChecked.push(data);
     }else {
+      document.querySelector('input[type=\'checkbox\']')['checked'] = false;
       this.hasChecked.splice(this.datas.indexOf(data), 1);
     }
   }
