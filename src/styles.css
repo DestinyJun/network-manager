@@ -1,16 +1,22 @@
 *{
   margin: 0px;
   padding: 0px;
+  border: none;
+}
+/*// 取消所有元素在焦点时的默认边框*/
+*:focus{
+  outline: none;
+  border: none;
+}
+/*取消输入框的获取焦点时的默认边框*/
+.form-control:focus{
+  outline: none;
+  border: none;
 }
 /* You can add global styles to this file, and also import other style files */
-/*// 取消所有输入框在获取焦点的时候的内边框*/
-input:focus,
-button:focus
-{
-  outline: none;
-}
 body{
   background: url("assets/bj.jpg") no-repeat;
+  overflow: hidden;
 }
 .loadimage1 {
   margin: auto;

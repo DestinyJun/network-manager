@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalService} from 'ngx-bootstrap';
 import {FormHtml, GlobalService} from '../../../../shared/global.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonfunService} from '../../../../shared/commonfun.service';
@@ -23,7 +23,6 @@ export class WellCoverComponent implements OnInit, OnDestroy {
     private wellAddFormsInfo: WellAddFormsInfoService
   ) {}
   ngOnInit() {
-    this.commonfun.setGG('hello');
     this.formNum = 0;
     this.formBody = {
       manholeId: [{value: sessionStorage.getItem('wellId')}, Validators.required],
@@ -39,17 +38,17 @@ export class WellCoverComponent implements OnInit, OnDestroy {
       gpsId: ['', Validators.required],
     };
     this.formBodyHtml = [
-      // new FormHtml('井ID', 'manholeId', [[]]),
-      new FormHtml('省地区ID', 'provinceRegionId', [[]]),
-      new FormHtml('市地区ID', 'cityRegionId', [[]]),
-      new FormHtml('（县/区）地区ID', 'countyRegionId', [[]]),
-      new FormHtml('（镇/乡）地区ID', 'townRegionId', [[]]),
-      new FormHtml('传感器个数', 'sensorsize', [[]]),
-      new FormHtml('材质', 'material', [[]]),
-      new FormHtml('GPS对应地址', 'gpsPosition', [[]]),
-      new FormHtml('数据收集器', 'dataCollectorId', [[]]),
-      new FormHtml('创建时间', 'creatTime', [[]]),
-      new FormHtml('GPSID', 'gpsId', [[]]),
+      // new FormHtml('井ID', 'manholeId', [[]], ''),
+      new FormHtml('省地区ID', 'provinceRegionId', [[]], ''),
+      new FormHtml('市地区ID', 'cityRegionId', [[]], ''),
+      new FormHtml('（县/区）地区ID', 'countyRegionId', [[]], ''),
+      new FormHtml('（镇/乡）地区ID', 'townRegionId', [[]], ''),
+      new FormHtml('传感器个数', 'sensorsize', [[]], ''),
+      new FormHtml('材质', 'material', [[]], ''),
+      new FormHtml('GPS对应地址', 'gpsPosition', [[]], ''),
+      new FormHtml('数据收集器', 'dataCollectorId', [[]], ''),
+      new FormHtml('创建时间', 'creatTime', [[]], ''),
+      new FormHtml('GPSID', 'gpsId', [[]], ''),
     ];
     this.wellCoverForm = this.fb.group(this.formBody);
     // 读取缓存

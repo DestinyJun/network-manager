@@ -40,13 +40,13 @@ export class WellSensorInfoComponent implements OnInit, OnDestroy {
       dataCollectorId: ['', Validators.required],
     };
     this.formBodyHtml = [
-      // new FormHtml('井ID', 'initialManholeId', [[]]),
-      new FormHtml('传感器所属模式', 'sensormode', [[]]),
-      new FormHtml('模块ID', 'modeId', [[]]),
-      new FormHtml('高度', 'hight', [[]]),
-      new FormHtml('传感器在模块中的位置', 'modePlace', [[]]),
-      new FormHtml('导管ID', 'conduitId', [[]]),
-      new FormHtml('数据收集器ID', 'dataCollectorId', [[]])
+      // new FormHtml('井ID', 'initialManholeId', [[]], ''),
+      new FormHtml('传感器所属模式', 'sensormode', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
+      new FormHtml('高度', 'hight', [[]], ''),
+      new FormHtml('传感器在模块中的位置', 'modePlace', [[]], ''),
+      new FormHtml('导管ID', 'conduitId', [[]], ''),
+      new FormHtml('数据收集器ID', 'dataCollectorId', [[]], '')
     ];
     // 读取缓存
     const sessionFormsValue = sessionStorage.getItem('wellSensorFormsInfo');

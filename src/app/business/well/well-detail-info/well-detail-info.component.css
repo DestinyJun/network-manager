@@ -8,3 +8,28 @@
 .btn-primary {
   margin-top: 20px;
 }
+.wellDetail {
+  width: 85%;
+  height: 90vh;
+  border-radius: 10px 0px 0px 0px;
+  padding: 20px 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  color: #FFFFFF;
+  background-color: rgba(0,0,0,0.5);
+}
+.wellDetail select {
+  position: static;
+  border: none;
+  padding: 3px 8px;
+  color: #FFFFFF;
+  background-color: rgba(51, 171, 162, 0.6);
+}
+.wellDetail select a {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: #FFFFFF;
+  text-decoration: none;
+  background-color: rgba(71, 249, 240, 0.6);
+}

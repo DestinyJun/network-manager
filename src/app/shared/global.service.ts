@@ -102,7 +102,8 @@ export class FormHtml {
   constructor(
     public name: string,
     public content: string,
-    public valids: Array<Array<any>>
+    public valids: Array<Array<any>>,
+    public unit: string
   ) {
   }
 }

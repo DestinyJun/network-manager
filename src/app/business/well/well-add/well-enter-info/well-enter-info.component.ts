@@ -40,12 +40,12 @@ export class WellEnterInfoComponent implements OnInit, OnDestroy {
         inFlowPipeLength: ['', Validators.required],
     };
     this.formBodyHtml = [
-      // new FormHtml('井ID', 'manholeId', [[]]),
-      new FormHtml('进井ID', 'inFlowRelationId', [[]]),
-      new FormHtml('进井管道ID', 'inFlowPipeId', [[]]),
-      new FormHtml('进井管道半径', 'inFlowPipeRadius', [[]]),
-      new FormHtml('进井管道倾斜度', 'inFlowPipeSlope', [[]]),
-      new FormHtml('进井管道长度', 'inFlowPipeLength', [[]]),
+      // new FormHtml('井ID', 'manholeId', [[]], ''),
+      new FormHtml('进井ID', 'inFlowRelationId', [[]], ''),
+      new FormHtml('进井管道ID', 'inFlowPipeId', [[]], ''),
+      new FormHtml('进井管道半径', 'inFlowPipeRadius', [[]], ''),
+      new FormHtml('进井管道倾斜度', 'inFlowPipeSlope', [[]], ''),
+      new FormHtml('进井管道长度', 'inFlowPipeLength', [[]], ''),
     ];
     // 读取缓存
     const sessionFormsValue = sessionStorage.getItem('wellEnterFormsInfo');

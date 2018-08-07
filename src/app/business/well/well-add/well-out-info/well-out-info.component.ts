@@ -39,12 +39,12 @@ export class WellOutInfoComponent implements OnInit, OnDestroy {
       flowOutPipeLength: ['', Validators.required],
     };
     this.formBodyHtml = [
-      // new FormHtml('井ID', 'manholeId', [[]]),
-      new FormHtml('出井ID', 'flowOutRelationId', [[]]),
-      new FormHtml('出井管道ID', 'flowOutPipeId', [[]]),
-      new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]]),
-      new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]]),
-      new FormHtml('出井管道长度', 'flowOutPipeLength', [[]]),
+      // new FormHtml('井ID', 'manholeId', [[]], ''),
+      new FormHtml('出井ID', 'flowOutRelationId', [[]], ''),
+      new FormHtml('出井管道ID', 'flowOutPipeId', [[]], ''),
+      new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], ''),
+      new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], ''),
+      new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], ''),
     ];
     // 读取缓存
     const sessionFormsValue = sessionStorage.getItem('wellOutFormsInfo');

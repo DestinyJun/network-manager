@@ -19,8 +19,8 @@ export class SidebarComponent implements OnInit {
       new NavListChild('井详情信息', false, 'well/wellDetailInfo'),
       new NavListChild('修改井', false, 'well/wellmodify'),
     ] , true),
-    new NavList('维修管理', '', 'fa fa-refresh', true, [] , true),
-    new NavList('历史详情', '', 'fa fa-history', true, [] , true),
+    new NavList('维修管理', '', 'fa fa-refresh', false, [] , true),
+    new NavList('历史详情', '', 'fa fa-history', false, [] , true),
   ];
   public slidinghight: number;
   public slidingTop: number;
