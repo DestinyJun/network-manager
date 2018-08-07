@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.service';
 import {ReqService} from '../../../shared/req.service';
 import {CommonfunService} from '../../../shared/commonfun.service';
-import {equal} from 'ng4-validators/src/app/equal/validator';
 import {FormHtml} from '../../../shared/global.service';
 
 @Component({
@@ -89,6 +88,27 @@ export class WellDetailInfoComponent implements OnInit {
     }else {
       const remindMsg = '井ID不能为空';
       wellId.setAttribute('placeholder', remindMsg);
+    }
+  }
+//  操作滚动条
+  public operateScroll(e): void {
+    const scrollbar = document.querySelector('.scrollbar');
+    const wellDetail = document.querySelector('#container-fluid');
+    // console.log(scrollbar); // 滚动条当前所在的位置
+    // console.log(wellDetail.scrollHeight); // 元素的总高度
+    // console.log(wellDetail.scrollTop); // 卷上去的高度
+    // console.log(wellDetail['offsetHeight']); // 当前元素在页面视图的高度
+    // console.log(parseFloat(String(scrollbar.getAttribute('style')).substring(47))); // 滚动条当前在页面视图的高度
+    // 算法：以当前元素在页面显示的视图高度为滚动条的总高度。
+    // 滚动条所在的位置 = (当前鼠标所在的位置 + 元素已卷上去的高度)/(元素的总高度) * 元素在页面显示的视图高度
+    const scrollCurrentH = ((e.clientY + wellDetail.scrollTop) / (wellDetail.scrollHeight) * wellDetail['offsetHeight']);
+    console.log(wellDetail);
+    // const scrollCurrentH = parseFloat(String(scrollbar.getAttribute('style')).substring(47));
+    // console.log(scrollbar['offsetTop']);
+    if ((wellDetail.scrollTop + scrollCurrentH) <= wellDetail.scrollHeight) {
+      console.log(111);
+      scrollbar['style'].transition =  '0.2s all';
+      scrollbar['style'].transform =  'translate(0, ' + (scrollCurrentH - 20) + 'px)';
     }
   }
 }

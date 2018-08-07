@@ -1,4 +1,4 @@
-import {Component, DoCheck, EventEmitter, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, DoCheck, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ReqService} from '../shared/req.service';
 import {Router} from '@angular/router';
 import {GlobalService} from '../shared/global.service';
@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit , OnDestroy, DoCheck {
   ngDoCheck(): void {
   }
   ngOnInit() {
+    console.log(JSON.parse(sessionStorage.getItem('region')));
     this.parentFoldValue = true;
   }
   public rejectFoldValue(e): void {

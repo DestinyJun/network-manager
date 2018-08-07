@@ -1,74 +1,78 @@
-<div class="container-fluid wellDetail" *ngIf="!isFillInWellId">
-  <div class="row">
-    <div class="text-center">
-      <h4 *ngIf="manholeCoverInfo">井的ID为: &nbsp; {{wellId}}</h4>
-      <h4 *ngIf="!manholeCoverInfo">该井不存在</h4>
+<div class="wellDetail" *ngIf="!isFillInWellId" (mousemove)="operateScroll($event)">
+    <!--滚动条-->
+    <div class="scrollbarhome">
+      <span class="scrollbar"></span>
     </div>
-    <select *ngIf="manholeCoverInfo" class="pull-right">
-      <option value="-1">全部</option>
-      <option value="">
-        <a href="#wellCover">
-        井盖信息
-        </a>
-      </option>
-      <option value="">
-        <a href="#enterWell">
-          进井信息
-        </a>
-      </option>
-      <option value="">
-        <a href="#outWell">
-          出井信息
-        </a>
-      </option>
-      <option value="">
-        <a href="#sensors">
-          传感器信息
-        </a>
-      </option>
-    </select>
-  </div>
-  <div id="wellCover" class="row" *ngIf="manholeCoverInfo">
-    <!--<dl>-->
-      <!--<dt></dt>-->
-      <!--<dd></dd>-->
-    <!--</dl>-->
-    <h4>这是井盖信息详情：</h4><br>
-    <p *ngFor="let cover of wellCoverDetail"><span>{{cover.name}}:</span><span>{{manholeCoverInfo[cover.content]}}</span><span>&nbsp;{{cover.unit}}</span></p>
-  </div>
-  <div id="enterWell" class="row" *ngIf="inFlowManholelist">
-    <h4>这是进井详情：</h4><br>
-    <div *ngFor="let inflow of inFlowManholelist;let i = index">
-      <span class="sequence">{{i + 1}}</span>
-      <p *ngFor="let enter of enterWellDetail"><span>{{enter.name}}:</span><span>{{inflow[enter.content]}}</span><span>&nbsp;{{enter.unit}}</span></p>
+    <div id="container-fluid">
+      <div class="row">
+        <div class="text-center">
+          <h4 *ngIf="manholeCoverInfo">井的ID为: &nbsp; {{wellId}}</h4>
+          <h4 *ngIf="!manholeCoverInfo">该井不存在</h4>
+        </div>
+        <select *ngIf="manholeCoverInfo" class="pull-right">
+          <option value="-1">全部</option>
+          <option value="">
+            <a href="#wellCover">
+              井盖信息
+            </a>
+          </option>
+          <option value="">
+            <a href="#enterWell">
+              进井信息
+            </a>
+          </option>
+          <option value="">
+            <a href="#outWell">
+              出井信息
+            </a>
+          </option>
+          <option value="">
+            <a href="#sensors">
+              传感器信息
+            </a>
+          </option>
+        </select>
+      </div>
+      <div id="wellCover" class="row" *ngIf="manholeCoverInfo">
+        <!--<dl>-->
+        <!--<dt></dt>-->
+        <!--<dd></dd>-->
+        <!--</dl>-->
+        <h4>这是井盖信息详情：</h4><br>
+        <p *ngFor="let cover of wellCoverDetail"><span>{{cover.name}}:</span><span>{{manholeCoverInfo[cover.content]}}</span><span>&nbsp;{{cover.unit}}</span></p>
+      </div>
+      <div id="enterWell" class="row" *ngIf="inFlowManholelist">
+        <h4>这是进井详情：</h4><br>
+        <div *ngFor="let inflow of inFlowManholelist;let i = index">
+          <span class="sequence">{{i + 1}}</span>
+          <p *ngFor="let enter of enterWellDetail"><span>{{enter.name}}:</span><span>{{inflow[enter.content]}}</span><span>&nbsp;{{enter.unit}}</span></p>
+        </div>
+      </div>
+      <div id="outWell" class="row" *ngIf="flowOutManholelist">
+        <h4>这是出井详情：</h4><br>
+        <div *ngFor="let flowout of flowOutManholelist;let i = index">
+          <span class="sequence">{{i + 1}}</span>
+          <p *ngFor="let out of outWellDetail"><span>{{out.name}}:</span><span>{{flowout[out.content]}}</span><span>&nbsp;{{out.unit}}</span></p>
+        </div>
+      </div>
+      <div id="sensors" class="row" *ngIf="sensorInfoList">
+        <h4>这是传感器详情：</h4><br>
+        <div *ngFor="let sensor of sensorInfoList;let i = index">
+          <span class="sequence">{{i + 1}}</span>
+          <p *ngFor="let sen of sensorsDetail"><span>{{sen.name}}:</span><span>{{sensor[sen.content]}}</span><span>&nbsp;{{sen.unit}}</span></p>
+        </div>
+      </div>
     </div>
   </div>
-  <div id="outWell" class="row" *ngIf="flowOutManholelist">
-    <h4>这是出井详情：</h4><br>
-    <div *ngFor="let flowout of flowOutManholelist;let i = index">
-      <span class="sequence">{{i + 1}}</span>
-      <p *ngFor="let out of outWellDetail"><span>{{out.name}}:</span><span>{{flowout[out.content]}}</span><span>&nbsp;{{out.unit}}</span></p>
-    </div>
-  </div>
-  <div id="sensors" class="row" *ngIf="sensorInfoList">
-    <h4>这是传感器详情：</h4><br>
-    <div *ngFor="let sensor of sensorInfoList;let i = index">
-      <span class="sequence">{{i + 1}}</span>
-      <p *ngFor="let sen of sensorsDetail"><span>{{sen.name}}:</span><span>{{sensor[sen.content]}}</span><span>&nbsp;{{sen.unit}}</span></p>
-    </div>
-  </div>
-</div>
 
-
-
-<div class="container-fluid fillInWellId" *ngIf="isFillInWellId">
-  <div class="modal-header">
-    <h4 class="modal-title">请输入要查看的井ID</h4>
-  </div>
-  <div class="modal-body">
-    <input type="text" class="form-control" #wellId>
-    <div class="row text-center">
-      <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+  <div class="fillInWellId" *ngIf="isFillInWellId">
+    <div class="modal-header">
+      <h4 class="modal-title">请输入要查看的井ID</h4>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" #wellId>
+      <div class="row text-center">
+        <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+      </div>
     </div>
   </div>
-</div>

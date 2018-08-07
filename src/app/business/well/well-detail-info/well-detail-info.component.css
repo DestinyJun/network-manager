@@ -1,22 +1,51 @@
 .fillInWellId {
-  width: 60%;
+  width: 70%;
   min-width: 280px;
   color: #FFFFFF;
   border-radius: 10px;
   background-color: rgba(0,0,0,0.5);
+  margin-left: 180px;
 }
 .btn-primary {
   margin-top: 20px;
 }
 .wellDetail {
-  width: 85%;
-  height: 90vh;
+  padding-left: 15px;
+  position: absolute;
+  height: 85vh;
   border-radius: 10px 0px 0px 0px;
-  padding: 20px 20px;
+  overflow: hidden;
+  color: #FFFFFF;
+  width: 70%;
+  margin-left: 10%;
+  max-width: 700px;
+  background-color: rgba(0,0,0,0.5);
+}
+#container-fluid {
+  padding-left: 30px;
+  position: absolute;
+  height: inherit;
   overflow-y: scroll;
   overflow-x: hidden;
   color: #FFFFFF;
-  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+}
+.scrollbarhome{
+  height: 85vh;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: rgba(0,0,0,0);
+}
+.scrollbarhome > .scrollbar{
+  width: 8px;
+  height: 20px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: green;
+  border-radius: 4px;
+  z-index: 1030;
 }
 .wellDetail::-webkit-scrollbar{
   display: none;
