@@ -52,7 +52,7 @@ export class WellDetailInfoComponent implements OnInit {
       new FormHtml('进井管道ID', 'inFlowPipeId', [[]], ''),
       new FormHtml('进井管道半径', 'inFlowPipeRadius', [[]], 'cm'),
       new FormHtml('进井管道倾斜度', 'inFlowPipeSlope', [[]], '度'),
-      new FormHtml('进井管道长度', 'inFlowPipeLength', [[]], 'cm'),
+      new FormHtml('进井管道长度', 'inFlowPipeLength', [[]], 'm'),
     ];
     // 出井详情
     this.outWellDetail = [
@@ -61,7 +61,7 @@ export class WellDetailInfoComponent implements OnInit {
       new FormHtml('出井管道ID', 'flowOutPipeId', [[]], ''),
       new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], 'cm'),
       new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], '度'),
-      new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], 'cm'),
+      new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], 'm'),
     ];
     // 传感器详情
     this.sensorsDetail = [

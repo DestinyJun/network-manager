@@ -18,6 +18,9 @@
   color: #FFFFFF;
   background-color: rgba(0,0,0,0.5);
 }
+.wellDetail::-webkit-scrollbar{
+  display: none;
+}
 .wellDetail select {
   position: static;
   border: none;
@@ -32,4 +35,29 @@
   color: #FFFFFF;
   text-decoration: none;
   background-color: rgba(71, 249, 240, 0.6);
+}
+#wellCover,
+#enterWell,
+#outWell,
+#sensors
+{
+  border-bottom: 1px dashed #FFFFFF;
+}
+.sequence{
+  display: inline-block;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: #04698e;
+  text-align: center;
+  vertical-align: center;
+}
+#wellCover p,
+#enterWell p,
+#outWell p,
+#sensors p
+{
+  margin-left: 30px;
+}
+h4{
+  margin-bottom: 0px;
 }
