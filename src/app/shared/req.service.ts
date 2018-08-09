@@ -39,24 +39,8 @@ export class ReqService {
     return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/login', body, this.headers);
   }
   // 登出
-  public Loginout(body): Observable<any> {
-    return this.http.post('', body);
-  }
-  // 强制登出
-  public ForcedLogout(body): Observable<any> {
-    return this.http.post('', body);
-  }
-  // 更新登录时间
-  public SidUpdate(body): Observable<any> {
-    return this.http.post('', body);
-  }
-  // 登录用户信息查询
-  public getUserInfo(body): Observable<any> {
-    return this.http.post('', body);
-  }
-  // 登录用户信息修改
-  public UserInfoModify(body): Observable<any> {
-    return this.http.post('', body);
+  public Loginout(): Observable<any> {
+    return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/logout', null);
   }
   // 增加用户
   // 接收实例化后的 user 对象
@@ -64,15 +48,6 @@ export class ReqService {
   public addUser(newUser: UserInfo): Promise<any> {
     // const datas = this.commonfun.serialize(newUser);
     return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
-  }
-
-  // 删除用户
-  public deleteUser(userId: any): Observable<any> {
-    return this.http.post('', userId);
-  }
-  // 更新用户
-  public updateUser(updateUserInfo: UserInfo): Observable<any> {
-    return this.http.post('http://120.78.137.182:8888/pipe-network//updateUser', updateUserInfo);
   }
   // 查询全部用户
   public pagingUser(data: any): Promise<any> {

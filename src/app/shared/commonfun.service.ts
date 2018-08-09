@@ -40,19 +40,4 @@ export class CommonfunService {
       }
     }
   }
-  // 使字符长度达到一样长, 为了在页面显示的时候使所有的字符右对齐
-  // public defineStrLength(value: string, defineLen: number): string {
-  //   let newStr = '';
-  //   for (let j = 0; j < defineLen; j++) {
-  //     if (j < value.length) {
-  //       newStr += value[j];
-  //     }else {
-  //       newStr += `&nbsp;`;
-  //     }
-  //   }
-  //   return newStr;
-  // }
-
-  // public found
-
 }
