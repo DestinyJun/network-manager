@@ -44,7 +44,7 @@ export class WellInformationComponent implements OnInit {
   }
   // 监控翻页事件
   public getPageBody(event): void {
-    this.pageBody = event;
+    this.pageBody.currentPage = event['page'];
     this.usePageQuery();
   }
   // 全选
@@ -88,7 +88,6 @@ export class WellInformationComponent implements OnInit {
   // 按页差选请求
   public usePageQuery(): void {
     this.req.pagingWell(this.pageBody).then(value => {
-      console.log(value);
       this.datas = value.paingmsg.datas;
       this.resDatas = value;
     });

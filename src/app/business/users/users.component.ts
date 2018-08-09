@@ -99,6 +99,11 @@ export class UsersComponent implements OnInit {
     // 对表格的初始化
     this.usePageQuery();
   }
+  // 监控翻页事件
+  public getPageBody(event): void {
+    this.pageBody.currentPage = event['page'];
+    this.usePageQuery();
+  }
   // 控制模态框
   public openuser(template: TemplateRef<any>): void {
     this.inputvalid = false;

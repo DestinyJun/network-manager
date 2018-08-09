@@ -71,8 +71,7 @@
       </div>
     </div>
     <div class="row text-center">
-      <app-paging-user></app-paging-user>
-      <!--<app-paging-user *ngIf="resDatas" [num]="resDatas['paingmsg']['totalPage']" (pageBodyChange)="getPageBody($event)"></app-paging-user>-->
+      <app-paging *ngIf="resDatas" [num]="resDatas['paingmsg']['totalPage']" (pageBodyChange)="getPageBody($event)"></app-paging>
     </div>
   </div>
 </div>
