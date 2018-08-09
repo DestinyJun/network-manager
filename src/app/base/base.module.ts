@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
-import {PagingComponent} from './paging/paging.component';
 import {FormsModule} from '@angular/forms';
+import {PagingUserComponent} from './paging-user/paging-user.component';
+import {PagingWellComponent} from './paging-well/paging-well.component';
 
 @NgModule({
   imports: [
     FormsModule
   ],
   declarations: [
-    PagingComponent
+    PagingUserComponent,
+    PagingWellComponent
   ],
-  exports: [PagingComponent]
+  exports: [
+    PagingUserComponent,
+    PagingWellComponent
+  ]
 })
 export class BaseModule { }

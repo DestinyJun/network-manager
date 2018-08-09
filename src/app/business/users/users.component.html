@@ -45,7 +45,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let user of Users; let i = index">
+          <tr *ngFor="let user of datas; let i = index">
             <td><input type="checkbox"></td>
             <td>{{user['idCardNo']}}</td>
             <td>{{user['usename']}}</td>
@@ -71,6 +71,8 @@
       </div>
     </div>
     <div class="row text-center">
+      <app-paging-user></app-paging-user>
+      <!--<app-paging-user *ngIf="resDatas" [num]="resDatas['paingmsg']['totalPage']" (pageBodyChange)="getPageBody($event)"></app-paging-user>-->
     </div>
   </div>
 </div>

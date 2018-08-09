@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ManholeCoverInfo, UsePageQuery} from '../../../shared/global.service';
+import {ManholeCoverInfo, UsePageQueryWell} from '../../../shared/global.service';
 import {ReqService} from '../../../shared/req.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class WellInformationComponent implements OnInit {
   // 用于表单显示的数据的格式
   // private fields: Array<FormHtml>;
   // pageBody 当前查看页发送请求的信息
-  private pageBody: UsePageQuery;
+  private pageBody: UsePageQueryWell;
   // resDatas 用来接收查看请求返回的数据
   public resDatas: any;
   // datas 用于页面表格中显示的数据
@@ -24,7 +24,7 @@ export class WellInformationComponent implements OnInit {
 
   ngOnInit() {
     this.hasChecked = [];
-    this.pageBody = new UsePageQuery(1, 10, '', '', '', '');
+    this.pageBody = new UsePageQueryWell(1, 10, '', '', '', '');
     // this.fields = [
     //       new  FormHtml('井ID', 'id', [[]]),
     //       new  FormHtml('井盖ID', 'manholeId', [[]]),
@@ -88,6 +88,7 @@ export class WellInformationComponent implements OnInit {
   // 按页差选请求
   public usePageQuery(): void {
     this.req.pagingWell(this.pageBody).then(value => {
+      console.log(value);
       this.datas = value.paingmsg.datas;
       this.resDatas = value;
     });

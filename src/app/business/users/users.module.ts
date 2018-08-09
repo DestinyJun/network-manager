@@ -5,16 +5,17 @@ import {UsersRoutersModule} from './users .routers.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AlertModule, ModalModule} from 'ngx-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
+import {BaseModule} from '../../base/base.module';
 
 @NgModule({
   imports: [
     CommonModule,
     UsersRoutersModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BaseModule
   ],
   declarations: [
     UsersComponent

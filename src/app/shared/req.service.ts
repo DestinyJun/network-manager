@@ -15,23 +15,23 @@ export class ReqService {
   // 请求函数封装, 返回一个promise
   private ajaxRest(url: string, datas: any): Promise<any> {
     return new Promise(function (resolve, reject) {
-        $.ajax({
-          url: url,
-          type: 'POST',
-          async: false,
-          cache: false,
-          headers: {
-            'accessToken': sessionStorage.getItem('token')
-          },
-          data: datas,
-          contentType: 'application/x-www-form-urlencoded',
-          success: (data) => {
-            resolve(data);
-          },
-          error: (err) => {
-            reject(err);
-          }
-        });
+      $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        cache: false,
+        headers: {
+          'accessToken': sessionStorage.getItem('token')
+        },
+        data: datas,
+        contentType: 'application/x-www-form-urlencoded',
+        success: (data) => {
+          resolve(data);
+        },
+        error: (err) => {
+          reject(err);
+        }
+      });
     });
   }
   // 登陆验证
@@ -75,8 +75,8 @@ export class ReqService {
     return this.http.post('http://120.78.137.182:8888/pipe-network//updateUser', updateUserInfo);
   }
   // 查询全部用户
-  public queryAllUser(params: any): Observable<any> {
-    return this.http.post('http://120.78.137.182:8888/pipe-network//paingUser', params);
+  public pagingUser(data: any): Promise<any> {
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingUser', data);
   }
 // ----------------------------------------------------------------------------------------------------------------------
   // 按页查看井的基本信息
@@ -104,3 +104,4 @@ export class ReqService {
     return this.ajaxRest('', data);
   }
 }
+

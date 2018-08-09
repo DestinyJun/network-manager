@@ -1,9 +1,8 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormHtml, PageBody, UsersManager} from '../../shared/global.service';
+import {FormHtml, UsePageQueryUser, UserInfo} from '../../shared/global.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReqService} from '../../shared/req.service';
-import * as $ from 'jquery';
 import {CommonfunService} from '../../shared/commonfun.service';
 
 @Component({
@@ -12,9 +11,10 @@ import {CommonfunService} from '../../shared/commonfun.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  public Users: Array<UsersManager>;
+  public datas: Array<UserInfo>;
+  public resDatas: any;
   public modalRef: BsModalRef;
-  public pageBody: PageBody;
+  public pageBody: UsePageQueryUser;
   public num: number;
   public userDetail: any;
   public userAddForm: FormGroup;
@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit {
               ) {}
 
   ngOnInit() {
+    this.pageBody = new UsePageQueryUser('', 1, 10, '', '', '', '');
     this.fields = [
       new FormHtml('身份证号码', 'idCardNo', [['required', '此项为必填']], ''),
       new FormHtml('账号', 'username', [['required', '此项为必填']], ''),
@@ -96,6 +97,7 @@ export class UsersComponent implements OnInit {
     this.mustone = false;
     this.gtone = false;
     // 对表格的初始化
+    this.usePageQuery();
   }
   // 控制模态框
   public openuser(template: TemplateRef<any>): void {
@@ -121,7 +123,7 @@ export class UsersComponent implements OnInit {
   public getAllCheckBoxStatus(e): void {
     if (e.srcElement.checked === true) {
       this.hasChecked = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      this.hasChecked.splice(this.Users.length, 10);
+      this.hasChecked.splice(this.datas.length, 10);
       this.checked = 'checked';
     } else {
       this.hasChecked = [];
@@ -141,7 +143,7 @@ export class UsersComponent implements OnInit {
       }
     }
     if (this.hasChecked.length === 1) {
-      this.userDetail = this.Users[this.hasChecked[0]];
+      this.userDetail = this.datas[this.hasChecked[0]];
     } else {
       this.userDetail = null;
     }
@@ -155,51 +157,21 @@ export class UsersComponent implements OnInit {
     } else {
       this.openstatus = false;
       for (let j = 0; j < haschecklen; j++) {
-        this.req.deleteUser({id: this.Users[this.hasChecked[j]].id})
+        this.req.deleteUser({id: this.datas[this.hasChecked[j]].idCardNo})
           .subscribe(status => {
             this.status = Number(status.status);
             if (j === haschecklen - 1) {
-              this.Update();
+              // this.Update();
             }
           });
       }
     }
-
   }
   // 用户的添加 并且 重新请求数据，防止增加的是第十一条表格
   public userAdd(): void {
     this.req.addUser(this.userAddForm.value).then(value => {
       console.log(value);
     });
-    // $.ajax({
-    //   url: 'http://192.168.28.151:8082/pipe-network-Manager/insertUser',
-    //   type: 'POST',
-    //   async: false,
-    //   cache: false,
-    //   headers: {
-    //     'accessToken': sessionStorage.getItem('token')
-    //   },
-    //   data: this.commonfun.serialize(this.userAddForm.value),
-    //   contentType: 'application/x-www-form-urlencoded',
-    //   success: (datas) => {
-    //     console.log(datas);
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   }
-    // });
-    // if (this.userAddForm.valid) {
-    //   this.openstatus = false;
-    //   this.inputvalid = false;
-    //   this.modalRef.hide();
-    //   this.req.addUser(this.userAddForm.value)
-    //     .subscribe(status => {
-    //       this.status = Number(status.status);
-    //       this.Update();
-    //     });
-    // } else {
-    //   this.inputvalid = true;
-    // }
   }
 //  修改表格内容
   public userModify(): void {
@@ -210,25 +182,18 @@ export class UsersComponent implements OnInit {
       this.req.updateUser(this.userModifyForm.value)
         .subscribe(status => {
           this.status = Number(status.status);
-          this.Update();
+          // this.Update();
         });
     } else {
       this.inputvalid = true;
     }
   }
   // 在增加， 删除，修改后即时刷新
-  public Update(): void {
-    this.gtone = false;
-    this.mustone = false;
-    this.req.queryAllUser(this.pageBody)
-      .subscribe(value => {
-        this.Users = value.data;
-        setTimeout(() => {
-          this.openstatus = true;
-          this.status = 0;
-        }, 2500);
-        this.hasChecked = [];
-        this.checked = '';
-      });
+  // 按页差选请求
+  public usePageQuery(): void {
+    this.req.pagingUser(this.pageBody).then(value => {
+      this.datas = value.paingmsg.datas;
+      this.resDatas = value;
+    });
   }
 }

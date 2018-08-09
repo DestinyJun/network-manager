@@ -1,17 +1,17 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {UsePageQueryUser} from '../../shared/global.service';
 import {ReqService} from '../../shared/req.service';
-import {PageBody, UsePageQuery} from '../../shared/global.service';
 
 @Component({
-  selector: 'app-paging',
-  templateUrl: './paging.component.html',
-  styleUrls: ['./paging.component.css']
+  selector: 'app-paging-user',
+  templateUrl: './paging-user.component.html',
+  styleUrls: ['./paging-user.component.css']
 })
-export class PagingComponent implements OnInit {
+export class PagingUserComponent implements OnInit {
   @Input()
-  public pageBody: UsePageQuery;
+  public pageBody: UsePageQueryUser;
   @Output()
-  public pageBodyChange: EventEmitter<UsePageQuery> = new EventEmitter;
+  public pageBodyChange: EventEmitter<UsePageQueryUser> = new EventEmitter;
   @Input()
   public num: number;
   public nowPage: number;
@@ -20,7 +20,7 @@ export class PagingComponent implements OnInit {
     public req: ReqService,
   ) {
     this.skpPage = '1';
-    this.pageBody = new UsePageQuery(1, 10, '', '', '', '');
+    this.pageBody = new UsePageQueryUser('', 1, 10, '', '', '', '');
     this.nowPage = this.pageBody.currentPage;
   }
   ngOnInit() {

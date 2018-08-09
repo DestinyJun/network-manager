@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       if (Number(res['msg']) === 14) {
         this.router.navigate(['/home']);
         sessionStorage.setItem('token', res['token']);
-        sessionStorage.setItem('region', JSON.stringify(sessionStorage.getItem('region')));
+        sessionStorage.setItem('region', JSON.stringify(res['token']));
       }else {
         this.resMsg = '登录失败!';
       }
