@@ -11,8 +11,8 @@ import {WellAddFormsInfoService} from '../../../../shared/well-add-forms-info.se
   styleUrls: ['./well-cover.component.css']
 })
 export class WellCoverComponent implements OnInit, OnDestroy {
-  private formBody: any;
-  public formBodyHtml: Array<FormHtml>;
+  private wellFormBody: any;
+  public wellFormBodyHtml: Array<FormHtml>;
   public wellCoverForm: FormGroup;
   public formNum: number;
   constructor(
@@ -24,7 +24,7 @@ export class WellCoverComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {
     this.formNum = 0;
-    this.formBody = {
+    this.wellFormBody = {
       manholeId: [{value: sessionStorage.getItem('wellId')}, Validators.required],
       provinceRegionId: ['', Validators.required],
       cityRegionId: ['', Validators.required],
@@ -37,7 +37,7 @@ export class WellCoverComponent implements OnInit, OnDestroy {
       creatTime: ['', Validators.required],
       gpsId: ['', Validators.required],
     };
-    this.formBodyHtml = [
+    this.wellFormBodyHtml = [
       // new FormHtml('井ID', 'manholeId', [[]], ''),
       new FormHtml('省地区ID', 'provinceRegionId', [[]], ''),
       new FormHtml('市地区ID', 'cityRegionId', [[]], ''),
@@ -50,7 +50,7 @@ export class WellCoverComponent implements OnInit, OnDestroy {
       new FormHtml('创建时间', 'creatTime', [[]], ''),
       new FormHtml('GPSID', 'gpsId', [[]], ''),
     ];
-    this.wellCoverForm = this.fb.group(this.formBody);
+    this.wellCoverForm = this.fb.group(this.wellFormBody);
     // 读取缓存
     const sessionFormsValue = sessionStorage.getItem('wellCoverFormsValue');
     if (sessionFormsValue) {

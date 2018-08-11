@@ -76,6 +76,7 @@
   margin-left: 180px;
 }
 .navbar-header{
+  min-width: 420px;
   float: none;
 }
 .line{

@@ -39,7 +39,7 @@ export class ReqService {
     return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/login', body, this.headers);
   }
   // 登出
-  public Loginout(): Observable<any> {
+  public Logout(): Observable<any> {
     return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/logout', null);
   }
   // 增加用户
@@ -66,9 +66,13 @@ export class ReqService {
   public wellDetailInfo(data: any): Promise<any> {
     return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/detailedManhole', this.commonfun.serialize(data));
   }
-  // 井增加
+  // 井详情信息增加
   public addWell(data): Promise<any> {
     return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertWell', data);
+  }
+  // 井基本信息增加
+  public addBaseWell(data): Promise<any> {
+    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/appInsertManhole', data);
   }
   // 井删除
   public deleteWell(data): Promise<any> {

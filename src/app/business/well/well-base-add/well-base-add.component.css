@@ -1,0 +1,115 @@
+/* home*/
+.home {
+  padding-left: 30px;
+  padding-right: 30px;
+  color: #ffffff;
+}
+.title{
+  user-select: none;
+  width: 110px;
+  height: 30px;
+  background: rgba(0,0,0,0.5);
+  font-size: 1.5rem;
+  margin-left: 5px;
+  color: white;
+  cursor: pointer;
+  border-bottom: 3px skyblue solid;
+}
+.home .active {
+  background-color: #37606C;
+}
+.title > a {
+  color: white;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.3vw 1vw;
+  text-decoration: none;
+}
+.body{
+  margin-top: 15px;
+  min-width: 850px;
+  background-color: rgba(55,96,108,0.5);
+  color: #FFFFFF;
+}
+.wellID {
+  color: #FFFFFF;
+}
+.btn-primary {
+  margin-top: 20px;
+}
+.sequence{
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #04698e;
+  text-align: center;
+  vertical-align: center;
+}
+.fillInWellId {
+  width: 60%;
+  min-width: 280px;
+  color: #FFFFFF;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.5);
+}
+/*井盖*/
+.row {
+  overflow: hidden;
+  padding: 1px;
+  /*border-bottom: 2px solid #32a8a3;*/
+}
+input{
+  padding-left: 1px;
+  padding-right: 1px;
+  border-radius: 1px;
+  outline: none;
+  border: 0;
+  background: white;
+  color: black;
+  height: 20px;
+  display: block;
+}
+input[type = "reset"], input[type="button"]{
+  margin-top: 5px;
+  padding: 0px 3px 0px 3px;
+  background-color: rgba(71, 249, 240, 0.6);
+  color: #FFFFFF;
+}
+.form-group{
+  display: block;
+  font-size: 10px;
+}
+.fa-plus-circle {
+  margin-top: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.fa-plus-circle:hover {
+  color: #47f9f4;
+}
+.form-group {
+  margin-left: 10px;
+}
+.operateBtn {
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  width: 110px;
+  padding: 3px 4px;
+  background-color: rgba(42, 125, 125, 0.5);
+}
+.operateBtn:focus {
+  background-color: rgb(61, 181, 181);
+}
+.enterWell,
+.outWell
+{
+  display: none;
+}
+.row
+{
+  min-width: 980px;
+}

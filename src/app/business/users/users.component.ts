@@ -154,24 +154,24 @@ export class UsersComponent implements OnInit {
     }
   }
 //  删除表格 并且 重新请求数据
-  public deleteuser(): void {
-    const haschecklen = this.hasChecked.length;
-    if (haschecklen === 0) {
-      this.mustone = false;
-      this.gtone = true;
-    } else {
-      this.openstatus = false;
-      for (let j = 0; j < haschecklen; j++) {
-        this.req.deleteUser({id: this.datas[this.hasChecked[j]].idCardNo})
-          .subscribe(status => {
-            this.status = Number(status.status);
-            if (j === haschecklen - 1) {
-              // this.Update();
-            }
-          });
-      }
-    }
-  }
+//   public deleteuser(): void {
+//     const haschecklen = this.hasChecked.length;
+//     if (haschecklen === 0) {
+//       this.mustone = false;
+//       this.gtone = true;
+//     } else {
+//       this.openstatus = false;
+//       for (let j = 0; j < haschecklen; j++) {
+//         this.req.deleteUser({id: this.datas[this.hasChecked[j]].idCardNo})
+//           .subscribe(status => {
+//             this.status = Number(status.status);
+//             if (j === haschecklen - 1) {
+//               // this.Update();
+//             }
+//           });
+//       }
+//     }
+//   }
   // 用户的添加 并且 重新请求数据，防止增加的是第十一条表格
   public userAdd(): void {
     this.req.addUser(this.userAddForm.value).then(value => {
@@ -179,20 +179,20 @@ export class UsersComponent implements OnInit {
     });
   }
 //  修改表格内容
-  public userModify(): void {
-    if (this.userModifyForm.valid) {
-      this.openstatus = false;
-      this.inputvalid = false;
-      this.modalRef.hide();
-      this.req.updateUser(this.userModifyForm.value)
-        .subscribe(status => {
-          this.status = Number(status.status);
-          // this.Update();
-        });
-    } else {
-      this.inputvalid = true;
-    }
-  }
+//   public userModify(): void {
+//     if (this.userModifyForm.valid) {
+//       this.openstatus = false;
+//       this.inputvalid = false;
+//       this.modalRef.hide();
+//       this.req.updateUser(this.userModifyForm.value)
+//         .subscribe(status => {
+//           this.status = Number(status.status);
+//           // this.Update();
+//         });
+//     } else {
+//       this.inputvalid = true;
+//     }
+//   }
   // 在增加， 删除，修改后即时刷新
   // 按页差选请求
   public usePageQuery(): void {
