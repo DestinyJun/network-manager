@@ -9,28 +9,12 @@
           <h4 *ngIf="manholeCoverInfo">井的ID为: &nbsp; {{wellId}}</h4>
           <h4 *ngIf="!manholeCoverInfo">该井不存在</h4>
         </div>
-        <select *ngIf="manholeCoverInfo" class="pull-right">
-          <option value="-1">全部</option>
-          <option value="">
-            <a href="#wellCover">
-              井盖信息
-            </a>
-          </option>
-          <option value="">
-            <a href="#enterWell">
-              进井信息
-            </a>
-          </option>
-          <option value="">
-            <a href="#outWell">
-              出井信息
-            </a>
-          </option>
-          <option value="">
-            <a href="#sensors">
-              传感器信息
-            </a>
-          </option>
+        <select #detail class="pull-right" (change)="childDetail(detail)">
+          <option [value]="-1">全部</option>
+          <option value="wellCover">井盖信息 </option>
+          <option value="enterWell">进井信息</option>
+          <option value="outWell">出井信息</option>
+          <option value="sensors">传感器信息</option>
         </select>
       </div>
       <div id="wellCover" class="row" *ngIf="manholeCoverInfo">
@@ -41,7 +25,7 @@
         <h4>这是井盖信息详情：</h4><br>
         <p *ngFor="let cover of wellCoverDetail"><span>{{cover.name}}:</span><span>{{manholeCoverInfo[cover.content]}}</span><span>&nbsp;{{cover.unit}}</span></p>
       </div>
-      <div id="enterWell" class="row" *ngIf="inFlowManholelist">
+      <div id="enterWell" *ngIf="inFlowManholelist">
         <h4>这是进井详情：</h4><br>
         <div *ngFor="let inflow of inFlowManholelist;let i = index">
           <span class="sequence">{{i + 1}}</span>

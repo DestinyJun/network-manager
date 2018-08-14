@@ -111,4 +111,21 @@ export class WellDetailInfoComponent implements OnInit {
 //       scrollbar['style'].transform =  'translate(0, ' + (scrollCurrentH - 20) + 'px)';
 //     }
 //   }
+  // 具体查看井的某个模块信息
+  public childDetail(detail): void {
+    const ele = document.getElementById(detail.value);
+    if (detail.value === -1) {
+      const well = document.querySelector('.wellDetail');
+      for (let i = 1; i < well.children[0].children.length; i++) {
+        well.children[0].children['style'].display = 'block';
+      }
+    } else {
+      if (ele) {
+        for (let i = 1; i < ele.parentNode['children'].length; i++) {
+          ele.parentNode['children']['style'].display = 'block';
+        }
+      }
+    }
+
+  }
 }
