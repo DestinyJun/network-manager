@@ -1,31 +1,136 @@
-<div class="container-fluid" [hidden]="isFillInWellId">
+<div class="container-fluid home" (click)="(allFormsValid = false)">
   <div class="row">
-        <div class="col-xs-12" #wellTabsMenu>
-          <div class="title text-center pull-left active"><a [routerLink]="['./cover']" (click)="changeBgColor($event, wellTabsMenu)">井盖添加</a></div>
-          <div class="title text-center pull-left"><a [routerLink]="['./enter']" (click)="changeBgColor($event, wellTabsMenu)">进井添加</a></div>
-          <div class="title text-center pull-left"><a [routerLink]="['./out']" (click)="changeBgColor($event, wellTabsMenu)">出井添加</a></div>
-          <div class="title text-center pull-left"><a [routerLink]="['./sensor']" (click)="changeBgColor($event, wellTabsMenu)">传感器添加</a></div>
-          <div class="wellID text-center pull-right"><span>当前井ID为：{{wellID}}</span></div>
-        </div>
+    <div class="col-xs-12 wellTabsMenu" #wellTabsMenu>
+      <div class="title text-center pull-left active"><a (click)="changeBgColor($event, wellCover, wellCoverForm)">井盖添加</a></div>
+      <div class="title text-center pull-left"><a (click)="changeBgColor($event, enterWell, enterForms)">进井添加</a></div>
+      <div class="title text-center pull-left"><a (click)="changeBgColor($event, outWell, outForms)">出井添加</a></div>
+      <div class="title text-center pull-left"><a (click)="changeBgColor($event, sensors, sensorsForms)">传感器添加</a></div>
+      <div class="wellID text-center pull-right"><span>当前井ID为：{{wellID.value}}</span></div>
+    </div>
   </div>
-   <div class="row">
-      <div class="col-xs-12 body">
-        <router-outlet></router-outlet>
+  <div class="row">
+    <div class="col-xs-12">
+      <!--这里是井盖增加表单-->
+      <div #wellCover class="wellCover">
+        <div class="container-fluid">
+          <div class="row">
+            <form class="form-inline" [formGroup]="wellCoverForm">
+              <div class="form-group pull-left">
+                <label>井ID:</label>
+                <input type="text" [formControl]="wellID">
+              </div>
+              <div class="form-group pull-left" *ngFor="let field of wellCoverFormBodyHtml">
+                <label>{{field.name}}&nbsp;:&nbsp;</label>
+                <input type="text" formControlName="{{field.content}}">
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
+      <!--这里是进井增加表单-->
+      <div #enterWell class="enterWell">
+        <div class="container-fluid">
+          <div class="row" *ngFor="let form of enterForms; let i = index">
+            <form class="form-inline" [formGroup]="form">
+              <div class="form-group pull-left">
+                <label></label>
+                <input type="button" class="sequence" value="{{i + 1}}">
+              </div>
+              <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml">
+                <label>{{f.name}}:</label>
+                <input type="text" formControlName="{{f.content}}">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="reset" value="重置数据">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="button" value="删除" (click)="deleteForm(enterForms, form)">
+              </div>
+            </form>
+          </div>
+          <div class="row text-center">
+            <span class="fa fa-plus-circle" title="新添加表" (click)="addForm(formValidModal, 'enterForms')"></span>
+          </div>
+        </div>
+      </div>
+      <!--这里是出井表单增加-->
+      <div #outWell class="outWell">
+        <div class="container-fluid">
+          <div class="row" *ngFor="let form of outForms; let i = index">
+            <form class="form-inline" [formGroup]="form">
+              <div class="form-group pull-left">
+                <label></label>
+                <input type="button" class="sequence" value="{{i + 1}}">
+              </div>
+              <div class="form-group pull-left" *ngFor="let f of outFormBodyHtml">
+                <label>{{f.name}}:</label>
+                <input type="text" formControlName="{{f.content}}">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="reset" value="重置数据">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="button" value="删除" (click)="deleteForm(outForms, form)">
+              </div>
+            </form>
+          </div>
+          <div class="row text-center">
+            <span class="fa fa-plus-circle" title="新添加表" (click)="addForm(formValidModal, 'outForms')"></span>
+          </div>
+        </div>
+      </div>
+      <!--这里是传感器表单增加-->
+      <div #sensors class="sensors">
+        <div class="container-fluid">
+          <div class="row" *ngFor="let form of sensorsForms; let i = index">
+            <form class="form-inline" [formGroup]="form">
+              <div class="form-group pull-left">
+                <label></label>
+                <input type="button" class="sequence" value="{{i + 1}}">
+              </div>
+              <div class="form-group pull-left" *ngFor="let f of sensorsFormBodyHtml">
+                <label>{{f.name}}:</label>
+                <input type="text" formControlName="{{f.content}}">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="reset" value="重置数据">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="button" value="删除" (click)="deleteForm(sensorsForms, form)">
+              </div>
+            </form>
+          </div>
+          <div class="row text-center">
+            <span class="fa fa-plus-circle" title="新添加表" (click)="addForm(formValidModal, 'sensorsForms')"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row text-center">
-    <button class="btn btn-primary" (click)="submitAllFormInfo()">提交井信息</button>
+    <span *ngIf="allFormsValid" [ngStyle]="{color: 'red'}">当前表单验证失败!</span><br>
+    <button class="btn btn-primary" (click)="submitAllFormInfo($event)">提交井信息</button>
   </div>
 </div>
 
-<div class="container-fluid fillInWellId" [hidden]="!isFillInWellId">
+
+
+<ng-template #formValidModal>
   <div class="modal-header">
-    <h4 class="modal-title">请输入要添加井的ID</h4>
+    <h4 class="modal-title pull-left">表单验证失败提示:</h4>
+    <button type="button" class="pull-right" (click)="modalRef.hide()">
+      <span>&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-    <input type="text" class="form-control" #wellId>
-    <div class="row text-center">
-      <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+    <div class="text-center">
+      <h4>当前填写表单所有项输入能为空</h4>
     </div>
   </div>
-</div>
+</ng-template>
