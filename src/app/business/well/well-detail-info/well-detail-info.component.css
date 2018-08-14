@@ -90,3 +90,9 @@
 h4{
   margin-bottom: 0px;
 }
+.wellDetail{
+  max-width: 100%;
+}
+p > span{
+  color: #47f9f4;
+}

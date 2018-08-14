@@ -86,7 +86,7 @@
   </div>
   <div class="modal-body">
     <form class="form-horizontal" [formGroup]="userAddForm">
-        <div class="form-group" *ngFor="let add of addFields">
+        <div class="form-group" *ngFor="let add of fields">
           <label>{{add.name}}</label>
           <input type="text" formControlName="{{add.content}}">
         </div>

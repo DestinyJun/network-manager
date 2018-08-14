@@ -85,38 +85,3 @@
 </div>
 
 
-<ng-template #lookdesc>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">设备数据查看详情</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>设备id号: {{detail['did']}}</p>
-    <p>名称: {{detail['name']}}</p>
-    <p>厂家编号: {{detail['fnum']}}</p>
-    <p>生产厂家: {{detail['dvender']}}</p>
-    <p>设备型号: {{detail['dmodule']}}</p>
-    <p>生产日期: {{detail['dprodate']}}</p>
-    <p>安装日期: {{detail['dinstalldate']}}</p>
-    <p>额定功率: {{detail['power']}}</p>
-    <p>额定电流: {{detail['current']}}</p>
-    <p>额定电压: {{detail['voltage']}}</p>
-    <p>使用状态: {{detail['usestatus']}}</p>
-    <p>设备类型: {{detail['dtype']}}</p>
-    <p>设备运行状态: {{detail['dstatus']}}</p>
-    <p>模块id: {{detail['mid']}}</p>
-    <p>插入时间 :{{detail['idt']}}</p>
-    <p>更新时间 :{{detail['udt']}}</p>
-    <div class="clearfix"></div>
-    <div class="text-center">
-      <button type="button" class="btn btn-info" aria-label="Close" (click)="modalRef.hide();openModal(modify, -1)">
-        跳转到修改
-      </button>
-      <button type="button" class="btn  btn-danger" aria-label="Close" (click)="closeModal()">
-        返回
-      </button>
-    </div>
-  </div>
-</ng-template>
