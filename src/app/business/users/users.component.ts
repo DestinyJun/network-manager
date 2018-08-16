@@ -56,7 +56,7 @@ export class UsersComponent implements OnInit {
     ];
     //  增加模态框表单
     this.userAddForm = this.fb.group({
-      idCardNo: ['', Validators.required, Validators.minLength(18), Validators.maxLength(18)],
+      idCardNo: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
       gender: ['', Validators.required],
@@ -153,7 +153,6 @@ export class UsersComponent implements OnInit {
       this.userDetail = null;
     }
   }
-
 //  删除表格 并且 重新请求数据
 //   public deleteuser(): void {
 //     const haschecklen = this.hasChecked.length;
@@ -163,7 +162,7 @@ export class UsersComponent implements OnInit {
 //     } else {
 //       this.openstatus = false;
 //       for (let j = 0; j < haschecklen; j++) {
-//         this.req.deleteuser({id: this.datas[this.hasChecked[j]].idCardNo})
+//         this.req.deleteUser({id: this.datas[this.hasChecked[j]].idCardNo})
 //           .subscribe(status => {
 //             this.status = Number(status.status);
 //             if (j === haschecklen - 1) {

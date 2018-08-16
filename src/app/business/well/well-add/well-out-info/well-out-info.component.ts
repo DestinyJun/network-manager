@@ -69,8 +69,6 @@ export class WellOutInfoComponent implements OnInit, OnDestroy {
       this.formValid = false;
     }else {
       if (this.forms[this.forms.length - 1].valid) {
-        console.log(this.forms[this.forms.length - 1].valid);
-        console.log(this.formValid);
         this.formNum++;
         this['form' + this.formNum] = this.fb.group(this.formBody);
         this.formsName.push('form' + this.formNum);

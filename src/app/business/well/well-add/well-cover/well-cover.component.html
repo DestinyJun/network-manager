@@ -1,15 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <form class="form-inline" [formGroup]="wellCoverForm">
-      <div class="form-group pull-left" *ngFor="let field of formBodyHtml">
+      <div class="form-group pull-left" *ngFor="let field of wellFormBodyHtml">
         <label>{{field.name}}&nbsp;:&nbsp;</label>
         <input type="text" formControlName="{{field.content}}">
       </div>
     </form>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 text-center">
-      <button type="button" class="operateBtn" (click)="save()">保存当前页</button>
-    </div>
   </div>
 </div>

@@ -13,13 +13,18 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class HeaderComponent implements OnInit {
   @Output() sendFoldValueChange: EventEmitter<boolean> = new EventEmitter();
   private sendFoldValue: boolean;
-  constructor() {}
+  constructor(
+    private req: ReqService
+  ) {}
   ngOnInit(): void {
     this.sendFoldValue = false;
   }
   public foldMenu(): void {
     this.sendFoldValueChange.emit(this.sendFoldValue);
     this.sendFoldValue = !this.sendFoldValue;
+  }
+  public logout(): void {
+    this.req.Logout().subscribe(value => {console.log(value); });
   }
 }
 export class UserRemind {

@@ -49,16 +49,16 @@ export class WellSensorInfoComponent implements OnInit, OnDestroy {
       new FormHtml('数据收集器ID', 'dataCollectorId', [[]], '')
     ];
     // 读取缓存
-    const sessionFormsValue = sessionStorage.getItem('wellSensorFormsInfo');
-    if (sessionFormsValue) {
-      const sessionFormsValues = sessionFormsValue.split('&&,');
-      const sessionFormsName = sessionStorage.getItem('wellSensorFormsName').split(',');
-      sessionFormsValues.map((value, index) => {
-        this[sessionFormsName[index]] = this.fb.group(this.formBody);
-        this[sessionFormsName[index]].patchValue(JSON.parse(value));
-        this.forms.push(this[sessionFormsName[index]]);
-      });
-    }
+    // const sessionFormsValue = sessionStorage.getItem('wellSensorFormsInfo');
+    // if (sessionFormsValue) {
+    //   const sessionFormsValues = sessionFormsValue.split('&&,');
+    //   const sessionFormsName = sessionStorage.getItem('wellSensorFormsName').split(',');
+    //   sessionFormsValues.map((value, index) => {
+    //     this[sessionFormsName[index]] = this.fb.group(this.formBody);
+    //     this[sessionFormsName[index]].patchValue(JSON.parse(value));
+    //     this.forms.push(this[sessionFormsName[index]]);
+    //   });
+    // }
   }
   // 增加表
   public addForm(template: TemplateRef<any>): void {
