@@ -82,5 +82,8 @@ export class ReqService {
   public updateWell(data): Promise<any> {
     return this.ajaxRest('', data);
   }
+
+  deleteuser(param: { id: string }) {
+  }
 }
 
