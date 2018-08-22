@@ -12,6 +12,7 @@ import {ReqService} from '../../../shared/req.service';
   styleUrls: ['./well-base-add.component.css']
 })
 export class WellBaseAddComponent implements OnInit {
+  // 首先规定提交井的信息格式
   public wellBaseInfo = {
     manholeCoverInfo: null,
     inFlowManholelist: [],

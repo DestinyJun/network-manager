@@ -1,3 +1,15 @@
-<p>
-  well-modify works!
-</p>
+<div *ngIf="!isFillInWellId">
+    <p>在这里显示内容</p>
+</div>
+
+<div class="fillInWellId" *ngIf="isFillInWellId">
+  <div class="modal-header">
+    <h4 class="modal-title">请输入要修改的井ID</h4>
+  </div>
+  <div class="modal-body">
+    <input type="text" class="form-control" #wellId>
+    <div class="row text-center">
+      <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+    </div>
+  </div>
+</div>

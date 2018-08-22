@@ -1,0 +1,79 @@
+.fillInWellId {
+  width: 70%;
+  min-width: 280px;
+  color: #FFFFFF;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.5);
+  margin-left: 180px;
+}
+.btn-primary {
+  margin-top: 20px;
+}
+.wellDetail {
+  padding-left: 15px;
+  position: absolute;
+  height: 85vh;
+  border-radius: 10px 0px 0px 0px;
+  overflow: hidden;
+  color: #FFFFFF;
+  width: 70%;
+  margin-left: 10%;
+  max-width: 700px;
+  background-color: rgba(0,0,0,0.5);
+}
+#container-fluid {
+  padding-left: 30px;
+  position: absolute;
+  height: inherit;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  color: #FFFFFF;
+  width: 100%;
+}
+.scrollbarhome{
+  height: 85vh;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: rgba(0,0,0,0);
+}
+.wellDetail select {
+  position: static;
+  border: none;
+  padding: 3px 8px;
+  color: #FFFFFF;
+  background-color: rgba(51, 171, 162, 0.6);
+}
+.wellDetail select a {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: #FFFFFF;
+  text-decoration: none;
+  background-color: rgba(71, 249, 240, 0.6);
+}
+#wellCover,
+#enterWell,
+#outWell,
+#sensors
+{
+  border-bottom: 1px dashed #FFFFFF;
+}
+.sequence{
+  display: inline-block;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: #04698e;
+  text-align: center;
+  vertical-align: center;
+}
+#wellCover p,
+#enterWell p,
+#outWell p,
+#sensors p
+{
+  margin-left: 30px;
+}
+h4{
+  margin-bottom: 0px;
+}
