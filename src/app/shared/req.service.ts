@@ -36,43 +36,43 @@ export class ReqService {
   }
   // 登陆验证
   public Login(body): Observable<any> {
-    return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/login', body, this.headers);
+    return this.http.post('http://192.168.28.65:8080/pipe-network-Manager/login', body, this.headers);
   }
   // 登出
   public Logout(): Observable<any> {
-    return this.http.post('http://192.168.28.151:8082/pipe-network-Manager/logout', null);
+    return this.http.post('http://192.168.28.65:8080/pipe-network-Manager/logout', null);
   }
   // 增加用户
   // 接收实例化后的 user 对象
   // 返回值数据
   public addUser(newUser: UserInfo): Promise<any> {
     // const datas = this.commonfun.serialize(newUser);
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
   }
   // 查询全部用户
   public pagingUser(data: any): Promise<any> {
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingUser', data);
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/paingUser', data);
   }
 // ----------------------------------------------------------------------------------------------------------------------
   // 按页查看井的基本信息
   public pagingWell(data: any): Promise<any> {
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
   }
   // 井基本信息
   public findWell(data: any): Promise<any> {
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
   }
   // 井详情信息
   public wellDetailInfo(data: any): Promise<any> {
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/detailedManhole', this.commonfun.serialize(data));
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/detailedManhole', this.commonfun.serialize(data));
   }
   // 井详情信息增加
   public addWell(data): Promise<any> {
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/insertWell', data);
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/insertWell', data);
   }
   // 井基本信息增加
   public addBaseWell(data): Promise<any> {
-    return this.ajaxRest('http://192.168.28.151:8082/pipe-network-Manager/appInsertManhole', data);
+    return this.ajaxRest('http://192.168.28.65:8080/pipe-network-Manager/appInsertManhole', data);
   }
   // 井删除
   public deleteWell(data): Promise<any> {

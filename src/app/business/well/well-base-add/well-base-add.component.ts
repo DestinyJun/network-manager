@@ -85,6 +85,7 @@ export class WellBaseAddComponent implements OnInit {
       inFlowPipeRadius: ['', Validators.required],
       inFlowPipeSlope: ['', Validators.required],
       inFlowPipeLength: ['', Validators.required],
+      model: ['', Validators.required],
     };
     this.enterFormBodyHtml = [
       new FormHtml('井ID', 'manholeId', [[]], ''),
@@ -93,6 +94,9 @@ export class WellBaseAddComponent implements OnInit {
       new FormHtml('进井管道半径', 'inFlowPipeRadius', [[]], ''),
       new FormHtml('进井管道倾斜度', 'inFlowPipeSlope', [[]], ''),
       new FormHtml('进井管道长度', 'inFlowPipeLength', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
     ];
     // 出井
     this.outFormsBody = {
@@ -102,6 +106,7 @@ export class WellBaseAddComponent implements OnInit {
       flowOutPipeRadius: ['', Validators.required],
       flowOutPipeSlope: ['', Validators.required],
       flowOutPipeLength: ['', Validators.required],
+      model: ['', Validators.required],
     };
     this.outFormBodyHtml = [
       new FormHtml('井ID', 'manholeId', [[]], ''),
@@ -110,6 +115,9 @@ export class WellBaseAddComponent implements OnInit {
       new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], ''),
       new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], ''),
       new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
+      new FormHtml('模块ID', 'modeId', [[]], ''),
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);

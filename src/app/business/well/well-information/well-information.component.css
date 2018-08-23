@@ -44,12 +44,14 @@ input{
   font-size: 14px;
 }
 .table > thead > tr >  th {
+  text-align: center;
   font-size: 12px;
   padding: 3px;
   background-color: #048992;
   color: #ffffff;
 }
 .table > tbody > tr > td {
+  text-align: center;
   background-color: rgba(37,165,255,.1);
   color: white;
   border-bottom: 2px solid #b8b8b8;
