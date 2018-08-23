@@ -93,6 +93,14 @@ input[class="sequence"]{
 .form-group {
   margin-left: 10px;
 }
+.moduleId input{
+  width: 50%;
+}
+@media (max-width: 500px) {
+  .moduleId input{
+    width: 100%;
+  }
+}
 .operateBtn {
   margin-top: 20px;
   border-radius: 4px;
@@ -106,7 +114,8 @@ input[class="sequence"]{
   background-color: rgb(61, 181, 181);
 }
 .enterWell,
-.outWell
+.outWell,
+.moduleId
 {
   display: none;
 }

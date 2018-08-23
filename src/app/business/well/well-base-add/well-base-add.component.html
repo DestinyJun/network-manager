@@ -4,6 +4,7 @@
       <div class="title text-center pull-left active"><a (click)="changeBgColor($event, wellCover, wellCoverForm)">井盖添加</a></div>
       <div class="title text-center pull-left"><a (click)="changeBgColor($event, enterWell, enterForms)">进井添加</a></div>
       <div class="title text-center pull-left"><a (click)="changeBgColor($event, outWell, outForms)">出井添加</a></div>
+      <div class="title text-center pull-left"><a (click)="changeBgColor($event, moduleId, null)">模块ID增加</a></div>
       <div class="wellID text-center pull-right"><span>当前井ID为：{{wellID.value}}</span></div>
     </div>
   </div>
@@ -79,6 +80,17 @@
          </div>
          <div class="row text-center">
            <span class="fa fa-plus-circle" title="新添加表" (click)="addForm(formValidModal, 'outForms')"></span>
+         </div>
+       </div>
+     </div>
+     <!--这里是单独填写出来的模块ID-->
+     <div #moduleId class="moduleId">
+       <div class="container-fluid">
+         <div class="row">
+           <div class="form-group">
+             <label>模块ID: &nbsp; </label>
+             <input type="text" class="form-control" [(ngModel)]="wellBaseInfo.manholeMode">
+           </div>
          </div>
        </div>
      </div>
