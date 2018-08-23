@@ -38,15 +38,6 @@
 .btn-primary {
   margin-top: 20px;
 }
-.sequence{
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background-color: #04698e;
-  text-align: center;
-  vertical-align: center;
-}
 .fillInWellId {
   width: 60%;
   min-width: 280px;
@@ -76,6 +67,16 @@ input[type = "reset"], input[type="button"]{
   padding: 0px 3px 0px 3px;
   background-color: rgba(71, 249, 240, 0.6);
   color: #FFFFFF;
+}
+input[class="sequence"]{
+  margin-top: 18px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #04698e;
+  text-align: center;
+  vertical-align: center;
 }
 .form-group{
   display: block;

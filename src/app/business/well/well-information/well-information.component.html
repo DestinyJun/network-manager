@@ -6,26 +6,30 @@
         <div class="whereSearch pull-right">
           <div class="form-group pull-left">
             <label>省：</label>
-            <select name="provinceRegionId" #provinceRegionId>
+            <select #provinceRegionId (change)="selProvince(provinceRegionId.value)">
               <option [value]="1">未选</option>
+              <option *ngFor="let province of positionTree['']" [value]="1">??</option>
             </select>
           </div>
           <div class="form-group pull-left">
             <label>市：</label>
-            <select name="provinceRegionId" #cityRegionId>
+            <select #cityRegionId (change)="selCity(cityRegionId.value)">
               <option [value]="1">未选</option>
+              <option *ngFor="let city of positionTree['']" [value]="1">??</option>
             </select>
           </div>
           <div class="form-group pull-left">
             <label>区/县：</label>
-            <select name="provinceRegionId" #countyRegionId>
+            <select #countyRegionId (change)="selCounty(countyRegionId.value)">
               <option [value]="1">未选</option>
+              <option *ngFor="let county of positionTree['']" [value]="1">??</option>
             </select>
           </div>
           <div class="form-group pull-left">
             <label>镇/乡：</label>
-            <select name="provinceRegionId" #townRegionId>
+            <select #townRegionId (change)="selTown(townRegionId.value)">
               <option [value]="1">未选</option>
+              <option *ngFor="let town of positionTree['']" [value]="1">??</option>
             </select>
           </div>
         </div>

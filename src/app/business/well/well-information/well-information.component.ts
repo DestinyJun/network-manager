@@ -18,6 +18,8 @@ export class WellInformationComponent implements OnInit {
   public datas: Array<ManholeCoverInfo>;
   // hasChecked 用于记录已勾选的表格
   private hasChecked: Array<ManholeCoverInfo>;
+  // 地区树，用来选择位置，并按位置查找
+  protected positionTree: any;
   constructor(
     public req: ReqService
   ) { }
@@ -85,11 +87,31 @@ export class WellInformationComponent implements OnInit {
       // });
     });
   }
-  // 按页差选请求
+  // 按页查询选请求
   public usePageQuery(): void {
     this.req.pagingWell(this.pageBody).then(value => {
       this.datas = value.paingmsg.datas;
       this.resDatas = value;
     });
   }
+  /**
+   * 改变查询条件，添加按位置来查询
+   * */
+  // 选择省
+  public selProvince(value): void {
+    this.pageBody.provinceRegionId = value;
+  }
+  // 选择市
+  public selCity(value): void {
+    this.pageBody.cityRegionId = value;
+  }
+  // 选择县
+  public selCounty(value): void {
+    this.pageBody.countyRegionId = value;
+  }
+  // 选择乡
+  public selTown(value): void {
+    this.pageBody.townRegionId = value;
+  }
+
 }
