@@ -106,7 +106,8 @@ input[class="sequence"]{
   background-color: rgb(61, 181, 181);
 }
 .enterWell,
-.outWell
+.outWell,
+.sensors
 {
   display: none;
 }

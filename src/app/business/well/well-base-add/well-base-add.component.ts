@@ -17,7 +17,7 @@ export class WellBaseAddComponent implements OnInit {
     manholeCoverInfo: null,
     inFlowManholelist: [],
     flowOutManholelist: [],
-    manholeMode: null
+    manholeMode: ''
   };
   public wellID: FormControl = new FormControl(); // 要实例化才能使用
   public modalRef: BsModalRef;
@@ -143,15 +143,17 @@ export class WellBaseAddComponent implements OnInit {
   // 井tabs选项
   public changeBgColor(e, content, form): void {
     const parent = e.srcElement.parentNode.parentElement;
-    // 判断进入添加的表单是否有属于哪个增加表单，并改变 formValid 的值
-    if (form.length >= 0) {
-      if (form.length === 0) {
-        this.formValid = true;
-      }else {
-        if (form[form.length - 1].valid) {
+    // 判断进入要添加的表单是否有已存在的表单，并改变 formValid 的值
+    if (form) {
+      if (form.length >= 0) {
+        if (form.length === 0) {
           this.formValid = true;
         }else {
-          this.formValid = false;
+          if (form[form.length - 1].valid) {
+            this.formValid = true;
+          }else {
+            this.formValid = false;
+          }
         }
       }
     }
@@ -208,7 +210,6 @@ export class WellBaseAddComponent implements OnInit {
       this.wellBaseInfo.manholeCoverInfo = null;
       this.wellBaseInfo.inFlowManholelist = [];
       this.wellBaseInfo.flowOutManholelist = [];
-      this.wellBaseInfo.manholeMode = null;
     // 取消冒泡行为
     e.stopPropagation();
     // 获取选项卡元素
@@ -217,6 +218,7 @@ export class WellBaseAddComponent implements OnInit {
     let cover;
     let enter;
     let out;
+    let moduleId;
     // 在提交之前，验证每一个模块中的表单是否有效
     // 首先验证井盖表单
     if (this.wellCoverForm.valid) {
@@ -226,6 +228,7 @@ export class WellBaseAddComponent implements OnInit {
       cover = false;
       this.allFormsValid = true;
       const wellCover = document.querySelector('.wellCover');
+      // 显示验证不通过的表单项，并使其成为焦点
       for (let i = 0; i < wellCover.parentElement.children.length; i++) {
         if (wellCover.parentElement.children[i] === wellCover) {
           wellCover['style'].display = 'block';
@@ -233,7 +236,6 @@ export class WellBaseAddComponent implements OnInit {
           wellCover.parentElement.children[i]['style'].display = 'none';
         }
       }
-      // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
       for (let i = 0; i < tabs.children.length - 1; ++i) {
         if (i === 0) {
           tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
@@ -253,6 +255,7 @@ export class WellBaseAddComponent implements OnInit {
           enter = false;
           this.allFormsValid = true;
           const enterWell = document.querySelector('.enterWell');
+          // 显示验证不通过的表单项，并使其成为焦点
           for (let i = 0; i < enterWell.parentElement.children.length; i++) {
             if (enterWell.parentElement.children[i] === enterWell) {
               enterWell['style'].display = 'block';
@@ -260,7 +263,6 @@ export class WellBaseAddComponent implements OnInit {
               enterWell.parentElement.children[i]['style'].display = 'none';
             }
           }
-          // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
           for (let i = 0; i < tabs.children.length - 1; ++i) {
             if (i === 1) {
               tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
@@ -284,6 +286,7 @@ export class WellBaseAddComponent implements OnInit {
         out = false;
         this.allFormsValid = true;
         const outWell = document.querySelector('.outWell');
+        // 显示验证不通过的表单项，并使其成为焦点
         for (let i = 0; i < outWell.parentElement.children.length; i++) {
           if (outWell.parentElement.children[i] === outWell) {
             outWell['style'].display = 'block';
@@ -291,7 +294,6 @@ export class WellBaseAddComponent implements OnInit {
             outWell.parentElement.children[i]['style'].display = 'none';
           }
         }
-        // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
         for (let i = 0; i < tabs.children.length - 1; ++i) {
           if (i === 2) {
             tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
@@ -304,12 +306,40 @@ export class WellBaseAddComponent implements OnInit {
       out = true;
       delete this.wellBaseInfo.flowOutManholelist;
     }
-    if (cover && enter && out) {
+    // 验证模块ID是否输入
+    if (this.wellBaseInfo.manholeMode) {
+      if (this.wellBaseInfo.manholeMode.indexOf(' ') === -1) {
+        moduleId = true;
+      }else {
+        moduleId = false;
+      }
+    }else {
+      moduleId = false;
+    }
+    if (!moduleId) {
+      const mid = document.querySelector('.moduleId');
+      // 显示验证不通过的表单项，并使其成为焦点
+      for (let i = 0; i < mid.parentElement.children.length; i++) {
+        if (mid.parentElement.children[i] === mid) {
+          mid['style'].display = 'block';
+        } else {
+          mid.parentElement.children[i]['style'].display = 'none';
+        }
+      }
+      for (let i = 0; i < tabs.children.length - 1; ++i) {
+        if (i === 3) {
+          tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
+        }else {
+          tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
+        }
+      }
+    }
+  // 验证合法之后，向服务器提交井信息
+    if (cover && enter && out && moduleId) {
+      this.req.addBaseWell(this.wellBaseInfo).then(value => {
+        console.log(value);
+      });
       console.log(this.wellBaseInfo);
     }
-    // 验证合法之后，向服务器提交井信息
-    // this.req.addBaseWell(this.wellBaseInfo).then(value => {
-    //   console.log(value);
-    // });
   }
 }
