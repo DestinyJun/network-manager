@@ -93,6 +93,9 @@ export class UsePageQueryWell {
 export class ManholeCoverInfo {
   constructor(public id: string, // 井id
               public manholeId: string, // 井Id
+              public flowOutManholeNum: string, // 出井个数
+              public inFlowManholeNum: string, // 进井个数
+              public high: string, // 高度
               public provinceRegionId: string, // 省地区id
               public cityRegionId: string, // 市地区Id
               public countyRegionId: string, // （县/区）地区Id

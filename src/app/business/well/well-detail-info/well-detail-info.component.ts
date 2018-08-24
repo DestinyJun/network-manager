@@ -43,6 +43,9 @@ export class WellDetailInfoComponent implements OnInit {
       new FormHtml('数据收集器', 'dataCollectorId', [[]], ''),
       new FormHtml('创建时间', 'creatTime', [[]], ''),
       new FormHtml('GPSID', 'gpsId', [[]], ''),
+      new FormHtml('进井个数', 'inFlowManholeNum', [[]], ''),
+      new FormHtml('出井个数', 'flowOutManholeNum', [[]], ''),
+      new FormHtml('井高度', 'high', [[]], ''),
     ];
     // 进井详情
     this.enterWellDetail = [
