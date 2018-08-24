@@ -405,13 +405,12 @@ export class WellModifyComponent implements OnInit {
     }
 
 
-    // 当全部表单有效时才可以提交
+    // 当全部表单有效时才可以提交，向服务器提交井信息
     if (cover && enter && out && sensor) {
+      this.req.addBaseWell(this.wellBaseInfo).then(value => {
+        console.log(value);
+      });
       console.log(this.wellBaseInfo);
     }
-    // 验证合法之后，向服务器提交井信息
-    // this.req.addBaseWell(this.wellBaseInfo).then(value => {
-    //   console.log(value);
-    // });
   }
 }

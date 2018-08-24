@@ -7,7 +7,7 @@ import {MainRoutersModule} from './main.routers.module';
 @NgModule({
   imports: [
     CommonModule,
-    MainRoutersModule,
+    MainRoutersModule
   ],
   declarations: [
     MainComponent,

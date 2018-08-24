@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import {PagingComponent} from './paging/paging.component';
 import {FormsModule} from '@angular/forms';
+import {RegionComponent} from './region/region.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   declarations: [
-    PagingComponent
+    PagingComponent,
+    RegionComponent
   ],
-  exports: [PagingComponent]
+  exports: [
+    PagingComponent,
+    RegionComponent
+  ]
 })
 export class BaseModule { }

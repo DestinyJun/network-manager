@@ -22,6 +22,7 @@ export class WellAddComponent implements OnInit {
   public modalRef: BsModalRef;
   public formValid = true;
   public allFormsValid = false;
+  public validRegion = false;
   // 井盖的
   private wellCoverFormsBody: any;
   public wellCoverFormBodyHtml: Array<FormHtml> = [];
@@ -51,10 +52,10 @@ export class WellAddComponent implements OnInit {
     // 井盖的
     this.wellCoverFormsBody =  {
       manholeId: ['', Validators.required],
-      provinceRegionId: ['', Validators.required],
-      cityRegionId: ['', Validators.required],
-      countyRegionId: ['', Validators.required],
-      townRegionId: ['', Validators.required],
+      provinceRegionId: [''],
+      cityRegionId: [''],
+      countyRegionId: [''],
+      townRegionId: [''],
       sensorsize: ['', Validators.required],
       material: ['', Validators.required],
       gpsPosition: ['', Validators.required],
@@ -64,10 +65,10 @@ export class WellAddComponent implements OnInit {
     };
     this.wellCoverFormBodyHtml = [
       // new FormHtml('井ID', 'manholeId', [[]], ''),
-      new FormHtml('省地区ID', 'provinceRegionId', [[]], ''),
-      new FormHtml('市地区ID', 'cityRegionId', [[]], ''),
-      new FormHtml('（县/区）地区ID', 'countyRegionId', [[]], ''),
-      new FormHtml('（镇/乡）地区ID', 'townRegionId', [[]], ''),
+      // new FormHtml('省地区ID', 'provinceRegionId', [[]], ''),
+      // new FormHtml('市地区ID', 'cityRegionId', [[]], ''),
+      // new FormHtml('（县/区）地区ID', 'countyRegionId', [[]], ''),
+      // new FormHtml('（镇/乡）地区ID', 'townRegionId', [[]], ''),
       new FormHtml('传感器个数', 'sensorsize', [[]], ''),
       new FormHtml('材质', 'material', [[]], ''),
       new FormHtml('GPS对应地址', 'gpsPosition', [[]], ''),
@@ -153,6 +154,10 @@ export class WellAddComponent implements OnInit {
           }
         }
       });
+  }
+  // 获取地区ID
+  public getRegionInfo(e): void {
+    this.wellCoverForm.patchValue(e);
   }
   // 井tabs选项
   public changeBgColor(e, content, form): void {
@@ -353,13 +358,15 @@ export class WellAddComponent implements OnInit {
     }
 
 
-    // 当全部表单有效时才可以提交
-    if (cover && enter && out && sensor) {
-      console.log(this.wellBaseInfo);
-    }
     // 验证合法之后，向服务器提交井信息
-    // this.req.addBaseWell(this.wellBaseInfo).then(value => {
-    //   console.log(value);
-    // });
+    if (cover && enter && out) {
+      if (this.wellCoverForm.get('cityRegionId').value === '') {
+        this.validRegion = true;
+      }else {
+        this.req.addBaseWell(this.wellBaseInfo).then(value => {
+          console.log(value);
+        });
+      }
+    }
   }
 }

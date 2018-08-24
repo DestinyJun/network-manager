@@ -8,8 +8,6 @@ import {ReqService} from '../../../shared/req.service';
   styleUrls: ['./well-information.component.css']
 })
 export class WellInformationComponent implements OnInit {
-  // 用于表单显示的数据的格式
-  // private fields: Array<FormHtml>;
   // pageBody 当前查看页发送请求的信息
   private pageBody: UsePageQueryWell;
   // resDatas 用来接收查看请求返回的数据
@@ -18,8 +16,6 @@ export class WellInformationComponent implements OnInit {
   public datas: Array<ManholeCoverInfo>;
   // hasChecked 用于记录已勾选的表格
   private hasChecked: Array<ManholeCoverInfo>;
-  // 地区树，用来选择位置，并按位置查找
-  protected positionTree: any;
   constructor(
     public req: ReqService
   ) { }
@@ -27,20 +23,6 @@ export class WellInformationComponent implements OnInit {
   ngOnInit() {
     this.hasChecked = [];
     this.pageBody = new UsePageQueryWell(1, 10, '', '', '', '');
-    // this.fields = [
-    //       new  FormHtml('井ID', 'id', [[]]),
-    //       new  FormHtml('井盖ID', 'manholeId', [[]]),
-    //       new  FormHtml('传感器个数', 'sensorsize', [[]]),
-    //       new  FormHtml('材质', 'material', [[]]),
-    //       new  FormHtml('地址', 'gpsPosition', [[]]),
-    //       new  FormHtml('数据收集器id', 'dataCollectorId', [[]]),
-    //       new  FormHtml('创建时间', 'creatTime', [[]]),
-    //       new  FormHtml('gps坐标', 'gpsId', [[]]),
-    //       new  FormHtml('省地区Id', 'provinceRegionId', [[]]),
-    //       new  FormHtml('市地区Id', 'cityRegionId', [[]]),
-    //       new  FormHtml('县地区Id', 'countyRegionId', [[]]),
-    //       new  FormHtml('镇地区Id', 'townRegionId', [[]])
-    // ];
     // 初始化表格
     this.usePageQuery();
   }
@@ -48,6 +30,13 @@ export class WellInformationComponent implements OnInit {
   public getPageBody(event): void {
     this.pageBody.currentPage = event['page'];
     this.usePageQuery();
+  }
+  // 获取地区id. 按地区筛选数据
+  public getRegionInfo(e): void {
+    this.pageBody.provinceRegionId = e.provinceRegionId;
+    this.pageBody.cityRegionId = e.cityRegionId;
+    this.pageBody.countyRegionId = e.countyRegionId;
+    this.pageBody.townRegionId = e.townRegionId;
   }
   // 全选
   public checkAll(): void {
@@ -93,25 +82,6 @@ export class WellInformationComponent implements OnInit {
       this.datas = value.paingmsg.datas;
       this.resDatas = value;
     });
-  }
-  /**
-   * 改变查询条件，添加按位置来查询
-   * */
-  // 选择省
-  public selProvince(value): void {
-    this.pageBody.provinceRegionId = value;
-  }
-  // 选择市
-  public selCity(value): void {
-    this.pageBody.cityRegionId = value;
-  }
-  // 选择县
-  public selCounty(value): void {
-    this.pageBody.countyRegionId = value;
-  }
-  // 选择乡
-  public selTown(value): void {
-    this.pageBody.townRegionId = value;
   }
 
 }

@@ -9,6 +9,11 @@
     </div>
   </div>
   <div class="row">
+    <div class="pull-right">
+      <app-region (regionInfoChange)="getRegionInfo($event)"></app-region>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-12">
       <!--这里是井盖增加表单-->
       <div #wellCover class="wellCover">
@@ -115,6 +120,7 @@
   </div>
   <div class="row text-center">
     <span *ngIf="allFormsValid" [ngStyle]="{color: 'red'}">当前表单验证失败!</span><br>
+    <p *ngIf="validRegion" [ngStyle]="{color: 'red'}" class="warn">地址未选择!</p><br>
     <button class="btn btn-primary" (click)="submitAllFormInfo($event)">提交井信息</button>
   </div>
 </div>

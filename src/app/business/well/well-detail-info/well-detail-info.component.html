@@ -18,10 +18,6 @@
         </select>
       </div>
       <div id="wellCover" class="row" *ngIf="manholeCoverInfo">
-        <!--<dl>-->
-        <!--<dt></dt>-->
-        <!--<dd></dd>-->
-        <!--</dl>-->
         <h4>这是井盖信息详情：</h4><br>
         <p *ngFor="let cover of wellCoverDetail"><span>{{cover.name}}:</span><span>{{manholeCoverInfo[cover.content]}}</span><span>&nbsp;{{cover.unit}}</span></p>
       </div>

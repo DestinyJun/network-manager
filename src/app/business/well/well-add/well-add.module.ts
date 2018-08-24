@@ -4,6 +4,7 @@ import { WellAddRoutingModule } from './well-add-routing.module';
 import { WellAddComponent } from './well-add.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from 'ngx-bootstrap';
+import {BaseModule} from '../../../base/base.module';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import {ModalModule} from 'ngx-bootstrap';
     WellAddRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    BaseModule,
     ModalModule.forRoot(),
   ],
   declarations: [
