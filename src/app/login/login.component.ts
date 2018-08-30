@@ -68,11 +68,13 @@ export class LoginComponent implements OnInit {
     // ];
     //
     // this.globalService.setRegion(region);
-    this.router.navigate(['/home']);
+
     this.req.Login(this.commonfun.serialize(this.userLoginInfoForm.value)).subscribe((res) => {
+      console.log(res);
       console.log(res);
       if (Number(res['msg']) === 14) {
         this.router.navigate(['/home']);
+        this.globalService.setRegion(res['region']);
         sessionStorage.setItem('token', res['token']);
       }else {
         this.resMsg = '登录失败!';
