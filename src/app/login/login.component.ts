@@ -31,49 +31,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
   public OnSubmit(): void {
-    // const region = [
-    //   {
-    //     'id':  1,
-    //     'provinceRegionId':  '1',
-    //     'cityList': [
-    //       {
-    //         'id':  1,
-    //         'cityRegionId':  '1',
-    //         'cityName':  '贵阳市',
-    //         'provinceRegionId':  '1',
-    //         'countyList': [
-    //           {
-    //             'id':  1,
-    //             'countyRegionId':  'CN101260101',
-    //             'countyName':  '贵阳',
-    //             'cityRegionId':  '1'
-    //           },
-    //           {
-    //             'id':  2,
-    //             'countyRegionId':  'CN101260102',
-    //             'countyName':  '白云',
-    //             'cityRegionId':  '1'
-    //           },
-    //           {
-    //             'id':  3,
-    //             'countyRegionId':  'CN101260103',
-    //             'countyName':  '花溪',
-    //             'cityRegionId':  '1'
-    //           }
-    //         ]
-    //       }
-    //     ],
-    //     'provinceName':  '贵州省'
-    //   }
-    // ];
-    //
-    // this.globalService.setRegion(region);
-
+    this.router.navigate(['/home']);
     this.req.Login(this.commonfun.serialize(this.userLoginInfoForm.value)).subscribe((res) => {
       console.log(res);
       console.log(res);
       if (Number(res['msg']) === 14) {
-        this.router.navigate(['/home']);
+
         this.globalService.setRegion(res['region']);
         sessionStorage.setItem('token', res['token']);
       }else {

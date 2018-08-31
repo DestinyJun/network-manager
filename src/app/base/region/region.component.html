@@ -1,21 +1,25 @@
 <div class="region_main">
   <label class="region_title">地区选择:&nbsp;</label>
   <div class="region_content">
+    <label>省：</label>
     <select name="province" #province (change)="selProvince(province.value)">
       <option [value]="-1">未选</option>
       <option *ngFor="let pro of provinces" [value]="pro.provinceRegionId">{{pro.provinceName}}</option>
     </select>
+    <label>市：</label>
     <select name="city" #city (change)="selCity(city.value)">
       <option [value]="-1">未选</option>
       <option *ngFor="let city of cities" [value]="city.cityRegionId">{{city.cityName}}</option>
     </select>
+    <label>县/区：</label>
     <select name="county" #county (change)="selCounty(county.value)">
       <option [value]="-1">未选</option>
       <option *ngFor="let county of counties" [value]="county.countyRegionId">{{county.countyName}}</option>
     </select>
+  <!--  <label>镇：</label>
     <select name="town" #town (change)="selTown(town.value)">
       <option [value]="-1">未选</option>
       <option *ngFor="let town of towns" [value]="town.townRegionId">{{town.townName}}</option>
-    </select>
+    </select>-->
   </div>
 </div>

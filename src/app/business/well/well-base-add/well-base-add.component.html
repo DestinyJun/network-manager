@@ -41,7 +41,7 @@
                <label>&nbsp;</label>
                <input type="button" class="sequence" value="{{i + 1}}">
              </div>
-             <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml">
+             <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml; let i  = index">
                <label>{{f.name}}:</label>
                <input type="text" formControlName="{{f.content}}">
              </div>
@@ -52,6 +52,26 @@
              <div class="form-group pull-right">
                <label></label>
                <input type="button" value="删除" (click)="deleteForm(enterForms, form)">
+             </div>
+             <div class="form-group pull-right">
+               <label></label>
+               <input type="button" value="增加模块Id" (click)="openSelModelId($event)">
+             </div>
+             <div class="modelSelRegion">
+               <div class="content">
+                 <div class="modelHeader">
+                   <h4>第{{i + 1}}个表单模块Id增加</h4>
+                 </div>
+                 <div class="modelBody">
+                   <!--这里将会动态添加-->
+                 </div>
+                 <div class="clearfix"></div>
+                 <span class="fa fa-plus-circle" title="添加" (click)="addModelId($event, form, i)"></span>
+                 <div class="row text-center">
+                   <button type="button" class="saveBtn" (click)="saveCurrentModelId(form, $event)">保存</button>
+                   <button type="button" class="closeBtn" (click)="closeSelModelId($event)">关闭</button>
+                 </div>
+               </div>
              </div>
            </form>
          </div>
@@ -81,6 +101,26 @@
                <label></label>
                <input type="button" value="删除" (click)="deleteForm(outForms, form)">
              </div>
+             <div class="form-group pull-right">
+               <label></label>
+               <input type="button" value="增加模块Id" (click)="openSelModelId($event)">
+             </div>
+             <div class="modelSelRegion">
+               <div class="content">
+                 <div class="modelHeader">
+                   <h4>第{{i + 1}}个表单模块Id增加</h4>
+                 </div>
+                 <div class="modelBody">
+                   <!--这里将会动态添加-->
+                 </div>
+                 <div class="clearfix"></div>
+                 <span class="fa fa-plus-circle" title="添加" (click)="addModelId($event, form, i)"></span>
+                 <div class="row text-center">
+                   <button type="button" class="saveBtn" (click)="saveCurrentModelId(form, $event)">保存</button>
+                   <button type="button" class="closeBtn" (click)="closeSelModelId($event)">关闭</button>
+                 </div>
+               </div>
+             </div>
            </form>
          </div>
          <div class="row text-center">
@@ -92,8 +132,8 @@
      <div #moduleId class="moduleId">
        <div class="container-fluid">
          <div class="row">
-           <div class="form-group">
-             <label>模块ID: &nbsp; </label>
+           <div class="form-group text-center">
+             <label>当前模块ID: &nbsp; </label>
              <input type="text" class="form-control" [(ngModel)]="wellBaseInfo.manholeMode">
            </div>
          </div>

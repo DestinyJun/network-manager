@@ -5,6 +5,7 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {CommonfunService} from '../../../shared/commonfun.service';
 import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.service';
 import {ReqService} from '../../../shared/req.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-well-base-add',
@@ -36,18 +37,6 @@ export class WellBaseAddComponent implements OnInit {
   private outFormsBody: any;
   public outFormBodyHtml: Array<FormHtml> = [];
   public outForms: Array<FormGroup> = [];
-  // 模块表单
-  private modulesBody: any;
-  public moduleBodyHtml: Array<FormHtml> = [];
-  public moduleIdForms: Array<FormGroup> = [];
-  // 进井模块ID表单
-  private enterModulesBody: any;
-  public enterModuleBodyHtml: Array<FormHtml> = [];
-  public enterModuleIdForms: Array<FormGroup> = [];
-  // 出井模块ID表单
-  private outModulesBody: any;
-  public outModuleBodyHtml: Array<FormHtml> = [];
-  public outModuleIdForms: Array<FormGroup> = [];
   constructor(
     private fb: FormBuilder,
     private sessionStorage: GlobalService,
@@ -99,7 +88,7 @@ export class WellBaseAddComponent implements OnInit {
       inFlowPipeRadius: ['', Validators.required],
       inFlowPipeSlope: ['', Validators.required],
       inFlowPipeLength: ['', Validators.required],
-      model: [[]],
+      model: [[]]
     };
     this.enterFormBodyHtml = [
       new FormHtml('井ID', 'manholeId', [[]], ''),
@@ -117,7 +106,7 @@ export class WellBaseAddComponent implements OnInit {
       flowOutPipeRadius: ['', Validators.required],
       flowOutPipeSlope: ['', Validators.required],
       flowOutPipeLength: ['', Validators.required],
-      model: [[]],
+      model: ['']
     };
     this.outFormBodyHtml = [
       new FormHtml('井ID', 'manholeId', [[]], ''),
@@ -126,20 +115,7 @@ export class WellBaseAddComponent implements OnInit {
       new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], ''),
       new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], ''),
       new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], ''),
-      new FormHtml('模块ID', 'modeId', [[]], ''),
-      new FormHtml('模块ID', 'modeId', [[]], ''),
-      new FormHtml('模块ID', 'modeId', [[]], ''),
-    ];
-    // 模块ID
-    this.modulesBody = {
-      model1: [[], Validators.required],
-      model2: [[], Validators.required],
-      model3: [[], Validators.required],
-    };
-    this.moduleBodyHtml = [
-      new FormHtml('模块1ID', 'modeId', [[]], ''),
-      new FormHtml('模块2ID', 'modeId', [[]], ''),
-      new FormHtml('模块3ID', 'modeId', [[]], ''),
+      new FormHtml('模块ID', 'model', [[]], ''),
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);
@@ -202,39 +178,17 @@ export class WellBaseAddComponent implements OnInit {
   /**
    *  进井和出井操作
    * */
-  // 动态增加表
+  // 动态增加表, 命名规则：当前表单列表名+表单所在的位置(数组下标). 如： enterForms 里面的第一个表单名为： enterForms1
   public addForm(template: TemplateRef<any>, forms: string): void {
-    // 先判断当前增加的是那种表单，这里只有出井和进井
-    let moduleForm; // 保存当前操作表单列表的名称
-    let moduleFormNamePre; // 保存当前操作表单列表里面表单名称的前缀
-      if (forms.indexOf('out')) {
-        moduleForm = this.outModuleIdForms;
-        moduleFormNamePre = 'outModuleIdForms';
-      }else {
-        moduleForm = this.enterModuleIdForms;
-        moduleFormNamePre = 'enterModuleIdForms';
-      }
     // 当还没有添加表单时，可以添加第一个表单。当要添加下一个表单时，会校验上一个表单是否合法，如果合法，则可以添加，否则添加失败
     if (this.formValid && this[forms].length === 0) {
       this[forms + this[forms].length] = this.fb.group(this[forms + 'Body']);
-      this[moduleFormNamePre + moduleForm.length] = this.fb.group(this.modulesBody);
-      // 使模块ID表单同步增加
       this[forms].push(this[forms + this[forms].length]);
-      this.moduleIdForms.push(this[moduleFormNamePre + this.moduleIdForms.length]);
       this.formValid = false;
     }else {
-      if (this[forms][this[forms].length - 1].valid && this.moduleIdForms[this.moduleIdForms.length - 1].valid) {
+      if (this[forms][this[forms].length - 1].valid) {
         this[forms + this[forms].length] = this.fb.group(this[forms + 'Body']);
-        this[moduleFormNamePre + moduleForm.length] = this.fb.group(this.modulesBody);
-        // 使模块ID表单同步增加
         this[forms].push(this[forms + this[forms].length]);
-        this.moduleIdForms.push(this[moduleFormNamePre + this.moduleIdForms.length]);
-        // 在增加下一个表单时，当前表单的对应的模块表单的值增加到当前表单model字段里面
-        // console.log(this.moduleIdForms[this.moduleIdForms.length - 1].value);
-        // for (let b in this.moduleIdForms[this.moduleIdForms.length - 1].value) {
-        //   console.log(this.moduleIdForms[this.moduleIdForms.length - 1].value[b]);
-        //   // this.modulesBody[this.moduleIdForms.length - 1].model[0].push(b);
-        // }
         this.formValid = false;
       }else {
         this.modalRef = this.modalService.show(template);
@@ -244,19 +198,55 @@ export class WellBaseAddComponent implements OnInit {
   }
   // 删除表
   public deleteForm(forms, form): void {
-    // 先判断当前增加的是那种表单，这里只有出井和进井
-    let moduleForm; // 保存当前操作表单列表的名称
-    if (forms.indexOf('out')) {
-      moduleForm = this.outModuleIdForms;
-    }else {
-      moduleForm = this.enterModuleIdForms;
-    }
     const index = forms.indexOf(form);
-    this[moduleForm].splice(index, 1);
+    forms.splice(index, 1);
     forms.splice(index, 1);
     if (forms.length === 0) {
       this.formValid = true;
     }
+  }
+  /**
+  *  动态增加model输入框
+  * */
+  public openSelModelId(e): void {
+    e.srcElement.parentNode.parentNode.lastElementChild.style.display = 'block';
+  }
+  public closeSelModelId(e): void {
+    e.srcElement.parentNode.parentNode.style.display = 'none';
+  }
+  public addModelId(e, form, i): void {
+    // 向当前模块Id增加框的添加一个元素
+    const groups = e.srcElement.parentNode.children;
+    const form_group = document.createElement('div');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    form_group.setAttribute('class', 'form-group');
+    form_group.style.marginLeft = '10px';
+    form_group.style.cssFloat = 'left';
+    input.setAttribute('type', 'text');
+    input.style.color = '#000000';
+    form_group.appendChild(label);
+    form_group.appendChild(input);
+    for (let j = 0; j < groups.length; j++) {
+        if (groups[j].className === 'modelBody') {
+          label.innerHTML  = '模块Id' + (groups[j].children.length + 1) + ':';
+          groups[j].appendChild(form_group);
+        }
+    }
+  }
+  public saveCurrentModelId(form, e): void {
+    const content  = e.srcElement.parentNode.parentNode;
+    const values = [];
+    for (let j = 0; j < content.children.length; j++) {
+      if (content.children[j].className === 'modelBody') {
+          const modelBody = content.children[j];
+          for (let l = 0; l < modelBody.children.length; l++) {
+            const value = modelBody.children[l].children[1].value;
+            values.push(value);
+          }
+      }
+    }
+    form.patchValue({model: values});
   }
 /**
  * 提交井的的全部表单信息
