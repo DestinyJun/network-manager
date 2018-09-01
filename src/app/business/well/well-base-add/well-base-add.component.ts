@@ -5,7 +5,6 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {CommonfunService} from '../../../shared/commonfun.service';
 import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.service';
 import {ReqService} from '../../../shared/req.service';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-well-base-add',
@@ -15,7 +14,7 @@ import {forEach} from '@angular/router/src/utils/collection';
 export class WellBaseAddComponent implements OnInit {
   // 首先规定提交井的信息格式
   public wellBaseInfo = {
-    manholeCoverInfo: null,
+    manholeCoverInfo: '',
     inFlowManholelist: [],
     flowOutManholelist: [],
     manholeMode: ''
@@ -82,7 +81,7 @@ export class WellBaseAddComponent implements OnInit {
     ];
     // 进井
     this.enterFormsBody = {
-      manholeId: [{value: '', disabled: true}, Validators.required],
+      manholeId: [{value: '请在井盖中填写井ID', disabled: true}, Validators.required],
       inFlowRelationId: ['', Validators.required],
       inFlowPipeId: ['', Validators.required],
       inFlowPipeRadius: ['', Validators.required],
@@ -100,7 +99,7 @@ export class WellBaseAddComponent implements OnInit {
     ];
     // 出井
     this.outFormsBody = {
-      manholeId: [{value: '', disabled: true}, Validators.required],
+      manholeId: [{value: '请在井盖中填写井ID', disabled: true}, Validators.required],
       flowOutRelationId: ['', Validators.required],
       flowOutPipeId: ['', Validators.required],
       flowOutPipeRadius: ['', Validators.required],
@@ -212,10 +211,10 @@ export class WellBaseAddComponent implements OnInit {
     e.srcElement.parentNode.parentNode.lastElementChild.style.display = 'block';
   }
   public closeSelModelId(e): void {
-    e.srcElement.parentNode.parentNode.style.display = 'none';
+    e.srcElement.parentNode.parentNode.parentNode.style.display = 'none';
   }
   public addModelId(e, form, i): void {
-    // 向当前模块Id增加框的添加一个元素
+    // 向当前模块Id增加框的添加一个输入框，同时自动获取焦点
     const groups = e.srcElement.parentNode.children;
     const form_group = document.createElement('div');
     const label = document.createElement('label');
@@ -224,6 +223,7 @@ export class WellBaseAddComponent implements OnInit {
     form_group.style.marginLeft = '10px';
     form_group.style.cssFloat = 'left';
     input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', '请输入Id');
     input.style.color = '#000000';
     form_group.appendChild(label);
     form_group.appendChild(input);
@@ -253,7 +253,6 @@ export class WellBaseAddComponent implements OnInit {
  * */
   public submitAllFormInfo(e): void {
     // 在保存数据时，先清空 wellBaseInfo
-      this.wellBaseInfo.manholeCoverInfo = null;
       this.wellBaseInfo.inFlowManholelist = [];
       this.wellBaseInfo.flowOutManholelist = [];
     // 取消冒泡行为
@@ -261,10 +260,7 @@ export class WellBaseAddComponent implements OnInit {
     // 获取选项卡元素
     const tabs = document.querySelector('.wellTabsMenu');
     // 用来记录每个模块的表单是否验证成功
-    let cover;
-    let enter;
-    let out;
-    let moduleId;
+    let cover, enter, out, moduleId;
     // 在提交之前，验证每一个模块中的表单是否有效
     // 首先验证井盖表单
     if (this.wellCoverForm.valid) {
@@ -273,50 +269,19 @@ export class WellBaseAddComponent implements OnInit {
     } else {
       cover = false;
       this.allFormsValid = true;
-      const wellCover = document.querySelector('.wellCover');
-      // 显示验证不通过的表单项，并使其成为焦点
-      for (let i = 0; i < wellCover.parentElement.children.length; i++) {
-        if (wellCover.parentElement.children[i] === wellCover) {
-          wellCover['style'].display = 'block';
-        } else {
-          wellCover.parentElement.children[i]['style'].display = 'none';
-        }
-      }
-      for (let i = 0; i < tabs.children.length - 1; ++i) {
-        if (i === 0) {
-          tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-        }else {
-          tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-        }
-      }
+      this.validAfterFocus('.wellCover');
     }
     // 验证进井全部表单
     if (this.enterForms.length > 0) {
         if (this.enterForms[this.enterForms.length - 1].valid) {
           enter = true;
           for (let i = 0; i < this.enterForms.length; i++) {
-            // this.enterForms[i]['model'][0] = this.enterForms[i].value;
             this.wellBaseInfo.inFlowManholelist.push(this.enterForms[i].value);
           }
         }else {
           enter = false;
           this.allFormsValid = true;
-          const enterWell = document.querySelector('.enterWell');
-          // 显示验证不通过的表单项，并使其成为焦点
-          for (let i = 0; i < enterWell.parentElement.children.length; i++) {
-            if (enterWell.parentElement.children[i] === enterWell) {
-              enterWell['style'].display = 'block';
-            } else {
-              enterWell.parentElement.children[i]['style'].display = 'none';
-            }
-          }
-          for (let i = 0; i < tabs.children.length - 1; ++i) {
-            if (i === 1) {
-              tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-            }else {
-              tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-            }
-          }
+          this.validAfterFocus('.enterWell');
         }
     }else {
       enter = true;
@@ -332,63 +297,56 @@ export class WellBaseAddComponent implements OnInit {
       }else {
         out = false;
         this.allFormsValid = true;
-        const outWell = document.querySelector('.outWell');
-        // 显示验证不通过的表单项，并使其成为焦点
-        for (let i = 0; i < outWell.parentElement.children.length; i++) {
-          if (outWell.parentElement.children[i] === outWell) {
-            outWell['style'].display = 'block';
-          } else {
-            outWell.parentElement.children[i]['style'].display = 'none';
-          }
-        }
-        for (let i = 0; i < tabs.children.length - 1; ++i) {
-          if (i === 2) {
-            tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-          }else {
-            tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-          }
-        }
+        this.validAfterFocus('.outWell');
       }
     }else {
       out = true;
       delete this.wellBaseInfo.flowOutManholelist;
     }
     // 验证模块ID是否输入
-    if (this.wellBaseInfo.manholeMode) {
-      if (this.wellBaseInfo.manholeMode.indexOf(' ') === -1) {
+    if (this.wellBaseInfo.manholeMode === '') {
         moduleId = true;
-      }else {
-        moduleId = false;
-      }
-    }else {
+    } else if (this.wellBaseInfo.manholeMode.indexOf(' ') >= 0) {
+        console.log(1);
+        moduleId = true;
+    } else {
       moduleId = false;
     }
-    if (!moduleId) {
-      const mid = document.querySelector('.moduleId');
-      // 显示验证不通过的表单项，并使其成为焦点
-      for (let i = 0; i < mid.parentElement.children.length; i++) {
-        if (mid.parentElement.children[i] === mid) {
-          mid['style'].display = 'block';
-        } else {
-          mid.parentElement.children[i]['style'].display = 'none';
-        }
-      }
-      for (let i = 0; i < tabs.children.length - 1; ++i) {
-        if (i === 3) {
-          tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-        }else {
-          tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-        }
-      }
+    console.log(moduleId);
+    if (moduleId) {
+      this.validAfterFocus('.moduleId');
     }
   // 验证合法之后，向服务器提交井信息
-    if (cover && enter && out && moduleId) {
+    if (cover && enter && out && !moduleId) {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       }else {
+        console.dir(this.wellBaseInfo);
         this.req.addBaseWell(this.wellBaseInfo).then(value => {
           console.log(value);
         });
+      }
+    }
+  }
+//  表单在验证之后会获取焦点
+  public validAfterFocus(className: string): void {
+    const tabs = document.querySelector('.wellTabsMenu');
+    const Ele = document.querySelector(className);
+    let single;
+    // 显示验证不通过的表单项，并使其成为焦点
+    for (let i = 0; i < Ele.parentElement.children.length; i++) {
+      if (Ele.parentElement.children[i] === Ele) {
+        single = i;
+        Ele['style'].display = 'block';
+      } else {
+        Ele.parentElement.children[i]['style'].display = 'none';
+      }
+    }
+    for (let i = 0; i < tabs.children.length; ++i) {
+      if (i === single) {
+        tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
+      }else {
+        tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
       }
     }
   }
