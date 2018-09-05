@@ -5,7 +5,6 @@
   display: inline-block;
 }
 select{
-  margin-top: 20px;
   background-color: rgba(0,0,0,0.5);
 }
 option

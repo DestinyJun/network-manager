@@ -4,42 +4,7 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class GlobalService {
   public sessionStorage: any;
-  public region = [
-    {
-      'id':  1,
-      'provinceRegionId':  '1',
-      'cityList': [
-        {
-          'id':  1,
-          'cityRegionId':  '1',
-          'cityName':  '贵阳市',
-          'provinceRegionId':  '1',
-          'countyList': [
-            {
-              'id':  1,
-              'countyRegionId':  'CN101260101',
-              'countyName':  '贵阳',
-              'cityRegionId':  '1'
-            },
-            {
-              'id':  2,
-              'countyRegionId':  'CN101260102',
-              'countyName':  '白云',
-              'cityRegionId':  '1'
-            },
-            {
-              'id':  3,
-              'countyRegionId':  'CN101260103',
-              'countyName':  '花溪',
-              'cityRegionId':  '1'
-            }
-          ]
-        }
-      ],
-      'provinceName':  '贵州省'
-    }
-  ];
-  public regionInfo = this.region;
+  public regionInfo: any;
   constructor() {
     if (!sessionStorage) {
       throw new Error('Current browser does not support Local Storage');
@@ -72,6 +37,9 @@ export class GlobalService {
   }
   // 拿到地区信息
   public getRegion(): any {
+    if (typeof this.regionInfo !== 'object') {
+      return this.regionInfo = JSON.parse(sessionStorage.getItem('region'));
+    }
     return this.regionInfo;
   }
 }

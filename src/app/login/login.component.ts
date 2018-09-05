@@ -36,9 +36,8 @@ export class LoginComponent implements OnInit {
       console.log(res);
       console.log(res);
       if (Number(res['msg']) === 14) {
-
-        this.globalService.setRegion(res['region']);
-        sessionStorage.setItem('token', res['token']);
+        this.globalService.setObject('region', JSON.stringify(res['region']));
+        this.globalService.set('token', res['token']);
       }else {
         this.resMsg = '登录失败!';
       }

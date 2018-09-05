@@ -11,12 +11,12 @@ export class RegionComponent implements OnInit, OnChanges {
   public cities: any;
   public counties: any;
   public towns: any;
-  @Input()
+  // @Input()
   private regionInfo = {
-    provinceRegionId: null,
-    cityRegionId: null,
-    countyRegionId: null,
-    townRegionId: null
+    provinceRegionId: '',
+    cityRegionId: '',
+    countyRegionId: '',
+    townRegionId: ''
   };
   @Output()
   public regionInfoChange = new EventEmitter();
@@ -25,8 +25,8 @@ export class RegionComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    const region = this.globalService.getRegion();
-    this.provinces = region;
+    const region = this.globalService.getObject('region');
+    this.provinces = JSON.parse(region);
   }
   // 只要检测到regionInfo数据改变，就会发送最新的值给父元素
   ngOnChanges(changes: SimpleChanges): void {
@@ -38,7 +38,11 @@ export class RegionComponent implements OnInit, OnChanges {
    * */
   // 选择省
   public selProvince(value: string): void {
-    this.regionInfo.provinceRegionId = value;
+    if (value === '-1') {
+      this.regionInfo.provinceRegionId = '';
+    }else {
+      this.regionInfo.provinceRegionId = value;
+    }
     this.cities = [];
     this.counties = [];
     this.towns = [];
@@ -53,7 +57,11 @@ export class RegionComponent implements OnInit, OnChanges {
   }
   // 选择市
   public selCity(value): void {
-    this.regionInfo.cityRegionId = value;
+    if (value === '-1') {
+      this.regionInfo.cityRegionId = '';
+    }else {
+      this.regionInfo.cityRegionId = value;
+    }
     this.counties = [];
     this.towns = [];
     this.cities.forEach(city => {
@@ -67,7 +75,11 @@ export class RegionComponent implements OnInit, OnChanges {
   }
   // 选择县
   public selCounty(value): void {
-    this.regionInfo.countyRegionId = value;
+    if (value === '-1') {
+      this.regionInfo.countyRegionId = '';
+    } else {
+      this.regionInfo.countyRegionId = value;
+    }
     this.towns = [];
     this.cities.forEach(city => {
       if (city.provinceRegionId === value) {
@@ -79,9 +91,9 @@ export class RegionComponent implements OnInit, OnChanges {
     this.regionInfoChange.emit(this.regionInfo);
   }
   // 选择乡
-  public selTown(value): void {
-    this.regionInfo.townRegionId = value;
-    this.regionInfoChange.emit(this.regionInfo);
-  }
+  // public selTown(value): void {
+  //   this.regionInfo.townRegionId = value;
+  //   this.regionInfoChange.emit(this.regionInfo);
+  // }
 
 }

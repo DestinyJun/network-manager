@@ -114,7 +114,7 @@ export class WellBaseAddComponent implements OnInit {
       new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], ''),
       new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], ''),
       new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], ''),
-      new FormHtml('模块ID', 'model', [[]], ''),
+      // new FormHtml('模块ID', 'model', [[]], ''),
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);
@@ -138,6 +138,7 @@ export class WellBaseAddComponent implements OnInit {
   }
   // 获取地区ID
   public getRegionInfo(e): void {
+    console.log(e);
     this.wellCoverForm.patchValue(e);
   }
   // 井tabs选项

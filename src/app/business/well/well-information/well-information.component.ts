@@ -28,6 +28,7 @@ export class WellInformationComponent implements OnInit {
   }
   // 监控翻页事件
   public getPageBody(event): void {
+    console.log('refresh');
     this.pageBody.currentPage = event['page'];
     this.usePageQuery();
   }
@@ -37,6 +38,9 @@ export class WellInformationComponent implements OnInit {
     this.pageBody.cityRegionId = e.cityRegionId;
     this.pageBody.countyRegionId = e.countyRegionId;
     this.pageBody.townRegionId = e.townRegionId;
+    setTimeout(() => {
+      this.usePageQuery();
+    }, 300);
   }
   // 全选
   public checkAll(): void {
@@ -78,6 +82,8 @@ export class WellInformationComponent implements OnInit {
   }
   // 按页查询选请求
   public usePageQuery(): void {
+    console.log('' === null);
+    console.log(this.pageBody);
     this.req.pagingWell(this.pageBody).then(value => {
       this.datas = value.paingmsg.datas;
       this.resDatas = value;

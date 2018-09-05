@@ -2,19 +2,23 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as $ from 'jquery';
-import {UserInfo} from './global.service';
+import {GlobalService, UserInfo} from './global.service';
 import {CommonfunService} from './commonfun.service';
 
 @Injectable()
 export class ReqService {
-  private IP_Port = 'http://192.168.43.227:8080';
+  private IP_Port = 'http://120.78.137.182:8888';
   private  headers = { headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})};
   constructor(
     private http: HttpClient,
-    private commonfun: CommonfunService
+    private commonfun: CommonfunService,
+    private globalService: GlobalService
   ) { }
   // 请求函数封装, 返回一个promise
   private ajaxRest(url: string, datas: any): Promise<any> {
+    const token = this.globalService.get('token');
+    console.log(token);
+    console.log(datas);
     return new Promise(function (resolve, reject) {
       $.ajax({
         url: url,
@@ -22,7 +26,7 @@ export class ReqService {
         async: false,
         cache: false,
         headers: {
-          'accessToken': sessionStorage.getItem('token')
+          'accessToken': token
         },
         data: datas,
         contentType: 'application/x-www-form-urlencoded',
@@ -30,7 +34,8 @@ export class ReqService {
           resolve(data);
         },
         error: (err) => {
-          reject(err);
+          // reject(err);
+          console.log('request error');
         }
       });
     });

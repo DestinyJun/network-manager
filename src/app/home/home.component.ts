@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit , OnDestroy, DoCheck {
   ngDoCheck(): void {
   }
   ngOnInit() {
-    console.log(sessionStorage.getItem('region'));
     this.parentFoldValue = true;
   }
   public rejectFoldValue(e): void {
