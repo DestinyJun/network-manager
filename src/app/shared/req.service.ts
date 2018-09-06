@@ -14,11 +14,9 @@ export class ReqService {
     private commonfun: CommonfunService,
     private globalService: GlobalService
   ) { }
-  // 请求函数封装, 返回一个promise
-  private ajaxRest(url: string, datas: any): Promise<any> {
+  // 请求函数封装, 请求体需要序列化的数据，返回一个promise
+  private ajaxRestSerialize(url: string, datas: any): Promise<any> {
     const token = this.globalService.get('token');
-    console.log(token);
-    console.log(datas);
     return new Promise(function (resolve, reject) {
       $.ajax({
         url: url,
@@ -30,6 +28,30 @@ export class ReqService {
         },
         data: datas,
         contentType: 'application/x-www-form-urlencoded',
+        success: (data) => {
+          resolve(data);
+        },
+        error: (err) => {
+          // reject(err);
+          console.log('request error');
+        }
+      });
+    });
+  }
+  // 请求函数封装, 请求体直接是一个JSON对象，返回一个promise
+  private ajaxRestNoSerialize(url: string, datas: any): Promise<any> {
+    const token = this.globalService.get('token');
+    return new Promise(function (resolve, reject) {
+      $.ajax({
+        url: url,
+        type: 'POST',
+        async: false,
+        cache: false,
+        headers: {
+          'accessToken': token,
+        },
+        data: datas,
+        contentType: 'application/json',
         success: (data) => {
           resolve(data);
         },
@@ -53,43 +75,41 @@ export class ReqService {
   // 返回值数据
   public addUser(newUser: UserInfo): Promise<any> {
     // const datas = this.commonfun.serialize(newUser);
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
+    return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
   }
   // 查询全部用户
   public pagingUser(data: any): Promise<any> {
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/paingUser', data);
+    return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/paingUser', data);
   }
 // ----------------------------------------------------------------------------------------------------------------------
   // 按页查看井的基本信息
   public pagingWell(data: any): Promise<any> {
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
+    return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
   }
   // 井基本信息
   public findWell(data: any): Promise<any> {
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
+    return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/paingManhole', this.commonfun.serialize(data));
   }
   // 井详情信息
   public wellDetailInfo(data: any): Promise<any> {
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/detailedManhole', this.commonfun.serialize(data));
+    return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/detailedManhole', this.commonfun.serialize(data));
   }
   // 井详情信息增加
   public addWell(data): Promise<any> {
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/insertWell', data);
+    return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/insertWell', JSON.stringify(data));
   }
   // 井基本信息增加
   public addBaseWell(data): Promise<any> {
-    return this.ajaxRest(this.IP_Port + '/pipe-network-Manager/appInsertManhole', data);
+    console.log(data);
+    return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/appInsertManhole', JSON.stringify(data));
   }
   // 井删除
   public deleteWell(data): Promise<any> {
-    return this.ajaxRest('', data);
+    return this.ajaxRestSerialize(this.IP_Port + '/detailedManhole', data);
   }
   // 井修改
   public updateWell(data): Promise<any> {
-    return this.ajaxRest('', data);
-  }
-
-  deleteuser(param: { id: string }) {
+    return this.ajaxRestNoSerialize(this.IP_Port + '/updateManholeupdateManhole', JSON.stringify(data));
   }
 }
 

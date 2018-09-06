@@ -81,7 +81,7 @@ export class WellBaseAddComponent implements OnInit {
     ];
     // 进井
     this.enterFormsBody = {
-      manholeId: [{value: '请在井盖中填写井ID', disabled: true}, Validators.required],
+      manholeId: [{value: '请在井盖中填写井ID'}, Validators.required],
       inFlowRelationId: ['', Validators.required],
       inFlowPipeId: ['', Validators.required],
       inFlowPipeRadius: ['', Validators.required],
@@ -99,7 +99,7 @@ export class WellBaseAddComponent implements OnInit {
     ];
     // 出井
     this.outFormsBody = {
-      manholeId: [{value: '请在井盖中填写井ID', disabled: true}, Validators.required],
+      manholeId: [{value: '请在井盖中填写井ID'}, Validators.required],
       flowOutRelationId: ['', Validators.required],
       flowOutPipeId: ['', Validators.required],
       flowOutPipeRadius: ['', Validators.required],
