@@ -3,7 +3,7 @@ import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.servi
 import {ReqService} from '../../../shared/req.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {FormHtml, GlobalService} from '../../../shared/global.service';
+import {GlobalService, TextBox} from '../../../shared/global.service';
 import {CommonfunService} from '../../../shared/commonfun.service';
 
 @Component({
@@ -25,19 +25,19 @@ export class WellAddComponent implements OnInit {
   public validRegion = false;
   // 井盖的
   private wellCoverFormsBody: any;
-  public wellCoverFormBodyHtml: Array<FormHtml> = [];
+  public wellCoverFormBodyHtml: Array<TextBox> = [];
   public wellCoverForm: FormGroup;
   // 进井
   private enterFormsBody: any;
-  public enterFormBodyHtml: Array<FormHtml> = [];
+  public enterFormBodyHtml: Array<TextBox> = [];
   public enterForms: Array<FormGroup> = [];
   // 出井
   private outFormsBody: any;
-  public outFormBodyHtml: Array<FormHtml> = [];
+  public outFormBodyHtml: Array<TextBox> = [];
   public outForms: Array<FormGroup> = [];
   // 传感器
   private sensorsFormsBody: any;
-  public sensorsFormBodyHtml: Array<FormHtml> = [];
+  public sensorsFormBodyHtml: Array<TextBox> = [];
   public sensorsForms: Array<FormGroup> = [];
   constructor(
     private fb: FormBuilder,
@@ -64,17 +64,17 @@ export class WellAddComponent implements OnInit {
       gpsId: ['', Validators.required],
     };
     this.wellCoverFormBodyHtml = [
-      // new FormHtml('井ID', 'manholeId', [[]], ''),
-      // new FormHtml('省地区ID', 'provinceRegionId', [[]], ''),
-      // new FormHtml('市地区ID', 'cityRegionId', [[]], ''),
-      // new FormHtml('（县/区）地区ID', 'countyRegionId', [[]], ''),
-      // new FormHtml('（镇/乡）地区ID', 'townRegionId', [[]], ''),
-      new FormHtml('传感器个数', 'sensorsize', [[]], ''),
-      new FormHtml('材质', 'material', [[]], ''),
-      new FormHtml('GPS对应地址', 'gpsPosition', [[]], ''),
-      new FormHtml('数据收集器', 'dataCollectorId', [[]], ''),
-      new FormHtml('创建时间', 'creatTime', [[]], ''),
-      new FormHtml('GPSID', 'gpsId', [[]], ''),
+      // new TextBox('井ID', 'manholeId', [[]], 'text', '), ',
+      // new TextBox('省地区ID', 'provinceRegionId', [[]], 'text', '), ',
+      // new TextBox('市地区ID', 'cityRegionId', [[]], 'text', '), ',
+      // new TextBox('（县/区）地区ID', 'countyRegionId', [[]], 'text', '), ',
+      // new TextBox('（镇/乡）地区ID', 'townRegionId', [[]], 'text', '), ',
+      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '', ''),
+      new TextBox('材质', 'material', [[]], 'text', '', ''),
+      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '', ''),
+      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '', ''),
+      new TextBox('创建时间', 'creatTime', [[]], 'date', '', ''),
+      new TextBox('GPSID', 'gpsId', [[]], 'text', '', ''),
     ];
     // 进井
     this.enterFormsBody = {
@@ -86,12 +86,12 @@ export class WellAddComponent implements OnInit {
       inFlowPipeLength: ['', Validators.required],
     };
     this.enterFormBodyHtml = [
-      new FormHtml('井ID', 'manholeId', [[]], ''),
-      new FormHtml('进井ID', 'inFlowRelationId', [[]], ''),
-      new FormHtml('进井管道ID', 'inFlowPipeId', [[]], ''),
-      new FormHtml('进井管道半径', 'inFlowPipeRadius', [[]], ''),
-      new FormHtml('进井管道倾斜度', 'inFlowPipeSlope', [[]], ''),
-      new FormHtml('进井管道长度', 'inFlowPipeLength', [[]], ''),
+      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
+      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '', ''),
+      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '', ''),
+      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '', ''),
+      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '', ''),
+      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '', ''),
     ];
     // 出井
     this.outFormsBody = {
@@ -103,12 +103,12 @@ export class WellAddComponent implements OnInit {
       flowOutPipeLength: ['', Validators.required],
     };
     this.outFormBodyHtml = [
-      new FormHtml('井ID', 'manholeId', [[]], ''),
-      new FormHtml('出井ID', 'flowOutRelationId', [[]], ''),
-      new FormHtml('出井管道ID', 'flowOutPipeId', [[]], ''),
-      new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], ''),
-      new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], ''),
-      new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], ''),
+      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
+      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '', ''),
+      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '', ''),
+      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '', ''),
+      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '', ''),
+      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '', ''),
     ];
     // 传感器
     this.sensorsFormsBody = {
@@ -121,13 +121,13 @@ export class WellAddComponent implements OnInit {
       dataCollectorId: ['', Validators.required],
     };
     this.sensorsFormBodyHtml = [
-      new FormHtml('井ID', 'initialManholeId', [[]], ''),
-      new FormHtml('传感器所属模式', 'sensormode', [[]], ''),
-      new FormHtml('模块ID', 'modeId', [[]], ''),
-      new FormHtml('高度', 'hight', [[]], ''),
-      new FormHtml('传感器在模块中的位置', 'modePlace', [[]], ''),
-      new FormHtml('导管ID', 'conduitId', [[]], ''),
-      new FormHtml('数据收集器ID', 'dataCollectorId', [[]], '')
+      new TextBox('井ID', 'initialManholeId', [[]], 'text', '', ''),
+      new TextBox('传感器所属模式', 'sensormode', [[]], 'text', '', ''),
+      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
+      new TextBox('高度', 'hight', [[]], 'text', '', ''),
+      new TextBox('传感器在模块中的位置', 'modePlace', [[]], 'text', '', ''),
+      new TextBox('导管ID', 'conduitId', [[]], 'text', '', ''),
+      new TextBox('数据收集器ID', 'dataCollectorId', [[]], 'text', '', '')
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);

@@ -26,7 +26,8 @@
              </div>
              <div class="form-group pull-left" *ngFor="let field of wellCoverFormBodyHtml">
                <label>{{field.name}}&nbsp;:&nbsp;</label>
-               <input type="text" formControlName="{{field.content}}">
+               {{field.type}}
+               <input type="{{field.type}}" formControlName="{{field.content}}">
              </div>
            </form>
          </div>
@@ -43,7 +44,7 @@
              </div>
              <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml; let i  = index">
                <label>{{f.name}}:</label>
-               <input type="text" formControlName="{{f.content}}">
+               <input type="{{f.type}}" formControlName="{{f.content}}">
              </div>
              <div class="form-group pull-right">
                <label></label>
@@ -91,7 +92,7 @@
              </div>
              <div class="form-group pull-left" *ngFor="let f of outFormBodyHtml">
                <label>{{f.name}}:</label>
-               <input type="text" formControlName="{{f.content}}">
+               <input type="{{f.type}}" formControlName="{{f.content}}">
              </div>
              <div class="form-group pull-right">
                <label></label>

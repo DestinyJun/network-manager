@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormHtml, UsePageQueryUser, UserInfo} from '../../shared/global.service';
+import {TextBox, UsePageQueryUser, UserInfo} from '../../shared/global.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReqService} from '../../shared/req.service';
@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
   public inputvalid: boolean;
   public mustone: boolean;
   public gtone: boolean;
-  public fields: Array<FormHtml>;
+  public fields: Array<TextBox>;
   constructor(
               public modalService: BsModalService,
               public req: ReqService,
@@ -38,21 +38,21 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.pageBody = new UsePageQueryUser('', 1, 10, '', '', '', '');
     this.fields = [
-      new FormHtml('身份证号码', 'idCardNo', [['required', '此项为必填']], ''),
-      new FormHtml('账号', 'username', [['required', '此项为必填']], ''),
-      new FormHtml('密码', 'password', [['required', '此项为必填']], ''),
-      new FormHtml('用户性别', 'gender', [['required', '此项为必填']], ''),
-      new FormHtml('用户年纪', 'age', [['required', '此项为必填']], ''),
-      new FormHtml('用户电话', 'phone', [['required', '此项为必填']], ''),
-      new FormHtml('用户住址', 'address', [['required', '此项为必填']], ''),
-      new FormHtml('姓名', 'name', [['required', '此项为必填']], ''),
-      new FormHtml('账号是否锁定', 'locked', [['required', '此项为必填']], ''),
-      new FormHtml('角色id', 'roleId', [['required', '此项为必填']], ''),
-      new FormHtml('省地区id', 'provinceRegionId', [['required', '此项为必填']], ''),
-      new FormHtml('市地区Id', 'cityRegionId', [['required', '此项为必填']], ''),
-      new FormHtml('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']], ''),
-      new FormHtml('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']], ''),
-      new FormHtml('管辖地区名称', 'managementArea', [['required', '此项为必填']], ''),
+      new TextBox('身份证号码', 'idCardNo', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('账号', 'username', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('密码', 'password', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('用户性别', 'gender', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('用户年纪', 'age', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('用户电话', 'phone', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('用户住址', 'address', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('姓名', 'name', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('账号是否锁定', 'locked', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('角色id', 'roleId', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('省地区id', 'provinceRegionId', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('市地区Id', 'cityRegionId', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('管辖地区名称', 'managementArea', [['required', '此项为必填']], 'text', '', ''),
     ];
     //  增加模态框表单
     this.userAddForm = this.fb.group({

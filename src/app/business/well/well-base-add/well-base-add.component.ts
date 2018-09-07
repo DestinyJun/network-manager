@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {FormHtml, GlobalService} from '../../../shared/global.service';
+import {GlobalService, TextBox} from '../../../shared/global.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {CommonfunService} from '../../../shared/commonfun.service';
 import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.service';
@@ -26,15 +26,15 @@ export class WellBaseAddComponent implements OnInit {
   public validRegion = false;
   // 井盖的
   private wellCoverFormsBody: any;
-  public wellCoverFormBodyHtml: Array<FormHtml> = [];
+  public wellCoverFormBodyHtml: Array<TextBox> = [];
   public wellCoverForm: FormGroup;
   // 进井
   private enterFormsBody: any;
-  public enterFormBodyHtml: Array<FormHtml> = [];
+  public enterFormBodyHtml: Array<TextBox> = [];
   public enterForms: Array<FormGroup> = [];
   // 出井
   private outFormsBody: any;
-  public outFormBodyHtml: Array<FormHtml> = [];
+  public outFormBodyHtml: Array<TextBox> = [];
   public outForms: Array<FormGroup> = [];
   constructor(
     private fb: FormBuilder,
@@ -64,24 +64,24 @@ export class WellBaseAddComponent implements OnInit {
       high: ['', Validators.required],
     };
     this.wellCoverFormBodyHtml = [
-      // new FormHtml('井ID', 'manholeId', [[]], ''),
-      // new FormHtml('省地区ID', 'provinceRegionId', [[]], ''),
-      // new FormHtml('市地区ID', 'cityRegionId', [[]], ''),
-      // new FormHtml('（县/区）地区ID', 'countyRegionId', [[]], ''),
-      // new FormHtml('（镇/乡）地区ID', 'townRegionId', [[]], ''),
-      new FormHtml('传感器个数', 'sensorsize', [[]], ''),
-      new FormHtml('材质', 'material', [[]], ''),
-      new FormHtml('GPS对应地址', 'gpsPosition', [[]], ''),
-      new FormHtml('数据收集器', 'dataCollectorId', [[]], ''),
-      new FormHtml('创建时间', 'creatTime', [[]], ''),
-      new FormHtml('GPSID', 'gpsId', [[]], ''),
-      new FormHtml('出井个数', 'flowOutManholeNum', [[]], ''),
-      new FormHtml('进井个数', 'inFlowManholeNum', [[]], ''),
-      new FormHtml('井高度(单位 / 米)', 'high', [[]], ''),
+      // new TextBox('井ID', 'manholeId', [[]], 'text', '), ',
+      // new TextBox('省地区ID', 'provinceRegionId', [[]], 'text', '), ',
+      // new TextBox('市地区ID', 'cityRegionId', [[]], 'text', '), ',
+      // new TextBox('（县/区）地区ID', 'countyRegionId', [[]], 'text', '), ',
+      // new TextBox('（镇/乡）地区ID', 'townRegionId', [[]], 'text', '), ',
+      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '', ''),
+      new TextBox('材质', 'material', [[]], 'text', '', ''),
+      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '', ''),
+      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '', ''),
+      new TextBox('创建时间', 'creatTime', [[]], 'date', '', ''),
+      new TextBox('GPSID', 'gpsId', [[]], 'text', '', ''),
+      new TextBox('出井个数', 'flowOutManholeNum', [[]], 'text', '', ''),
+      new TextBox('进井个数', 'inFlowManholeNum', [[]], 'text', '', ''),
+      new TextBox('井高度(单位 / 米)', 'high', [[]], 'text', '', ''),
     ];
     // 进井
     this.enterFormsBody = {
-      manholeId: [{value: '请在井盖中填写井ID'}, Validators.required],
+      manholeId: ['', Validators.required],
       inFlowRelationId: ['', Validators.required],
       inFlowPipeId: ['', Validators.required],
       inFlowPipeRadius: ['', Validators.required],
@@ -90,16 +90,16 @@ export class WellBaseAddComponent implements OnInit {
       model: [[]]
     };
     this.enterFormBodyHtml = [
-      new FormHtml('井ID', 'manholeId', [[]], ''),
-      new FormHtml('进井ID', 'inFlowRelationId', [[]], ''),
-      new FormHtml('进井管道ID', 'inFlowPipeId', [[]], ''),
-      new FormHtml('进井管道半径', 'inFlowPipeRadius', [[]], ''),
-      new FormHtml('进井管道倾斜度', 'inFlowPipeSlope', [[]], ''),
-      new FormHtml('进井管道长度', 'inFlowPipeLength', [[]], ''),
+      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
+      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '', ''),
+      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '', ''),
+      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '', ''),
+      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '', ''),
+      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '', ''),
     ];
     // 出井
     this.outFormsBody = {
-      manholeId: [{value: '请在井盖中填写井ID'}, Validators.required],
+      manholeId: ['', Validators.required],
       flowOutRelationId: ['', Validators.required],
       flowOutPipeId: ['', Validators.required],
       flowOutPipeRadius: ['', Validators.required],
@@ -108,13 +108,13 @@ export class WellBaseAddComponent implements OnInit {
       model: ['']
     };
     this.outFormBodyHtml = [
-      new FormHtml('井ID', 'manholeId', [[]], ''),
-      new FormHtml('出井ID', 'flowOutRelationId', [[]], ''),
-      new FormHtml('出井管道ID', 'flowOutPipeId', [[]], ''),
-      new FormHtml('出井管道半径', 'flowOutPipeRadius', [[]], ''),
-      new FormHtml('出井管道倾斜度', 'flowOutPipeSlope', [[]], ''),
-      new FormHtml('出井管道长度', 'flowOutPipeLength', [[]], ''),
-      // new FormHtml('模块ID', 'model', [[]], ''),
+      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
+      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '', ''),
+      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '', ''),
+      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '', ''),
+      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '', ''),
+      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '', ''),
+      // new TextBox('模块ID', 'model', [[]], 'text', '), ',
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);
@@ -122,8 +122,8 @@ export class WellBaseAddComponent implements OnInit {
       .debounceTime(1000)
       .subscribe(value => {
       this.wellCoverForm.patchValue({manholeId: value});
-      this.enterFormsBody.manholeId[0].value = value;
-      this.outFormsBody.manholeId[0].value = value;
+      this.enterFormsBody.manholeId[0] = value;
+      this.outFormsBody.manholeId[0] = value;
       if (this.enterForms.length > 0) {
         for (let i = 0; i < this.enterForms.length; i++) {
           this.enterForms[i].patchValue({manholeId: value});
@@ -323,6 +323,7 @@ export class WellBaseAddComponent implements OnInit {
         this.validRegion = true;
       }else {
         console.dir(this.wellBaseInfo);
+        // 字段有问题
         this.req.addBaseWell(this.wellBaseInfo).then(value => {
           console.log(value);
         });

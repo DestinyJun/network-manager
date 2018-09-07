@@ -114,12 +114,14 @@ export class SensorInfo {
   }
 }
 
-// 表单类
-export class FormHtml {
+// 文本框类
+export class TextBox {
   constructor(
     public name: string,
     public content: string,
     public valids: Array<Array<any>>,
+    public type: string,
+    public placeholder: string,
     public unit: string
   ) {
   }
