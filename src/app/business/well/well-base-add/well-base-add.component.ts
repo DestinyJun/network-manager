@@ -69,15 +69,15 @@ export class WellBaseAddComponent implements OnInit {
       // new TextBox('市地区ID', 'cityRegionId', [[]], 'text', '), ',
       // new TextBox('（县/区）地区ID', 'countyRegionId', [[]], 'text', '), ',
       // new TextBox('（镇/乡）地区ID', 'townRegionId', [[]], 'text', '), ',
-      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '', ''),
-      new TextBox('材质', 'material', [[]], 'text', '', ''),
-      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '', ''),
+      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '长度不能超过5位', ''),
+      new TextBox('材质', 'material', [[]], 'text', '长度不能超过12位，中文不超过6位', ''),
+      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '长度不能超过50位', ''),
       new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '', ''),
-      new TextBox('创建时间', 'creatTime', [[]], 'date', '', ''),
-      new TextBox('GPSID', 'gpsId', [[]], 'text', '', ''),
-      new TextBox('出井个数', 'flowOutManholeNum', [[]], 'text', '', ''),
-      new TextBox('进井个数', 'inFlowManholeNum', [[]], 'text', '', ''),
-      new TextBox('井高度(单位 / 米)', 'high', [[]], 'text', '', ''),
+      new TextBox('创建时间', 'creatTime', [[]], 'date', '长度不能超过11位', ''),
+      new TextBox('GPSID', 'gpsId', [[]], 'text', '输入经纬度,以英文逗号分割,长度不能超过30位', ''),
+      new TextBox('出井个数', 'flowOutManholeNum', [[]], 'text', '长度不能超过10位', ''),
+      new TextBox('进井个数', 'inFlowManholeNum', [[]], 'text', '长度不能超过10位', ''),
+      new TextBox('井高度(单位 / 米)', 'high', [[]], 'text', '长度不能超过10位', ''),
     ];
     // 进井
     this.enterFormsBody = {
@@ -91,11 +91,12 @@ export class WellBaseAddComponent implements OnInit {
     };
     this.enterFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '', ''),
-      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '', ''),
-      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '', ''),
-      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '', ''),
-      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '', ''),
+      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '长度不能超过11位', ''),
+      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '长度不能超过20位', ''),
+      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '长度不能超过10位', ''),
+      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '长度不能超过10位', ''),
+      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '长度不能超过10位', ''),
+      // new TextBox('模块ID', 'model', [[]], 'text', '), ',
     ];
     // 出井
     this.outFormsBody = {
@@ -109,11 +110,11 @@ export class WellBaseAddComponent implements OnInit {
     };
     this.outFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '', ''),
-      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '', ''),
-      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '', ''),
-      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '', ''),
-      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '', ''),
+      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '长度不能超过11位', ''),
+      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '长度不能超过20位', ''),
+      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '长度不能超过10位', ''),
+      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '长度不能超过10位', ''),
+      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '长度不能超过10位', ''),
       // new TextBox('模块ID', 'model', [[]], 'text', '), ',
     ];
     // 井ID保持一致
@@ -138,7 +139,6 @@ export class WellBaseAddComponent implements OnInit {
   }
   // 获取地区ID
   public getRegionInfo(e): void {
-    console.log(e);
     this.wellCoverForm.patchValue(e);
   }
   // 井tabs选项
@@ -286,7 +286,7 @@ export class WellBaseAddComponent implements OnInit {
         }
     }else {
       enter = true;
-      delete this.wellBaseInfo.inFlowManholelist;
+      this.wellBaseInfo.inFlowManholelist = [];
     }
     // 验证出井全部表单
     if (this.outForms.length > 0) {
@@ -302,18 +302,17 @@ export class WellBaseAddComponent implements OnInit {
       }
     }else {
       out = true;
-      delete this.wellBaseInfo.flowOutManholelist;
+      this.wellBaseInfo.flowOutManholelist = [];
     }
     // 验证模块ID是否输入
     if (this.wellBaseInfo.manholeMode === '') {
         moduleId = true;
     } else if (this.wellBaseInfo.manholeMode.indexOf(' ') >= 0) {
-        console.log(1);
         moduleId = true;
+        this.allFormsValid = true;
     } else {
       moduleId = false;
     }
-    console.log(moduleId);
     if (moduleId) {
       this.validAfterFocus('.moduleId');
     }
@@ -322,7 +321,7 @@ export class WellBaseAddComponent implements OnInit {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       }else {
-        console.dir(this.wellBaseInfo);
+        this.validRegion = false;
         // 字段有问题
         this.req.addBaseWell(this.wellBaseInfo).then(value => {
           console.log(value);

@@ -69,12 +69,12 @@ export class WellAddComponent implements OnInit {
       // new TextBox('市地区ID', 'cityRegionId', [[]], 'text', '), ',
       // new TextBox('（县/区）地区ID', 'countyRegionId', [[]], 'text', '), ',
       // new TextBox('（镇/乡）地区ID', 'townRegionId', [[]], 'text', '), ',
-      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '', ''),
-      new TextBox('材质', 'material', [[]], 'text', '', ''),
-      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '', ''),
-      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '', ''),
+      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '长度不超过5位', ''),
+      new TextBox('材质', 'material', [[]], 'text', '长度不超过12位，中文不超过6位', ''),
+      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '长度不超过50位', ''),
+      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '长度不超过12位', ''),
       new TextBox('创建时间', 'creatTime', [[]], 'date', '', ''),
-      new TextBox('GPSID', 'gpsId', [[]], 'text', '', ''),
+      new TextBox('GPSID', 'gpsId', [[]], 'text', '输入经纬度，以英文逗号分隔，长度不超过30位', ''),
     ];
     // 进井
     this.enterFormsBody = {
@@ -87,11 +87,11 @@ export class WellAddComponent implements OnInit {
     };
     this.enterFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '', ''),
-      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '', ''),
-      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '', ''),
-      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '', ''),
-      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '', ''),
+      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '长度不超过11位', ''),
+      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '长度不超过20位', ''),
+      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '长度不超过10位', ''),
+      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '长度不超过10位', ''),
+      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '长度不超过10位', ''),
     ];
     // 出井
     this.outFormsBody = {
@@ -104,11 +104,11 @@ export class WellAddComponent implements OnInit {
     };
     this.outFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '', ''),
-      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '', ''),
-      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '', ''),
-      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '', ''),
-      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '', ''),
+      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '长度不超过11位', ''),
+      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '长度不超过20位', ''),
+      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '长度不超过10位', ''),
+      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '长度不超过10位', ''),
+      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '长度不超过10位', ''),
     ];
     // 传感器
     this.sensorsFormsBody = {
@@ -122,12 +122,12 @@ export class WellAddComponent implements OnInit {
     };
     this.sensorsFormBodyHtml = [
       new TextBox('井ID', 'initialManholeId', [[]], 'text', '', ''),
-      new TextBox('传感器所属模式', 'sensormode', [[]], 'text', '', ''),
-      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
-      new TextBox('高度', 'hight', [[]], 'text', '', ''),
-      new TextBox('传感器在模块中的位置', 'modePlace', [[]], 'text', '', ''),
-      new TextBox('导管ID', 'conduitId', [[]], 'text', '', ''),
-      new TextBox('数据收集器ID', 'dataCollectorId', [[]], 'text', '', '')
+      new TextBox('传感器所属模式', 'sensormode', [[]], 'text', '长度不能超过5位的整数', ''),
+      new TextBox('模块ID', 'modeId', [[]], 'text', '长度不能超过5位的整数', ''),
+      new TextBox('高度', 'hight', [[]], 'text', '长度不能超过20位', ''),
+      new TextBox('传感器在模块中的位置', 'modePlace', [[]], 'text', '长度为1位', ''),
+      new TextBox('导管ID', 'conduitId', [[]], 'text', '长度不能超过20位', ''),
+      new TextBox('数据收集器ID', 'dataCollectorId', [[]], 'text', '长度不能超过12位', '')
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);
