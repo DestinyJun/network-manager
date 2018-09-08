@@ -49,6 +49,7 @@ input{
   color: #ffffff;
 }
 .table > tbody > tr > td {
+  cursor: pointer;
   text-align: center;
   background-color: rgba(37,165,255,.1);
   color: white;
@@ -104,4 +105,16 @@ input{
   color: white;
   background: rgba(0,0,0,0.6);
   outline: none;
+}
+
+/*操作框*/
+.hintBox {
+  position: absolute;
+  width: 180px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+  background-color: #048992;
+  top: 40vh;
+  right: 100px;
 }

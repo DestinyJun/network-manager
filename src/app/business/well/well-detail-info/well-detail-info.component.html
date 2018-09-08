@@ -5,7 +5,10 @@
   <!--</div>-->
   <div id="container-fluid">
     <div class="row wellDetailHeader">
-      <div class="text-center">
+      <button type="button" class="btn btn-primary pull-left" [routerLink]="[backUrl]"><span
+        class="fa fa-backward"></span>返回
+      </button>
+      <div class="wellDetailTitle">
         <h4 *ngIf="manholeCoverInfo">井的ID为: &nbsp; {{wellId}}</h4>
         <h4 *ngIf="!manholeCoverInfo">该井不存在</h4>
       </div>
@@ -18,18 +21,19 @@
       </select>
     </div>
     <div id="wellCover" class="row" *ngIf="manholeCoverInfo">
-        <h4>这是井盖信息详情：</h4><br>
-        <p *ngFor="let cover of wellCoverDetail">
-          <span>{{cover.name}}:</span>
-          <span>{{manholeCoverInfo[cover.content]}}</span>
-          <span>&nbsp;{{cover.unit}}</span>
-        </p>
-      </div>
+      <h4>井盖信息详情：</h4><br>
+      <p *ngFor="let cover of wellCoverDetail">
+        <span>{{cover.name}}:</span>
+        <span>{{manholeCoverInfo[cover.content]}}</span>
+        <span>&nbsp;{{cover.unit}}</span>
+      </p>
+    </div>
+    <div class="clearfix"></div>
     <div id="enterWell">
       <h5 *ngIf="!inFlowManholelist">该井没有进井数据</h5>
       <div *ngIf="inFlowManholelist">
-        <h4>这是进井详情：</h4><br>
-        <div *ngFor="let inflow of inFlowManholelist;let i = index">
+        <h4>进井详情：</h4><br>
+        <div *ngFor="let inflow of inFlowManholelist;let i = index" class="element pull-left">
           <span class="sequence">{{i + 1}}</span>
           <p *ngFor="let enter of enterWellDetail">
             <span>{{enter.name}}:</span>
@@ -37,13 +41,14 @@
             <span>&nbsp;{{enter.unit}}</span>
           </p>
         </div>
+        <div class="clearfix"></div>
       </div>
     </div>
     <div id="outWell" class="row">
       <h5 *ngIf="!flowOutManholelist">该井没有出井数据</h5>
       <div *ngIf="flowOutManholelist">
-        <h4>这是出井详情：</h4><br>
-        <div *ngFor="let flowout of flowOutManholelist;let i = index">
+        <h4>出井详情：</h4><br>
+        <div *ngFor="let flowout of flowOutManholelist;let i = index" class="element pull-left">
           <span class="sequence">{{i + 1}}</span>
           <p *ngFor="let out of outWellDetail">
             <span>{{out.name}}:</span>
@@ -53,11 +58,12 @@
         </div>
       </div>
     </div>
+    <div class="clearfix"></div>
     <div id="sensors" class="row">
       <h5 *ngIf="!sensorInfoList">该井没有传感器数据</h5>
       <div *ngIf="sensorInfoList">
-        <h4>这是传感器详情：</h4><br>
-        <div *ngFor="let sensor of sensorInfoList;let i = index">
+        <h4>传感器详情：</h4><br>
+        <div *ngFor="let sensor of sensorInfoList;let i = index" class="element pull-left">
           <span class="sequence">{{i + 1}}</span>
           <p *ngFor="let sen of sensorsDetail">
             <span>{{sen.name}}:</span>
@@ -77,7 +83,7 @@
   <div class="modal-body">
     <input type="text" class="form-control" #wellId>
     <div class="row text-center">
-      <button type="button" class="btn btn-primary" (click)="getWellId(wellId)">确定</button>
+      <button type="button" class="btn btn-primary" (click)="getWellId(wellId.value)">确定</button>
     </div>
   </div>
 </div>

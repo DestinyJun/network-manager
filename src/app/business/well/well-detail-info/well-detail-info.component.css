@@ -40,6 +40,14 @@
 .wellDetailHeader {
 
 }
+.wellDetailTitle {
+  margin-left: 40%;
+  margin-top: 50px;
+}
+.element {
+  border: 2px solid rgba(71, 249, 240, 0.6);
+  background-color: rgba(0,0,0,0.7);
+}
 .wellDetail select {
   position: static;
   border: none;
@@ -60,6 +68,7 @@
 #outWell,
 #sensors
 {
+  margin-top: 15px;
   border-bottom: 1px dashed #FFFFFF;
 }
 .sequence{
@@ -77,6 +86,13 @@
 {
   margin-left: 30px;
 }
+#wellCover p span,
+#enterWell p span,
+#outWell p span,
+#sensors p span
+{
+  margin-left: 10px;
+}
 h4{
   margin-bottom: 0px;
 }
@@ -84,5 +100,6 @@ h4{
   max-width: 100%;
 }
 p > span{
-  color: #47f9f4;
+  /*color: #47f9f4;*/
+  color: #FFFFFF;
 }

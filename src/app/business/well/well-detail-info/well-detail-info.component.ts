@@ -21,6 +21,10 @@ export class WellDetailInfoComponent implements OnInit {
   public outWellDetail: Array<TextBox>;
   public sensorsDetail: Array<TextBox>;
   public wellId: string;
+  // 控制返回按钮
+  protected controlBackBtn: boolean;
+  // 保存返回的url
+  protected backUrl: string;
   constructor(
     private routerInfo: ActivatedRoute,
     private router: Router,
@@ -30,6 +34,14 @@ export class WellDetailInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.routerInfo.queryParams.subscribe((data) => {
+      if (data.id) {
+        this.backUrl = data.parentUrl;
+        this.getWellId(data.id);
+        this.isFillInWellId = false;
+        this.controlBackBtn = true;
+      }
+    });
     // 井盖详情
     this.wellCoverDetail = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
@@ -80,13 +92,12 @@ export class WellDetailInfoComponent implements OnInit {
   // 获取井ID
   public getWellId(wellId: any) {
     if (wellId.value !== '') {
-     this.req.wellDetailInfo({manholeId: wellId.value}).then(value => {
+     this.req.wellDetailInfo({manholeId: wellId}).then(value => {
        this.manholeCoverInfo = this.commonfun.judgeVarOrObjectIsValid(value['msg']['manholeCoverInfo']);
        this.inFlowManholelist = this.commonfun.judgeVarOrObjectIsValid(value['msg']['inFlowManholelist']);
        this.flowOutManholelist = this.commonfun.judgeVarOrObjectIsValid(value['msg']['flowOutManholelist']);
        this.sensorInfoList = this.commonfun.judgeVarOrObjectIsValid(value['msg']['sensorInfoList']);
        this.isFillInWellId = false;
-       this.wellId = wellId.value;
      });
     }else {
       const remindMsg = '井ID不能为空';

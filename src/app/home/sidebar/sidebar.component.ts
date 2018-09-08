@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
       new NavListChild('基本信息(表)', false, 'well/wellinfo'),
       new NavListChild('详情信息(单个井)', false, 'well/wellDetailInfo'),
       new NavListChild('修改井', false, 'well/wellmodify'),
+      new NavListChild('删除井', false, 'well/welldelete'),
     ] , true),
     new NavList('维修管理', '', 'fa fa-refresh', false, [] , true),
     new NavList('历史详情', '', 'fa fa-history', false, [] , true),

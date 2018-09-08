@@ -39,7 +39,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let data of datas; let i = index">
+          <tr *ngFor="let data of datas; let i = index" title="点击进行操作" (click)="openHintBox($event, data.manholeId)">
             <td><input type="checkbox" (click)="check(data, $event)"></td>
             <td>{{data.id}}</td>
             <td>{{data.manholeId}}</td>
@@ -64,7 +64,11 @@
     <div class="row text-center">
       <app-paging *ngIf="resDatas" [num]="resDatas['paingmsg']['totalPage']" (pageBodyChange)="getPageBody($event)"></app-paging>
     </div>
+    <div class="row hintBox text-center" [hidden]="controlHintBox">
+      <button type="button" class="btn btn-primary" (click)="oprate('modify')">修改</button>
+      <button type="button" class="btn btn-primary" (click)="oprate('detail')">查看详情</button>
+      <button type="button" class="btn btn-primary" (click)="oprate('delete')">删除</button>
+    </div>
   </div>
 </div>
-
 

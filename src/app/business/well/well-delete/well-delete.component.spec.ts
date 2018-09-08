@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PagingWellComponent } from './paging-well.component';
+import { WellDeleteComponent } from './well-delete.component';
 
-describe('PagingWellComponent', () => {
-  let component: PagingWellComponent;
-  let fixture: ComponentFixture<PagingWellComponent>;
+describe('WellDeleteComponent', () => {
+  let component: WellDeleteComponent;
+  let fixture: ComponentFixture<WellDeleteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PagingWellComponent ]
+      declarations: [ WellDeleteComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PagingWellComponent);
+    fixture = TestBed.createComponent(WellDeleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
