@@ -1,11 +1,21 @@
 <div class="container-fluid home" *ngIf="!isFillInWellId" (click)="(allFormsValid = false)">
   <div class="row">
+    <button *ngIf="controlBackBtn" type="button" class="btn btn-primary backBtn" [routerLink]="[backUrl]"><span
+      class="fa fa-backward"></span>返回
+    </button>
+  </div>
+  <div class="row">
     <div class="col-xs-12 wellTabsMenu" #wellTabsMenu>
       <div class="title text-center pull-left active"><a (click)="changeBgColor($event, wellCover, wellCoverForm)">井盖添加</a></div>
       <div class="title text-center pull-left"><a (click)="changeBgColor($event, enterWell, enterForms)">进井添加</a></div>
       <div class="title text-center pull-left"><a (click)="changeBgColor($event, outWell, outForms)">出井添加</a></div>
       <div class="title text-center pull-left"><a (click)="changeBgColor($event, sensors, sensorsForms)">传感器添加</a></div>
       <div class="wellID text-center pull-right"><span>当前井ID为：{{wellID.value}}</span></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="pull-right">
+      <app-region (regionInfoChange)="getRegionInfo($event)"></app-region>
     </div>
   </div>
   <div class="row">
@@ -33,10 +43,10 @@
           <div class="row" *ngFor="let form of enterForms; let i = index">
             <form class="form-inline" [formGroup]="form">
               <div class="form-group pull-left">
-                <label></label>
+                <label>&nbsp;</label>
                 <input type="button" class="sequence" value="{{i + 1}}">
               </div>
-              <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml">
+              <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml; let i  = index">
                 <label>{{f.name}}:</label>
                 <input type="{{f.type}}" formControlName="{{f.content}}" placeholder="{{f.placeholder}}">
               </div>
@@ -47,6 +57,26 @@
               <div class="form-group pull-right">
                 <label></label>
                 <input type="button" value="删除" (click)="deleteForm(enterForms, form)">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="button" value="增加模块Id" (click)="openSelModelId($event)">
+              </div>
+              <div class="modelSelRegion">
+                <div class="content">
+                  <div class="modelHeader">
+                    <h4>第{{i + 1}}个表单模块Id增加</h4>
+                  </div>
+                  <div class="modelBody">
+                    <!--这里将会动态添加-->
+                  </div>
+                  <div class="clearfix"></div>
+                  <span class="fa fa-plus-circle" title="添加" (click)="addModelId($event)"></span>
+                  <div class="row text-center">
+                    <button type="button" class="saveBtn" (click)="saveCurrentModelId(form, $event)">保存</button>
+                    <button type="button" class="closeBtn" (click)="closeSelModelId($event)">关闭</button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -75,6 +105,26 @@
               <div class="form-group pull-right">
                 <label></label>
                 <input type="button" value="删除" (click)="deleteForm(outForms, form)">
+              </div>
+              <div class="form-group pull-right">
+                <label></label>
+                <input type="button" value="增加模块Id" (click)="openSelModelId($event)">
+              </div>
+              <div class="modelSelRegion">
+                <div class="content">
+                  <div class="modelHeader">
+                    <h4>第{{i + 1}}个表单模块Id增加</h4>
+                  </div>
+                  <div class="modelBody">
+                    <!--这里将会动态添加-->
+                  </div>
+                  <div class="clearfix"></div>
+                  <span class="fa fa-plus-circle" title="添加" (click)="addModelId($event)"></span>
+                  <div class="row text-center">
+                    <button type="button" class="saveBtn" (click)="saveCurrentModelId(form, $event)">保存</button>
+                    <button type="button" class="closeBtn" (click)="closeSelModelId($event)">关闭</button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -115,6 +165,7 @@
   </div>
   <div class="row text-center">
     <span *ngIf="allFormsValid" [ngStyle]="{color: 'red'}">当前表单验证失败!</span><br>
+    <p *ngIf="validRegion" [ngStyle]="{color: 'red'}" class="warn">地址未选择!</p><br>
     <button class="btn btn-primary" (click)="submitAllFormInfo($event)">提交井信息</button>
   </div>
 </div>
@@ -139,7 +190,7 @@
   </div>
   <div class="modal-body">
     <input type="text" class="form-control" #wellId>
-    <div class="row">
+    <div class="row text-center">
       <button type="button" class="btn btn-primary painWellId" (click)="getWellId(wellId)">确定</button>
     </div>
   </div>

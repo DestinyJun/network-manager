@@ -21,5 +21,6 @@ input {
   margin-bottom: 15px;
 }
 .backBtn {
+  padding: 3px 5px;
   margin-left: 15px;
 }

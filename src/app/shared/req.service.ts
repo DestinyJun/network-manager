@@ -108,7 +108,7 @@ export class ReqService {
   }
   // 井修改
   public updateWell(data): Promise<any> {
-    return this.ajaxRestNoSerialize(this.IP_Port + '/updateManholeupdateManhole', JSON.stringify(data));
+    return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/updateManhole', JSON.stringify(data));
   }
 }
 

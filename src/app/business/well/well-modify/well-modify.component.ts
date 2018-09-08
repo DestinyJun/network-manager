@@ -5,6 +5,7 @@ import {CommonfunService} from '../../../shared/commonfun.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {GlobalService, TextBox} from '../../../shared/global.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-well-modify',
@@ -17,8 +18,7 @@ export class WellModifyComponent implements OnInit {
   public flowOutManholelist: any;
   public sensorInfoList: any;
   protected isFillInWellId = true;
-  protected wellId: string;
-  public wellBaseInfo = {
+  public wellDeatilInfo = {
     manholeCoverInfo: null,
     inFlowManholelist: [],
     flowOutManholelist: [],
@@ -44,23 +44,37 @@ export class WellModifyComponent implements OnInit {
   private sensorsFormsBody: any;
   public sensorsFormBodyHtml: Array<TextBox> = [];
   public sensorsForms: Array<FormGroup> = [];
+  private validRegion = false;
+  private backUrl: string;
+  public controlBackBtn = false;
+
   constructor(
     private fb: FormBuilder,
+    private routerInfo: ActivatedRoute,
     private sessionStorage: GlobalService,
     private modalService: BsModalService,
     private commonfun: CommonfunService,
     private wellAddFormsInfo: WellAddFormsInfoService,
     private req: ReqService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
+    this.routerInfo.queryParams.subscribe((data) => {
+      if (data.id) {
+        this.getWellId(data.id);
+        this.isFillInWellId = false;
+        this.backUrl = data.parentUrl;
+        this.controlBackBtn = true;
+      }
+    });
     // 井盖的
-    this.wellCoverFormsBody =  {
+    this.wellCoverFormsBody = {
       manholeId: ['', Validators.required],
-      provinceRegionId: ['', Validators.required],
-      cityRegionId: ['', Validators.required],
-      countyRegionId: ['', Validators.required],
-      townRegionId: ['', Validators.required],
+      provinceRegionId: [''],
+      cityRegionId: [''],
+      countyRegionId: [''],
+      townRegionId: [''],
       sensorsize: ['', Validators.required],
       material: ['', Validators.required],
       gpsPosition: ['', Validators.required],
@@ -83,12 +97,13 @@ export class WellModifyComponent implements OnInit {
     ];
     // 进井
     this.enterFormsBody = {
-      manholeId: [{value: '', disabled: true}, Validators.required],
+      manholeId: ['', Validators.required],
       inFlowRelationId: ['', Validators.required],
       inFlowPipeId: ['', Validators.required],
       inFlowPipeRadius: ['', Validators.required],
       inFlowPipeSlope: ['', Validators.required],
       inFlowPipeLength: ['', Validators.required],
+      modeId: [[]]
     };
     this.enterFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
@@ -100,12 +115,13 @@ export class WellModifyComponent implements OnInit {
     ];
     // 出井
     this.outFormsBody = {
-      manholeId: [{value: '', disabled: true}, Validators.required],
+      manholeId: ['', Validators.required],
       flowOutRelationId: ['', Validators.required],
       flowOutPipeId: ['', Validators.required],
       flowOutPipeRadius: ['', Validators.required],
       flowOutPipeSlope: ['', Validators.required],
       flowOutPipeLength: ['', Validators.required],
+      modeId: [[]]
     };
     this.outFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
@@ -117,12 +133,12 @@ export class WellModifyComponent implements OnInit {
     ];
     // 传感器
     this.sensorsFormsBody = {
-      initialManholeId: [{value: '', disabled: true}, Validators.required],
+      initialManholeId: ['', Validators.required],
       sensormode: ['', Validators.required],
       modeId: ['', Validators.required],
       hight: ['', Validators.required],
       modePlace: ['', Validators.required],
-      conduitId: ['', Validators.required],
+      conduitId: [''],
       dataCollectorId: ['', Validators.required],
     };
     this.sensorsFormBodyHtml = [
@@ -140,9 +156,9 @@ export class WellModifyComponent implements OnInit {
       .debounceTime(1000)
       .subscribe(value => {
         this.wellCoverForm.patchValue({manholeId: value});
-        this.enterFormsBody.manholeId[0].value = value;
-        this.outFormsBody.manholeId[0].value = value;
-        this.sensorsFormsBody.initialManholeId[0].value = value;
+        this.enterFormsBody.manholeId[0] = value;
+        this.outFormsBody.manholeId[0] = value;
+        this.sensorsFormsBody.initialManholeId[0] = value;
         if (this.enterForms.length > 0) {
           for (let i = 0; i < this.enterForms.length; i++) {
             this.enterForms[i].patchValue({manholeId: value});
@@ -160,10 +176,15 @@ export class WellModifyComponent implements OnInit {
         }
       });
   }
+  // 获取地区ID
+  public getRegionInfo(e): void {
+    this.wellCoverForm.patchValue(e);
+  }
   // 获取井ID并写入相应的表单进行修改
-  public getWellId(wellId: any) {
-    if (wellId.value !== '') {
-      this.req.wellDetailInfo({manholeId: wellId.value}).then(value => {
+  public getWellId(id) {
+    const wellId = typeof id === 'object' ? id.value : id;
+    if (wellId !== '') {
+      this.req.wellDetailInfo({manholeId: wellId}).then(value => {
         console.log(value);
         this.manholeCoverInfo = value['msg']['manholeCoverInfo'];
         this.inFlowManholelist = value['msg']['inFlowManholelist'];
@@ -172,24 +193,39 @@ export class WellModifyComponent implements OnInit {
         // 拿到返回数据后，以表单的形式来显示出来，以便用户进行修改
         if (this.manholeCoverInfo) {
           this.wellCoverForm.patchValue(this.manholeCoverInfo);
+          this.wellID.value = this.manholeCoverInfo.manholeId;
         }
         if (this.inFlowManholelist.length) {
           if (this.inFlowManholelist.length > 0) {
             for (let i = 0; i < this.inFlowManholelist.length; i++) {
               this.addForm(null, 'enterForms');
               this.enterForms[i].patchValue(this.inFlowManholelist[i]);
+              const modelBody = document.querySelector('.enterWell modelBody');
+              if (this.inFlowManholelist[i]['modeId']) {
+                for (let j = 0; j < this.inFlowManholelist[i].modeId.length; j++) {
+                  this.initAddModelId(modelBody, this.inFlowManholelist[i].modeId[j]);
+                }
+              }
             }
           }
         }
         if (this.flowOutManholelist.length) {
+          this.formValid = true;
           if (this.flowOutManholelist.length > 0) {
             for (let i = 0; i < this.flowOutManholelist.length; i++) {
               this.addForm(null, 'outForms');
               this.outForms[i].patchValue(this.flowOutManholelist[i]);
+              const modelBody = document.querySelector('.outWell modelBody');
+              if (this.flowOutManholelist[i]['modeId']) {
+                for (let j = 0; j < this.flowOutManholelist[i].modeId.length; j++) {
+                  this.initAddModelId(modelBody, this.flowOutManholelist[i].modeId[j]);
+                }
+              }
             }
           }
         }
         if (this.sensorInfoList.length) {
+          this.formValid = true;
           if (this.sensorInfoList.length > 0) {
             for (let i = 0; i < this.sensorInfoList.length; i++) {
               this.addForm(null, 'sensorsForms');
@@ -197,15 +233,16 @@ export class WellModifyComponent implements OnInit {
             }
           }
         }
-
         this.isFillInWellId = false;
-        this.wellId = wellId.value;
       });
-    }else {
+    } else {
       const remindMsg = '井ID不能为空';
-      wellId.setAttribute('placeholder', remindMsg);
+      if (typeof id === 'object') {
+        id.setAttribute('placeholder', remindMsg);
+      }
     }
   }
+
   // 井tabs选项
   public changeBgColor(e, content, form): void {
     const parent = e.srcElement.parentNode.parentElement;
@@ -213,10 +250,10 @@ export class WellModifyComponent implements OnInit {
     if (form.length >= 0) {
       if (form.length === 0) {
         this.formValid = true;
-      }else {
+      } else {
         if (form[form.length - 1].valid) {
           this.formValid = true;
-        }else {
+        } else {
           this.formValid = false;
         }
       }
@@ -233,11 +270,60 @@ export class WellModifyComponent implements OnInit {
     for (let i = 0; i < parent.children.length - 1; ++i) {
       if (parent.children[i].children[0] === e.target) {
         e.target.style.backgroundColor = '#37606C';
-      }else {
+      } else {
         parent.children[i].children[0].style.backgroundColor = 'rgba(0,0,0,0.5)';
       }
     }
   }
+
+  /**
+   *  动态增加model输入框
+   * */
+  public openSelModelId(e): void {
+    e.srcElement.parentNode.parentNode.lastElementChild.style.display = 'block';
+  }
+
+  public closeSelModelId(e): void {
+    e.srcElement.parentNode.parentNode.parentNode.style.display = 'none';
+  }
+
+  public addModelId(e): void {
+    // 向当前模块Id增加框的添加一个输入框，同时自动获取焦点
+    const groups = e.srcElement.parentNode.children;
+    const form_group = document.createElement('div');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    form_group.setAttribute('class', 'form-group');
+    form_group.style.marginLeft = '10px';
+    form_group.style.cssFloat = 'left';
+    input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', '请输入Id');
+    input.style.color = '#000000';
+    form_group.appendChild(label);
+    form_group.appendChild(input);
+    for (let j = 0; j < groups.length; j++) {
+      if (groups[j].className === 'modelBody') {
+        label.innerHTML = '模块Id' + (groups[j].children.length + 1) + ':';
+        groups[j].appendChild(form_group);
+      }
+    }
+  }
+
+  public saveCurrentModelId(form, e): void {
+    const content = e.srcElement.parentNode.parentNode;
+    const values = [];
+    for (let j = 0; j < content.children.length; j++) {
+      if (content.children[j].className === 'modelBody') {
+        const modelBody = content.children[j];
+        for (let l = 0; l < modelBody.children.length; l++) {
+          const value = modelBody.children[l].children[1].value;
+          values.push(value);
+        }
+      }
+    }
+    form.patchValue({modeId: values});
+  }
+
   /**
    *  进井和出井操作
    * */
@@ -248,17 +334,18 @@ export class WellModifyComponent implements OnInit {
       this[forms + this[forms].length] = this.fb.group(this[forms + 'Body']);
       this[forms].push(this[forms + this[forms].length]);
       this.formValid = false;
-    }else {
+    } else {
       if (this[forms][this[forms].length - 1].valid) {
         this[forms + this[forms].length] = this.fb.group(this[forms + 'Body']);
         this[forms].push(this[forms + this[forms].length]);
         this.formValid = false;
-      }else {
+      } else {
         this.modalRef = this.modalService.show(template);
         this.formValid = false;
       }
     }
   }
+
   // 删除表
   public deleteForm(forms, form): void {
     forms.splice(forms.indexOf(form), 1);
@@ -266,15 +353,16 @@ export class WellModifyComponent implements OnInit {
       this.formValid = true;
     }
   }
+
   /**
    * 提交井的的全部表单信息
    * */
   public submitAllFormInfo(e): void {
     // 在保存数据时，先清空 wellBaseInfo
-    this.wellBaseInfo.manholeCoverInfo = null;
-    this.wellBaseInfo.inFlowManholelist = [];
-    this.wellBaseInfo.flowOutManholelist = [];
-    this.wellBaseInfo.sensorInfoList = [];
+    this.wellDeatilInfo.manholeCoverInfo = null;
+    this.wellDeatilInfo.inFlowManholelist = [];
+    this.wellDeatilInfo.flowOutManholelist = [];
+    this.wellDeatilInfo.sensorInfoList = [];
     // 取消冒泡行为
     e.stopPropagation();
     // 获取选项卡元素
@@ -288,88 +376,43 @@ export class WellModifyComponent implements OnInit {
     // 首先验证井盖表单
     if (this.wellCoverForm.valid) {
       cover = true;
-      this.wellBaseInfo.manholeCoverInfo = this.wellCoverForm.value;
+      this.wellDeatilInfo.manholeCoverInfo = this.wellCoverForm.value;
     } else {
       cover = false;
       this.allFormsValid = true;
-      const wellCover = document.querySelector('.wellCover');
-      for (let i = 0; i < wellCover.parentElement.children.length; i++) {
-        if (wellCover.parentElement.children[i] === wellCover) {
-          wellCover['style'].display = 'block';
-        } else {
-          wellCover.parentElement.children[i]['style'].display = 'none';
-        }
-      }
-      // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
-      for (let i = 0; i < tabs.children.length - 1; ++i) {
-        if (i === 0) {
-          tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-        }else {
-          tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-        }
-      }
+      this.validAfterFocus('.wellCover');
     }
     // 验证进井全部表单
     if (this.enterForms.length > 0) {
       if (this.enterForms[this.enterForms.length - 1].valid) {
         enter = true;
         for (let i = 0; i < this.enterForms.length; i++) {
-          this.wellBaseInfo.inFlowManholelist.push(this.enterForms[i].value);
+          this.wellDeatilInfo.inFlowManholelist.push(this.enterForms[i].value);
         }
-      }else {
+      } else {
         enter = false;
         this.allFormsValid = true;
-        const enterWell = document.querySelector('.enterWell');
-        for (let i = 0; i < enterWell.parentElement.children.length; i++) {
-          if (enterWell.parentElement.children[i] === enterWell) {
-            enterWell['style'].display = 'block';
-          } else {
-            enterWell.parentElement.children[i]['style'].display = 'none';
-          }
-        }
-        // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
-        for (let i = 0; i < tabs.children.length - 1; ++i) {
-          if (i === 1) {
-            tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-          }else {
-            tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-          }
-        }
+        this.validAfterFocus('.enterWell');
       }
-    }else {
+    } else {
       enter = true;
-      delete this.wellBaseInfo.inFlowManholelist;
+      this.wellDeatilInfo.inFlowManholelist = [];
     }
     // 验证出井全部表单
     if (this.outForms.length > 0) {
       if (this.outForms[this.outForms.length - 1].valid) {
         out = true;
         for (let i = 0; i < this.outForms.length; i++) {
-          this.wellBaseInfo.flowOutManholelist.push(this.outForms[i].value);
+          this.wellDeatilInfo.flowOutManholelist.push(this.outForms[i].value);
         }
-      }else {
+      } else {
         out = false;
         this.allFormsValid = true;
-        const outWell = document.querySelector('.outWell');
-        for (let i = 0; i < outWell.parentElement.children.length; i++) {
-          if (outWell.parentElement.children[i] === outWell) {
-            outWell['style'].display = 'block';
-          } else {
-            outWell.parentElement.children[i]['style'].display = 'none';
-          }
-        }
-        // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
-        for (let i = 0; i < tabs.children.length - 1; ++i) {
-          if (i === 2) {
-            tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-          }else {
-            tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-          }
-        }
+        this.validAfterFocus('.outWell');
       }
-    }else {
+    } else {
       out = true;
-      delete this.wellBaseInfo.flowOutManholelist;
+      this.wellDeatilInfo.flowOutManholelist = [];
     }
 
     // 验证传感器全部表单
@@ -377,40 +420,74 @@ export class WellModifyComponent implements OnInit {
       if (this.sensorsForms[this.sensorsForms.length - 1].valid) {
         sensor = true;
         for (let i = 0; i < this.sensorsForms.length; i++) {
-          this.wellBaseInfo.sensorInfoList.push(this.sensorsForms[i].value);
+          this.wellDeatilInfo.sensorInfoList.push(this.sensorsForms[i].value);
         }
-      }else {
+      } else {
         sensor = false;
         this.allFormsValid = true;
-        const sensors = document.querySelector('.sensors');
-        for (let i = 0; i < sensors.parentElement.children.length; i++) {
-          if (sensors.parentElement.children[i] === sensors) {
-            sensors['style'].display = 'block';
-          } else {
-            sensors.parentElement.children[i]['style'].display = 'none';
-          }
-        }
-        // 设置当前模块表单验证失败对应选项卡的背景颜色，使其为焦点颜色
-        for (let i = 0; i < tabs.children.length - 1; ++i) {
-          if (i === 3) {
-            tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-          }else {
-            tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
-          }
-        }
+        this.validAfterFocus('.sensors');
       }
-    }else {
+    } else {
       sensor = true;
-      delete this.wellBaseInfo.sensorInfoList;
+      this.wellDeatilInfo.sensorInfoList = [];
     }
-
-
-    // 当全部表单有效时才可以提交，向服务器提交井信息
+    // 验证合法之后，向服务器提交井信息
     if (cover && enter && out && sensor) {
-      this.req.addBaseWell(this.wellBaseInfo).then(value => {
-        console.log(value);
-      });
-      console.log(this.wellBaseInfo);
+      if (this.wellCoverForm.get('cityRegionId').value === '') {
+        this.validRegion = true;
+      } else {
+        this.validRegion = false;
+        console.log(this.wellDeatilInfo);
+        this.req.updateWell(this.wellDeatilInfo).then(value => {
+          console.log(value);
+        });
+      }
+    }
+  }
+
+  // 表单在验证之后会获取焦点
+  public validAfterFocus(className: string): void {
+    const tabs = document.querySelector('.wellTabsMenu');
+    const Ele = document.querySelector(className);
+    let single;
+    // 显示验证不通过的表单项，并使其成为焦点
+    for (let i = 0; i < Ele.parentElement.children.length; i++) {
+      if (Ele.parentElement.children[i] === Ele) {
+        single = i;
+        Ele['style'].display = 'block';
+      } else {
+        Ele.parentElement.children[i]['style'].display = 'none';
+      }
+    }
+    for (let i = 0; i < tabs.children.length; ++i) {
+      if (i === single) {
+        tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
+      } else {
+        tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
+      }
+    }
+  }
+
+  public initAddModelId(ele, value: string): void {
+    // 向当前模块Id增加框的添加一个输入框，同时自动获取焦点
+    const groups = document.getElementById(ele).children;
+    const form_group = document.createElement('div');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    form_group.setAttribute('class', 'form-group');
+    form_group.style.marginLeft = '10px';
+    form_group.style.cssFloat = 'left';
+    input.setAttribute('type', 'text');
+    input.setAttribute('placeholder', '请输入Id');
+    input.innerText = value;
+    input.style.color = '#000000';
+    form_group.appendChild(label);
+    form_group.appendChild(input);
+    for (let j = 0; j < groups.length; j++) {
+      if (groups[j].className === 'modelBody') {
+        label.innerHTML = '模块Id' + (groups[j].children.length + 1) + ':';
+        groups[j].appendChild(form_group);
+      }
     }
   }
 }
