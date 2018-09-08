@@ -117,15 +117,19 @@ export class WellDetailInfoComponent implements OnInit {
   // 具体查看井的某个模块信息
   public childDetail(detail): void {
     const ele = document.getElementById(detail.value);
-    if (detail.value === -1) {
+    if (detail.value === '-1') {
       const well = document.querySelector('.wellDetail');
       for (let i = 1; i < well.children[0].children.length; i++) {
-        well.children[0].children['style'].display = 'block';
+        well.children[0].children[i]['style'].display = 'block';
       }
     } else {
       if (ele) {
         for (let i = 1; i < ele.parentNode['children'].length; i++) {
-          ele.parentNode['children']['style'].display = 'block';
+          if (ele.parentNode['children'][i] === ele) {
+            ele.style.display = 'block';
+          }else {
+            ele.parentNode['children'][i]['style'].display = 'none';
+          }
         }
       }
     }

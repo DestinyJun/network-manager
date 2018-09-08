@@ -37,6 +37,9 @@
   right: 0px;
   background-color: rgba(0,0,0,0);
 }
+.wellDetailHeader {
+
+}
 .wellDetail select {
   position: static;
   border: none;

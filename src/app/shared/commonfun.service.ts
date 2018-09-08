@@ -17,7 +17,6 @@ export class CommonfunService {
   }
   // 判断变量或对象是不是为有效值
   public judgeVarOrObjectIsValid(value: any): boolean {
-    console.log(value);
     const type = typeof value;
     if (value === '') {
       return null;
@@ -29,13 +28,10 @@ export class CommonfunService {
       return null;
     }else if (type === 'object') {
       if (value.length === 0) {
-        console.log(3);
         return null;
       }else if (JSON.stringify(value) === JSON.stringify({})) {
-        console.log(2);
         return null;
       }else {
-        console.log(1);
         return value;
       }
     }
