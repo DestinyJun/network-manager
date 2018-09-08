@@ -4,7 +4,10 @@
   color: #FFFFFF;
   border-radius: 10px;
   background-color: rgba(0,0,0,0.5);
-  margin-left: 180px;
+  margin-left: 15%;
+}
+.fa-backward {
+  margin-right: 8px;
 }
 .btn-primary {
   margin-top: 20px;

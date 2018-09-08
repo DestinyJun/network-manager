@@ -1,6 +1,11 @@
 <div class="container">
-  <div class="delete text-center">
-    <input type="text" #wellId placeholder="请输入要删除的井ID">
-    <button type="button" autofocus (click)="delete(wellId.value)">确定删除</button>
+  <div class="row">
+    <button *ngIf="controlBackBtn" type="button" class="btn btn-primary backBtn" [routerLink]="[backUrl]"><span
+      class="fa fa-backward"></span>返回
+    </button>
+  </div>
+  <div class="row delete text-center">
+    <input type="text" [(ngModel)]="wellId" #wellId1 placeholder="请输入要删除的井ID"><br>
+    <button type="button" class="btn btn-primary" autofocus (click)="delete(wellId1.value)">确定删除</button>
   </div>
 </div>

@@ -74,7 +74,6 @@ export class ReqService {
   // 接收实例化后的 user 对象
   // 返回值数据
   public addUser(newUser: UserInfo): Promise<any> {
-    // const datas = this.commonfun.serialize(newUser);
     return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/insertUser', this.commonfun.serialize(newUser));
   }
   // 查询全部用户
@@ -96,7 +95,8 @@ export class ReqService {
   }
   // 井详情信息增加
   public addWell(data): Promise<any> {
-    return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/insertWell', JSON.stringify(data));
+    console.log(data);
+    return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/insertManhole', JSON.stringify(data));
   }
   // 井基本信息增加
   public addBaseWell(data): Promise<any> {
@@ -105,7 +105,7 @@ export class ReqService {
   }
   // 井删除
   public deleteWell(data): Promise<any> {
-    return this.ajaxRestSerialize(this.IP_Port + '/detailedManhole', data);
+    return this.ajaxRestSerialize(this.IP_Port + '/detailedManhole', JSON.stringify(data));
   }
   // 井修改
   public updateWell(data): Promise<any> {

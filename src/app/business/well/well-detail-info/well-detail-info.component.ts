@@ -22,7 +22,7 @@ export class WellDetailInfoComponent implements OnInit {
   public sensorsDetail: Array<TextBox>;
   public wellId: string;
   // 控制返回按钮
-  protected controlBackBtn: boolean;
+  protected controlBackBtn = true;
   // 保存返回的url
   protected backUrl: string;
   constructor(
@@ -35,11 +35,14 @@ export class WellDetailInfoComponent implements OnInit {
 
   ngOnInit() {
     this.routerInfo.queryParams.subscribe((data) => {
+      console.log(data.id);
+      console.log(this.controlBackBtn);
       if (data.id) {
+        console.log('ok');
         this.backUrl = data.parentUrl;
         this.getWellId(data.id);
         this.isFillInWellId = false;
-        this.controlBackBtn = true;
+        this.controlBackBtn = false;
       }
     });
     // 井盖详情

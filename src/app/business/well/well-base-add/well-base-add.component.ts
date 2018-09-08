@@ -72,7 +72,7 @@ export class WellBaseAddComponent implements OnInit {
       new TextBox('传感器个数', 'sensorsize', [[]], 'text', '长度不能超过5位', ''),
       new TextBox('材质', 'material', [[]], 'text', '长度不能超过12位，中文不超过6位', ''),
       new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '长度不能超过50位', ''),
-      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '', ''),
+      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '长度不超过12位', ''),
       new TextBox('创建时间', 'creatTime', [[]], 'date', '长度不能超过11位', ''),
       new TextBox('GPSID', 'gpsId', [[]], 'text', '输入经纬度,以英文逗号分割,长度不能超过30位', ''),
       new TextBox('出井个数', 'flowOutManholeNum', [[]], 'text', '长度不能超过10位', ''),
@@ -87,7 +87,7 @@ export class WellBaseAddComponent implements OnInit {
       inFlowPipeRadius: ['', Validators.required],
       inFlowPipeSlope: ['', Validators.required],
       inFlowPipeLength: ['', Validators.required],
-      model: [[]]
+      modeId: [[]]
     };
     this.enterFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
@@ -106,7 +106,7 @@ export class WellBaseAddComponent implements OnInit {
       flowOutPipeRadius: ['', Validators.required],
       flowOutPipeSlope: ['', Validators.required],
       flowOutPipeLength: ['', Validators.required],
-      model: ['']
+      modeId: ['']
     };
     this.outFormBodyHtml = [
       new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
@@ -247,7 +247,7 @@ export class WellBaseAddComponent implements OnInit {
           }
       }
     }
-    form.patchValue({model: values});
+    form.patchValue({modeId: values});
   }
 /**
  * 提交井的的全部表单信息
@@ -307,6 +307,7 @@ export class WellBaseAddComponent implements OnInit {
     // 验证模块ID是否输入
     if (this.wellBaseInfo.manholeMode === '') {
         moduleId = true;
+      this.allFormsValid = true;
     } else if (this.wellBaseInfo.manholeMode.indexOf(' ') >= 0) {
         moduleId = true;
         this.allFormsValid = true;
@@ -322,14 +323,13 @@ export class WellBaseAddComponent implements OnInit {
         this.validRegion = true;
       }else {
         this.validRegion = false;
-        // 字段有问题
         this.req.addBaseWell(this.wellBaseInfo).then(value => {
           console.log(value);
         });
       }
     }
   }
-//  表单在验证之后会获取焦点
+  // 表单在验证之后会获取焦点
   public validAfterFocus(className: string): void {
     const tabs = document.querySelector('.wellTabsMenu');
     const Ele = document.querySelector(className);

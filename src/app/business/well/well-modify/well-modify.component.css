@@ -5,7 +5,7 @@
   color: #FFFFFF;
   border-radius: 10px;
   background-color: rgba(0,0,0,0.5);
-  margin-left: 180px;
+  margin-left: 15%;
 }
 /*********************************************/
 /* home*/
@@ -45,8 +45,13 @@
 .wellID {
   color: #FFFFFF;
 }
-.btn-primary {
+.btn:focus {
+  border: none;
+  outline: none;
+}
+.painWellId {
   margin-top: 20px;
+  margin-left: 19%;
 }
 .fillInWellId {
   width: 60%;

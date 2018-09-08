@@ -1,0 +1,25 @@
+.container {
+  width: 70%;
+  min-width: 280px;
+  color: #FFFFFF;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.5);
+  margin-left: 15%;
+}
+input {
+  margin-top: 30px;
+  color: #000;
+  height: 23px;
+  border-radius: 5px;
+}
+.btn-primary:focus {
+  border: none;
+  outline: none;
+}
+.btn-primary {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.backBtn {
+  margin-left: 15px;
+}

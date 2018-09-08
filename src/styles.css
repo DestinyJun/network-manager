@@ -9,6 +9,7 @@
   border: none;
 }
 /*取消输入框的获取焦点时的默认边框*/
+.btn,
 .form-control:focus{
   outline: none;
   border: none;

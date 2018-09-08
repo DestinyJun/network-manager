@@ -164,10 +164,11 @@ export class WellModifyComponent implements OnInit {
   public getWellId(wellId: any) {
     if (wellId.value !== '') {
       this.req.wellDetailInfo({manholeId: wellId.value}).then(value => {
-        this.manholeCoverInfo = this.commonfun.judgeVarOrObjectIsValid(value['msg']['manholeCoverInfo']);
-        this.inFlowManholelist = this.commonfun.judgeVarOrObjectIsValid(value['msg']['inFlowManholelist']);
-        this.flowOutManholelist = this.commonfun.judgeVarOrObjectIsValid(value['msg']['flowOutManholelist']);
-        this.sensorInfoList = this.commonfun.judgeVarOrObjectIsValid(value['msg']['sensorInfoList']);
+        console.log(value);
+        this.manholeCoverInfo = value['msg']['manholeCoverInfo'];
+        this.inFlowManholelist = value['msg']['inFlowManholelist'];
+        this.flowOutManholelist = value['msg']['flowOutManholelist'];
+        this.sensorInfoList = value['msg']['sensorInfoList'];
         // 拿到返回数据后，以表单的形式来显示出来，以便用户进行修改
         if (this.manholeCoverInfo) {
           this.wellCoverForm.patchValue(this.manholeCoverInfo);
