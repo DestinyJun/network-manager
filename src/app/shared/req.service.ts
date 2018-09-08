@@ -100,12 +100,11 @@ export class ReqService {
   }
   // 井基本信息增加
   public addBaseWell(data): Promise<any> {
-    console.log(data);
     return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/appInsertManhole', JSON.stringify(data));
   }
   // 井删除
   public deleteWell(data): Promise<any> {
-    return this.ajaxRestSerialize(this.IP_Port + '/detailedManhole', JSON.stringify(data));
+    return this.ajaxRestSerialize(this.IP_Port + '/deleteManhole', this.commonfun.serialize(data));
   }
   // 井修改
   public updateWell(data): Promise<any> {

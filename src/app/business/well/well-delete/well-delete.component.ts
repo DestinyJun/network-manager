@@ -21,7 +21,7 @@ export class WellDeleteComponent implements OnInit {
       if (data.id) {
         this.wellId = data.id;
         this.backUrl = data.parentUrl;
-        this.controlBackBtn = true;
+        this.controlBackBtn = false;
       }
     });
   }
