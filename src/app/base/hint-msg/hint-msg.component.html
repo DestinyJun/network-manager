@@ -1,0 +1,6 @@
+<div class="hint">
+  <i *ngIf="waiting" class="fa fa-spinner fa-pulse waiting"></i>
+  <i *ngIf="finish" class="fa fa-check finish"></i>
+  <i *ngIf="err" class="fa fa-check err"></i>
+  <p *ngIf="msg !== ''" class="msg">错误提示: &nbsp;{{msg}}</p>
+</div>

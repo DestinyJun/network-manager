@@ -57,7 +57,7 @@ export class ReqService {
         },
         error: (err) => {
           // reject(err);
-          console.log('request error');
+          resolve('request error');
         }
       });
     });
@@ -95,7 +95,6 @@ export class ReqService {
   }
   // 井详情信息增加
   public addWell(data): Promise<any> {
-    console.log(data);
     return this.ajaxRestNoSerialize(this.IP_Port + '/pipe-network-Manager/insertManhole', JSON.stringify(data));
   }
   // 井基本信息增加
@@ -104,7 +103,7 @@ export class ReqService {
   }
   // 井删除
   public deleteWell(data): Promise<any> {
-    return this.ajaxRestSerialize(this.IP_Port + '/deleteManhole', this.commonfun.serialize(data));
+    return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/deleteManhole', this.commonfun.serialize(data));
   }
   // 井修改
   public updateWell(data): Promise<any> {

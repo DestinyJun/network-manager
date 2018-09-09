@@ -4,22 +4,22 @@
     <label>省：</label>
     <select name="province" #province (change)="selProvince(province.value)">
       <option [value]="-1">未选</option>
-      <option *ngFor="let pro of provinces" [value]="pro.provinceRegionId">{{pro.provinceName}}</option>
+      <option *ngFor="let pro of provinces" [selected]="regionInfo.provinceRegionId === pro.provinceRegionId" [value]="pro.provinceRegionId">{{pro.provinceName}}</option>
     </select>
     <label>市：</label>
     <select name="city" #city (change)="selCity(city.value)">
       <option [value]="-1">未选</option>
-      <option *ngFor="let city of cities" [value]="city.cityRegionId">{{city.cityName}}</option>
+      <option *ngFor="let city of cities" [selected]="regionInfo.cityRegionId === city.cityRegionId" [value]="city.cityRegionId">{{city.cityName}}</option>
     </select>
     <label>县/区：</label>
     <select name="county" #county (change)="selCounty(county.value)">
       <option [value]="-1">未选</option>
-      <option *ngFor="let county of counties" [value]="county.countyRegionId">{{county.countyName}}</option>
+      <option *ngFor="let county of counties" [selected]="regionInfo.countyRegionId === county.countyRegionId" [value]="county.countyRegionId">{{county.countyName}}</option>
     </select>
   <!--  <label>镇：</label>
     <select name="town" #town (change)="selTown(town.value)">
       <option [value]="-1">未选</option>
-      <option *ngFor="let town of towns" [value]="town.townRegionId">{{town.townName}}</option>
+      <option *ngFor="let town of towns" [selected]="regionInfo.townRegionId === town.townRegionId" [value]="town.townRegionId">{{town.townName}}</option>
     </select>-->
   </div>
 </div>

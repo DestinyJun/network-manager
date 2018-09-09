@@ -8,6 +8,13 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./well-delete.component.css']
 })
 export class WellDeleteComponent implements OnInit {
+  // 操作后的状态
+  public status = {
+    waiting: false,
+    finish: false,
+    err: false,
+    msg: ''
+  };
   protected backUrl: string;
   protected controlBackBtn = true;
   public wellId: string;
@@ -26,8 +33,24 @@ export class WellDeleteComponent implements OnInit {
     });
   }
   public delete(id: string): void {
-    this.req.deleteWell({manholeId: this.wellId}).then(res => {
-      console.log(res);
+    this.status.waiting = true;
+    this.status.finish = true;
+    this.req.deleteWell({manholeId: this.wellId}).then(value => {
+      this.status.waiting = false;
+      // 10:删除成功
+      // 11:删除失败
+      console.log(value);
+      if (Number(value.state) === 10) {
+        this.status.msg = '';
+        this.status.finish = true;
+        setTimeout(() => {
+          this.status.finish = false;
+        }, 1000);
+      }else if (Number(value.state) === 11) {
+        this.status.msg = '删除失败';
+      }else {
+        this.status.msg = '未知错误';
+      }
     });
   }
 

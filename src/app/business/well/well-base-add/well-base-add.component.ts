@@ -12,6 +12,13 @@ import {ReqService} from '../../../shared/req.service';
   styleUrls: ['./well-base-add.component.css']
 })
 export class WellBaseAddComponent implements OnInit {
+  // 操作后的状态
+  public status = {
+    waiting: false,
+    finish: false,
+    err: false,
+    msg: ''
+  };
   // 首先规定提交井的信息格式
   public wellBaseInfo = {
     manholeCoverInfo: '',
@@ -322,9 +329,25 @@ export class WellBaseAddComponent implements OnInit {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       }else {
-        this.validRegion = false;
+        this.status.waiting = true;
         this.req.addBaseWell(this.wellBaseInfo).then(value => {
-          console.log(value);
+          this.status.waiting = false;
+          // 10：添加成功
+          // 11：添加失败
+          // 12:井Id已存在
+          if (Number(value.msg) === 10) {
+            this.status.msg = '';
+            this.status.finish = true;
+            setTimeout(() => {
+              this.status.finish = false;
+            }, 1000);
+          }else if (Number(value.msg) === 11) {
+            this.status.msg = '添加失败';
+          }else if (Number(value.msg) === 12) {
+            this.status.msg = '井Id已存在';
+          }else {
+            this.status.msg = '未知错误';
+          }
         });
       }
     }
@@ -350,5 +373,11 @@ export class WellBaseAddComponent implements OnInit {
         tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
       }
     }
+  }
+  // 清理屏幕
+  public cleanScreen(): void {
+    this.validRegion = false;
+    this.status.msg = '';
+    this.allFormsValid = false;
   }
 }

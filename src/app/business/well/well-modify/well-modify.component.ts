@@ -13,6 +13,19 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./well-modify.component.css']
 })
 export class WellModifyComponent implements OnInit {
+  // 操作后的状态
+  public status = {
+    waiting: false,
+    finish: false,
+    err: false,
+    msg: ''
+  };
+  protected regionInfo = {
+    provinceRegionId: '',
+    cityRegionId: '',
+    countyRegionId: '',
+    townRegionId: ''
+  };
   public manholeCoverInfo: any;
   public inFlowManholelist: any;
   public flowOutManholelist: any;
@@ -194,8 +207,20 @@ export class WellModifyComponent implements OnInit {
         this.sensorInfoList = value['msg']['sensorInfoList'];
         // 拿到返回数据后，以表单的形式来显示出来，以便用户进行修改
         if (this.manholeCoverInfo) {
+          console.log(1);
           this.wellCoverForm.patchValue(this.manholeCoverInfo);
           this.wellInputId = this.manholeCoverInfo.manholeId;
+          this.regionInfo.provinceRegionId = this.manholeCoverInfo.provinceRegionId;
+          this.regionInfo.cityRegionId = this.manholeCoverInfo.cityRegionId;
+          this.regionInfo.countyRegionId = this.manholeCoverInfo.countyRegionId;
+          this.regionInfo.townRegionId = this.manholeCoverInfo.townRegionId;
+        }else {
+          this.isFillInWellId = true;
+          if (typeof id === 'object') {
+            console.log(2);
+            this.status.msg = '无效井ID';
+          }
+          return null;
         }
         if (this.inFlowManholelist.length) {
           if (this.inFlowManholelist.length > 0) {
@@ -238,9 +263,8 @@ export class WellModifyComponent implements OnInit {
         this.isFillInWellId = false;
       });
     } else {
-      const remindMsg = '井ID不能为空';
       if (typeof id === 'object') {
-        id.setAttribute('placeholder', remindMsg);
+        id.setAttribute('placeholder', '井ID不能为空');
       }
     }
   }
@@ -438,10 +462,22 @@ export class WellModifyComponent implements OnInit {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       } else {
-        this.validRegion = false;
-        console.log(this.wellDeatilInfo);
+        this.status.waiting = true;
         this.req.updateWell(this.wellDeatilInfo).then(value => {
-          console.log(value);
+          this.status.waiting = false;
+          // 10:更新成功
+          // 11:更新失败
+          if (Number(value.state) === 10) {
+            this.status.msg = '';
+            this.status.finish = true;
+            setTimeout(() => {
+              this.status.finish = false;
+            }, 1000);
+          }else if (Number(value.state) === 10) {
+            this.status.msg = '更新失败';
+          }else {
+            this.status.msg = '未知错误';
+          }
         });
       }
     }
@@ -491,5 +527,11 @@ export class WellModifyComponent implements OnInit {
         groups[j].appendChild(form_group);
       }
     }
+  }
+  // 清理屏幕
+  public cleanScreen(): void {
+    this.validRegion = false;
+    this.status.msg = '';
+    this.allFormsValid = false;
   }
 }

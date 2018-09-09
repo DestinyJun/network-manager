@@ -12,7 +12,14 @@ import {CommonfunService} from '../../../shared/commonfun.service';
   styleUrls: ['./well-add.component.css']
 })
 export class WellAddComponent implements OnInit {
-  public wellBaseInfo = {
+  // 操作后的状态
+  public status = {
+    waiting: false,
+    finish: false,
+    err: false,
+    msg: ''
+  };
+  public wellDetailInfo = {
     manholeCoverInfo: null,
     inFlowManholelist: [],
     flowOutManholelist: [],
@@ -274,11 +281,11 @@ export class WellAddComponent implements OnInit {
    * 提交井的的全部表单信息
    * */
   public submitAllFormInfo(e): void {
-    // 在保存数据时，先清空 wellBaseInfo
-    this.wellBaseInfo.manholeCoverInfo = null;
-    this.wellBaseInfo.inFlowManholelist = [];
-    this.wellBaseInfo.flowOutManholelist = [];
-    this.wellBaseInfo.sensorInfoList = [];
+    // 在保存数据时，先清空 wellDetailInfo
+    this.wellDetailInfo.manholeCoverInfo = null;
+    this.wellDetailInfo.inFlowManholelist = [];
+    this.wellDetailInfo.flowOutManholelist = [];
+    this.wellDetailInfo.sensorInfoList = [];
     // 取消冒泡行为
     e.stopPropagation();
     // 获取选项卡元素
@@ -292,7 +299,7 @@ export class WellAddComponent implements OnInit {
     // 首先验证井盖表单
     if (this.wellCoverForm.valid) {
       cover = true;
-      this.wellBaseInfo.manholeCoverInfo = this.wellCoverForm.value;
+      this.wellDetailInfo.manholeCoverInfo = this.wellCoverForm.value;
     } else {
       cover = false;
       this.allFormsValid = true;
@@ -303,7 +310,7 @@ export class WellAddComponent implements OnInit {
       if (this.enterForms[this.enterForms.length - 1].valid) {
         enter = true;
         for (let i = 0; i < this.enterForms.length; i++) {
-          this.wellBaseInfo.inFlowManholelist.push(this.enterForms[i].value);
+          this.wellDetailInfo.inFlowManholelist.push(this.enterForms[i].value);
         }
       }else {
         enter = false;
@@ -312,14 +319,14 @@ export class WellAddComponent implements OnInit {
       }
     }else {
       enter = true;
-      this.wellBaseInfo.inFlowManholelist = [];
+      this.wellDetailInfo.inFlowManholelist = [];
     }
     // 验证出井全部表单
     if (this.outForms.length > 0) {
       if (this.outForms[this.outForms.length - 1].valid) {
         out = true;
         for (let i = 0; i < this.outForms.length; i++) {
-          this.wellBaseInfo.flowOutManholelist.push(this.outForms[i].value);
+          this.wellDetailInfo.flowOutManholelist.push(this.outForms[i].value);
         }
       }else {
         out = false;
@@ -328,7 +335,7 @@ export class WellAddComponent implements OnInit {
       }
     }else {
       out = true;
-      this.wellBaseInfo.flowOutManholelist = [];
+      this.wellDetailInfo.flowOutManholelist = [];
     }
 
     // 验证传感器全部表单
@@ -336,7 +343,7 @@ export class WellAddComponent implements OnInit {
       if (this.sensorsForms[this.sensorsForms.length - 1].valid) {
         sensor = true;
         for (let i = 0; i < this.sensorsForms.length; i++) {
-          this.wellBaseInfo.sensorInfoList.push(this.sensorsForms[i].value);
+          this.wellDetailInfo.sensorInfoList.push(this.sensorsForms[i].value);
         }
       }else {
         sensor = false;
@@ -345,16 +352,32 @@ export class WellAddComponent implements OnInit {
       }
     }else {
       sensor = true;
-      this.wellBaseInfo.sensorInfoList = [];
+      this.wellDetailInfo.sensorInfoList = [];
     }
     // 验证合法之后，向服务器提交井信息
     if (cover && enter && out && sensor) {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       }else {
-        this.validRegion = false;
-        this.req.addWell(this.wellBaseInfo).then(value => {
-          console.log(value);
+        this.status.waiting = true;
+        this.req.addWell(this.wellDetailInfo).then(value => {
+          this.status.waiting = false;
+          // 10：添加成功
+          // 11：添加失败
+          // 12:井Id已存在
+          if (Number(value.msg) === 10) {
+            this.status.msg = '';
+            this.status.finish = true;
+            setTimeout(() => {
+              this.status.finish = false;
+            }, 1000);
+          }else if (Number(value.msg) === 11) {
+            this.status.msg = '添加失败';
+          }else if (Number(value.msg) === 12) {
+            this.status.msg = '井Id已存在';
+          }else {
+            this.status.msg = '未知错误';
+          }
         });
       }
     }

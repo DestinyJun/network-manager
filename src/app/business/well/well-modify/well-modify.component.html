@@ -1,4 +1,5 @@
-<div class="container-fluid home" *ngIf="!isFillInWellId" (click)="(allFormsValid = false)">
+<div class="container-fluid home" *ngIf="!isFillInWellId" (click)="cleanScreen()">
+  <app-hint-msg [waiting]="status.waiting" [finish]="status.finish" [msg]="status.msg"></app-hint-msg>
   <div class="row">
     <button *ngIf="controlBackBtn" type="button" class="btn btn-primary backBtn" [routerLink]="[backUrl]"><span
       class="fa fa-backward"></span>返回
@@ -14,8 +15,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="pull-right">
-      <app-region  (regionInfoChange)="getRegionInfo($event)"></app-region>
+    <div class="pull-right region">
+      <app-region [regionInfo]="regionInfo"  (regionInfoChange)="getRegionInfo($event)"></app-region>
     </div>
   </div>
   <div class="row">
@@ -189,9 +190,14 @@
     <h4 class="modal-title">请输入要修改的井ID</h4>
   </div>
   <div class="modal-body">
-    <input type="text" class="form-control" #wellId>
-    <div class="row text-center">
-      <button type="button" class="btn btn-primary painWellId" (click)="getWellId(wellId)">确定</button>
+    <div class="container-fluid">
+      <input type="text" class="form-control" (focus)="status.msg = ''" #wellId>
+      <div class="row text-center">
+        <button type="button" class="btn btn-primary painWellId" (click)="getWellId(wellId)">确定</button>
+      </div>
+      <div class="row">
+        <app-hint-msg [msg]="status.msg"></app-hint-msg>
+      </div>
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@ export class RegionComponent implements OnInit, OnChanges {
   public counties: any;
   public towns: any;
   @Input()
-  private regionInfo = {
+  protected regionInfo = {
     provinceRegionId: '',
     cityRegionId: '',
     countyRegionId: '',
@@ -30,7 +30,11 @@ export class RegionComponent implements OnInit, OnChanges {
   }
   // 只要检测到regionInfo数据改变，就会发送最新的值给父元素
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.regionInfo);
+    const region = this.globalService.getObject('region');
+    this.provinces = JSON.parse(region);
+    this.selProvince(this.regionInfo.provinceRegionId);
+    this.selCity(this.regionInfo.cityRegionId);
+    this.selCounty(this.regionInfo.countyRegionId);
     this.regionInfoChange.emit(this.regionInfo);
   }
   /**
