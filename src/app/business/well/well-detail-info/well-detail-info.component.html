@@ -38,6 +38,7 @@
           <p *ngFor="let enter of enterWellDetail">
             <span>{{enter.name}}:</span>
             <span>{{inflow[enter.content]}}</span>
+            <span *ngIf="!inflow[enter.content]">无</span>
             <span>&nbsp;{{enter.unit}}</span>
           </p>
         </div>
@@ -53,6 +54,7 @@
           <p *ngFor="let out of outWellDetail">
             <span>{{out.name}}:</span>
             <span>{{flowout[out.content]}}</span>
+            <span *ngIf="!flowout[out.content]">无</span>
             <span>&nbsp;{{out.unit}}</span>
           </p>
         </div>

@@ -44,9 +44,11 @@ export class WellModifyComponent implements OnInit {
   private sensorsFormsBody: any;
   public sensorsFormBodyHtml: Array<TextBox> = [];
   public sensorsForms: Array<FormGroup> = [];
-  private validRegion = false;
-  private backUrl: string;
+  // 其他
+  public validRegion = false;
+  public backUrl: string;
   public controlBackBtn = false;
+  public wellInputId = '';
 
   constructor(
     private fb: FormBuilder,
@@ -193,7 +195,7 @@ export class WellModifyComponent implements OnInit {
         // 拿到返回数据后，以表单的形式来显示出来，以便用户进行修改
         if (this.manholeCoverInfo) {
           this.wellCoverForm.patchValue(this.manholeCoverInfo);
-          this.wellID.value = this.manholeCoverInfo.manholeId;
+          this.wellInputId = this.manholeCoverInfo.manholeId;
         }
         if (this.inFlowManholelist.length) {
           if (this.inFlowManholelist.length > 0) {

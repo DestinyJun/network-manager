@@ -35,10 +35,7 @@ export class WellDetailInfoComponent implements OnInit {
 
   ngOnInit() {
     this.routerInfo.queryParams.subscribe((data) => {
-      console.log(data.id);
-      console.log(this.controlBackBtn);
       if (data.id) {
-        console.log('ok');
         this.backUrl = data.parentUrl;
         this.getWellId(data.id);
         this.isFillInWellId = false;
@@ -70,6 +67,7 @@ export class WellDetailInfoComponent implements OnInit {
       new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '', 'cm'),
       new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '', '度'),
       new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '', 'm'),
+      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
     ];
     // 出井详情
     this.outWellDetail = [
@@ -79,6 +77,7 @@ export class WellDetailInfoComponent implements OnInit {
       new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '', 'cm'),
       new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '', '度'),
       new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '', 'm'),
+      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
     ];
     // 传感器详情
     this.sensorsDetail = [
@@ -96,6 +95,7 @@ export class WellDetailInfoComponent implements OnInit {
   public getWellId(wellId: any) {
     if (wellId.value !== '') {
      this.req.wellDetailInfo({manholeId: wellId}).then(value => {
+       console.log(value);
        this.manholeCoverInfo = this.commonfun.judgeVarOrObjectIsValid(value['msg']['manholeCoverInfo']);
        this.inFlowManholelist = this.commonfun.judgeVarOrObjectIsValid(value['msg']['inFlowManholelist']);
        this.flowOutManholelist = this.commonfun.judgeVarOrObjectIsValid(value['msg']['flowOutManholelist']);

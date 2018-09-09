@@ -206,7 +206,7 @@ export class WellAddComponent implements OnInit {
   public closeSelModelId(e): void {
     e.srcElement.parentNode.parentNode.parentNode.style.display = 'none';
   }
-  public addModelId(e, form, i): void {
+  public addModelId(e): void {
     // 向当前模块Id增加框的添加一个输入框，同时自动获取焦点
     const groups = e.srcElement.parentNode.children;
     const form_group = document.createElement('div');
@@ -347,10 +347,8 @@ export class WellAddComponent implements OnInit {
       sensor = true;
       this.wellBaseInfo.sensorInfoList = [];
     }
-
-
     // 验证合法之后，向服务器提交井信息
-    if (cover && enter && out) {
+    if (cover && enter && out && sensor) {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       }else {

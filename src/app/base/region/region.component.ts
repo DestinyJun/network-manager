@@ -11,7 +11,7 @@ export class RegionComponent implements OnInit, OnChanges {
   public cities: any;
   public counties: any;
   public towns: any;
-  // @Input()
+  @Input()
   private regionInfo = {
     provinceRegionId: '',
     cityRegionId: '',
