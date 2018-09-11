@@ -103,6 +103,7 @@ export class ReqService {
   }
   // 井删除
   public deleteWell(data): Promise<any> {
+    console.log(data);
     return this.ajaxRestSerialize(this.IP_Port + '/pipe-network-Manager/deleteManhole', this.commonfun.serialize(data));
   }
   // 井修改

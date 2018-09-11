@@ -1,6 +1,8 @@
-<div class="hint">
-  <i *ngIf="waiting" class="fa fa-spinner fa-pulse waiting"></i>
-  <i *ngIf="finish" class="fa fa-check finish"></i>
-  <i *ngIf="err" class="fa fa-check err"></i>
-  <p *ngIf="msg !== ''" class="msg">错误提示: &nbsp;{{msg}}</p>
+<div class="hint" *ngIf="statusConfig.waiting || statusConfig.finish || statusConfig.msg !== ''">
+  <i *ngIf="statusConfig.waiting" class="fa fa-spinner fa-pulse waiting"></i>
+  <i *ngIf="statusConfig.finish" class="fa fa-check finish"></i>
+  <dl *ngIf="statusConfig.msg !== ''" class="msg">
+    <dt>错误提示:</dt>
+    <dd>{{statusConfig.msg}}</dd>
+  </dl>
 </div>

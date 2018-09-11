@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.service';
 import {ReqService} from '../../../shared/req.service';
 import {CommonfunService} from '../../../shared/commonfun.service';
 import {TextBox} from '../../../shared/global.service';
@@ -28,7 +27,6 @@ export class WellDetailInfoComponent implements OnInit {
   constructor(
     private routerInfo: ActivatedRoute,
     private router: Router,
-    private wellAddFormsInfo: WellAddFormsInfoService,
     private req: ReqService,
     private commonfun: CommonfunService
   ) { }
@@ -128,6 +126,14 @@ export class WellDetailInfoComponent implements OnInit {
 //       scrollbar['style'].transform =  'translate(0, ' + (scrollCurrentH - 20) + 'px)';
 //     }
 //   }
+  // 返回上一层按钮控制
+  public previousLayer(): void {
+      if (this.backUrl) {
+        this.router.navigate([this.backUrl]);
+      }else {
+        this.isFillInWellId = !this.isFillInWellId;
+      }
+  }
   // 具体查看井的某个模块信息
   public childDetail(detail): void {
     const ele = document.getElementById(detail.value);

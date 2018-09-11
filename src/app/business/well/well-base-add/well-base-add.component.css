@@ -33,7 +33,7 @@
 }
 .wellID {
   color: #FFFFFF;
-  padding: 0px 5px;
+  padding: 0px 10px;
 }
 .btn-primary {
   margin-top: 10px;
@@ -146,4 +146,18 @@ input[class="sequence"]{
 }
 .closeBtn {
   background-color: #1F5752;
+}
+.form-group {
+  padding-bottom: 15px;
+}
+
+
+/*地区选择组件*/
+.region {
+  margin-top: 10px;
+}
+
+/*表单验证*/
+.hasError {
+  border: 1px red solid;
 }

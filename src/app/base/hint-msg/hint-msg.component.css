@@ -2,9 +2,15 @@
   position: absolute;
   top: 30%;
   left: 40%;
+  width: 10em;
+  height: 15vh;
+  line-height: 15vh;
+  border-radius: 10px;
+  background-color: rgba(31,87,82, 0.6);
   z-index: 1031;
-  font-size: 30px;
-  color: #e82635;
+  font-size: 8vh;
+  color: #0b7389;
+  text-align: center;
 }
 .msg {
   font-size: 16px;

@@ -110,11 +110,14 @@ input{
 /*操作框*/
 .hintBox {
   position: absolute;
-  width: 180px;
+  width: 200px;
   height: 40px;
-  line-height: 40px;
   border-radius: 5px;
   background-color: #048992;
+  padding: 5px 10px;
   top: 40vh;
   right: 100px;
+}
+.hintBox > button {
+  float: left;
 }

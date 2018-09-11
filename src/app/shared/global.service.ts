@@ -119,12 +119,19 @@ export class TextBox {
   constructor(
     public name: string,
     public content: string,
-    public valids: Array<Array<any>>,
+    public valids: Array<ValidMsg>,
     public type: string,
     public placeholder: string,
     public unit: string
   ) {
   }
+}
+
+export class ValidMsg {
+  constructor(
+    public validField: string,
+    public msg: string
+  ) {}
 }
 
 // 分页类

@@ -8,7 +8,7 @@ import {GlobalService} from '../shared/global.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit , OnDestroy, DoCheck {
+export class HomeComponent implements OnInit {
   public parentFoldValue: boolean;
   constructor(
     private localSessionStorage: GlobalService,
@@ -16,17 +16,11 @@ export class HomeComponent implements OnInit , OnDestroy, DoCheck {
     public router: Router
   ) {
   }
-  ngDoCheck(): void {
-  }
   ngOnInit() {
     this.parentFoldValue = true;
   }
   public rejectFoldValue(e): void {
     this.parentFoldValue = e;
-  }
-
-  public ngOnDestroy(): void {
-
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="container-fluid home" *ngIf="!isFillInWellId" (click)="cleanScreen()">
-  <app-hint-msg [waiting]="status.waiting" [finish]="status.finish" [msg]="status.msg"></app-hint-msg>
+  <app-hint-msg [statusConfig]="statusConfig"></app-hint-msg>
   <div class="row">
-    <button *ngIf="controlBackBtn" type="button" class="btn btn-primary backBtn" [routerLink]="[backUrl]"><span
+    <button type="button" class="btn btn-primary pull-left backBtn" (click)="previousLayer()"><span
       class="fa fa-backward"></span>返回
     </button>
   </div>
@@ -190,14 +190,12 @@
     <h4 class="modal-title">请输入要修改的井ID</h4>
   </div>
   <div class="modal-body">
-    <div class="container-fluid">
-      <input type="text" class="form-control" (focus)="status.msg = ''" #wellId>
-      <div class="row text-center">
-        <button type="button" class="btn btn-primary painWellId" (click)="getWellId(wellId)">确定</button>
-      </div>
-      <div class="row">
-        <app-hint-msg [msg]="status.msg"></app-hint-msg>
-      </div>
+    <input type="text" class="form-control" (focus)="statusConfig.msg = ''" #wellId>
+    <div class="row text-center">
+      <button type="button" class="btn btn-primary painWellId" (click)="getWellId(wellId)">确定</button>
+    </div>
+    <div class="row">
+      <app-hint-msg [statusConfig]="statusConfig"></app-hint-msg>
     </div>
   </div>
 </div>

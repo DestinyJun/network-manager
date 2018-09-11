@@ -125,8 +125,6 @@ export class WellInformationComponent implements OnInit {
 
   // 按页查询选请求
   public usePageQuery(): void {
-    console.log('' === null);
-    console.log(this.pageBody);
     this.req.pagingWell(this.pageBody).then(value => {
       this.datas = value.paingmsg.datas;
       this.resDatas = value;

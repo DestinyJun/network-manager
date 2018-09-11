@@ -1,5 +1,5 @@
 <div class="container-fluid home" (click)="cleanScreen()">
-  <app-hint-msg [waiting]="status.waiting" [finish]="status.finish" [msg]="status.msg"></app-hint-msg>
+  <app-hint-msg [statusConfig]="statusConfig"></app-hint-msg>
   <div class="row">
     <div class="col-xs-12 wellTabsMenu" #wellTabsMenu>
       <div class="title text-center pull-left active"><a (click)="changeBgColor($event, wellCover, wellCoverForm)">井盖添加</a></div>

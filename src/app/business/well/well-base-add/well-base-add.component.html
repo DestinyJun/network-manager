@@ -1,5 +1,5 @@
 <div class="container-fluid home" (click)="cleanScreen()">
-  <app-hint-msg [waiting]="status.waiting" [finish]="status.finish" [msg]="status.msg"></app-hint-msg>
+  <app-hint-msg [statusConfig]="statusConfig"></app-hint-msg>
   <div class="row">
     <div class="col-xs-12 wellTabsMenu" #wellTabsMenu>
       <div class="title text-center pull-left active"><a (click)="changeBgColor($event, wellCover, wellCoverForm)">井盖添加</a></div>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="pull-right">
+    <div class="pull-right region">
       <app-region (regionInfoChange)="getRegionInfo($event)"></app-region>
     </div>
   </div>
@@ -23,11 +23,20 @@
            <form class="form-inline" [formGroup]="wellCoverForm">
              <div class="form-group pull-left">
                <label>井ID:</label>
-               <input type="text" [formControl]="wellID" placeholder="长度不超过11位">
+               <input type="text" [formControl]="wellID"
+                      [class.hasError]="!wellID.valid && wellID.touched">
+               <div [hidden]="wellID.untouched">
+                  <span *ngIf="wellID.hasError('required')">必填项</span>
+                  <span *ngIf="wellID.hasError('maxLength')">长度不能超过11位</span>
+               </div>
              </div>
              <div class="form-group pull-left" *ngFor="let field of wellCoverFormBodyHtml">
                <label>{{field.name}}&nbsp;:&nbsp;</label>
-               <input type="{{field.type}}" formControlName="{{field.content}}" placeholder="{{field.placeholder}}">
+               <input type="{{field.type}}" formControlName="{{field.content}}"
+                      [class.hasError]="!wellCoverForm.get(field.content).valid && wellCoverForm.get(field.content).touched">
+               <div [hidden]="wellCoverForm.get(field.content).untouched">
+                 <span *ngFor="let valid of field.valids"><span *ngIf="wellCoverForm.get(field.content).hasError(valid.validField)">{{valid.msg}}</span></span>
+               </div>
              </div>
            </form>
          </div>
@@ -42,9 +51,13 @@
                <label>&nbsp;</label>
                <input type="button" class="sequence" value="{{i + 1}}">
              </div>
-             <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml; let i  = index">
+             <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml">
                <label>{{f.name}}:</label>
-               <input type="{{f.type}}" formControlName="{{f.content}}" placeholder="{{f.placeholder}}">
+               <input type="{{f.type}}" formControlName="{{f.content}}"
+                      [class.hasError]="!form.get(f.content).valid && form.get(f.content).touched">
+               <div [hidden]="form.get(f.content).untouched">
+                 <p *ngFor="let valid of f.valids"><span *ngIf="form.get(f.content).hasError(valid.validField)">{{valid.msg}}</span></p>
+               </div>
              </div>
              <div class="form-group pull-right">
                <label></label>
@@ -92,7 +105,11 @@
              </div>
              <div class="form-group pull-left" *ngFor="let f of outFormBodyHtml">
                <label>{{f.name}}:</label>
-               <input type="{{f.type}}" formControlName="{{f.content}}" placeholder="{{f.placeholder}}">
+               <input type="{{f.type}}" formControlName="{{f.content}}"
+                      [class.hasError]="!form.get(f.content).valid && form.get(f.content).touched">
+               <div [hidden]="form.get(f.content).untouched">
+                 <p *ngFor="let valid of f.valids"><span *ngIf="form.get(f.content).hasError(valid.validField)">{{valid.msg}}</span></p>
+               </div>
              </div>
              <div class="form-group pull-right">
                <label></label>
@@ -135,7 +152,12 @@
          <div class="row">
            <div class="form-group text-center">
              <label>当前模块ID: &nbsp; </label>
-             <input type="text" class="form-control" [(ngModel)]="wellBaseInfo.manholeMode">
+             <input type="text" class="form-control" [formControl]="modeId"
+                    [class.hasError]="!modeId.valid && modeId.touched">
+             <div [hidden]="modeId.untouched">
+               <span *ngIf="modeId.hasError('required')">必填项</span>
+               <span *ngIf="modeId.hasError('maxLength')">长度不能超过11位</span>
+             </div>
            </div>
          </div>
        </div>
@@ -143,9 +165,10 @@
    </div>
  </div>
   <div class="row text-center">
-    <p *ngIf="allFormsValid" [ngStyle]="{color: 'red'}" class="warn">当前表单验证失败!</p><br>
-    <p *ngIf="validRegion" [ngStyle]="{color: 'red'}" class="warn">地址未选择!</p><br>
+    <span *ngIf="allFormsValid" [ngStyle]="{color: 'red'}" class="warn">当前表单验证失败!</span><br>
+    <span *ngIf="validRegion" [ngStyle]="{color: 'red'}" class="warn">地址未选择!</span><br>
     <button class="btn btn-primary" (click)="submitAllFormInfo($event)">提交井信息</button>
+    <button class="btn btn-primary" (click)="cleanAllFormInfo()">清除井的全部信息</button>
   </div>
 </div>
 

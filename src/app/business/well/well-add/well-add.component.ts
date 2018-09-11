@@ -13,7 +13,7 @@ import {CommonfunService} from '../../../shared/commonfun.service';
 })
 export class WellAddComponent implements OnInit {
   // 操作后的状态
-  public status = {
+  public statusConfig = {
     waiting: false,
     finish: false,
     err: false,
@@ -98,7 +98,7 @@ export class WellAddComponent implements OnInit {
       modeId: [[]]
     };
     this.enterFormBodyHtml = [
-      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
+      // new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
       new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '长度不超过11位', ''),
       new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '长度不超过20位', ''),
       new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '长度不超过10位', ''),
@@ -116,7 +116,7 @@ export class WellAddComponent implements OnInit {
       modeId: [[]]
     };
     this.outFormBodyHtml = [
-      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
+      // new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
       new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '长度不超过11位', ''),
       new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '长度不超过20位', ''),
       new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '长度不超过10位', ''),
@@ -134,7 +134,7 @@ export class WellAddComponent implements OnInit {
       dataCollectorId: ['', Validators.required],
     };
     this.sensorsFormBodyHtml = [
-      new TextBox('井ID', 'initialManholeId', [[]], 'text', '', ''),
+      // new TextBox('井ID', 'initialManholeId', [[]], 'text', '', ''),
       new TextBox('传感器所属模式', 'sensormode', [[]], 'text', '长度不能超过5位的整数', ''),
       new TextBox('模块ID', 'modeId', [[]], 'text', '长度不能超过5位的整数', ''),
       new TextBox('高度', 'hight', [[]], 'text', '长度不能超过20位', ''),
@@ -359,24 +359,24 @@ export class WellAddComponent implements OnInit {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
       }else {
-        this.status.waiting = true;
+        this.statusConfig.waiting = true;
         this.req.addWell(this.wellDetailInfo).then(value => {
-          this.status.waiting = false;
+          this.statusConfig.waiting = false;
           // 10：添加成功
           // 11：添加失败
           // 12:井Id已存在
-          if (Number(value.msg) === 10) {
-            this.status.msg = '';
-            this.status.finish = true;
+          if (Number(value.start) === 10) {
+            this.statusConfig.msg = '';
+            this.statusConfig.finish = true;
             setTimeout(() => {
-              this.status.finish = false;
+              this.statusConfig.finish = false;
             }, 1000);
-          }else if (Number(value.msg) === 11) {
-            this.status.msg = '添加失败';
-          }else if (Number(value.msg) === 12) {
-            this.status.msg = '井Id已存在';
+          }else if (Number(value.start) === 11) {
+            this.statusConfig.msg = '添加失败';
+          }else if (Number(value.start) === 12) {
+            this.statusConfig.msg = '井Id已存在';
           }else {
-            this.status.msg = '未知错误';
+            this.statusConfig.msg = '未知错误';
           }
         });
       }
