@@ -2,13 +2,11 @@
   position: absolute;
   top: 30%;
   left: 40%;
-  width: 10em;
-  height: 15vh;
-  line-height: 15vh;
+  padding: 30px 30px;
   border-radius: 10px;
-  background-color: rgba(31,87,82, 0.6);
+  background-color: rgb(31,87,82);
   z-index: 1031;
-  font-size: 8vh;
+  font-size: 40px;
   color: #0b7389;
   text-align: center;
 }

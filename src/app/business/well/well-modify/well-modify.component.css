@@ -155,3 +155,7 @@ input[class="sequence"]{
 .region {
   margin-top: 15px;
 }
+/*表单验证*/
+.hasError {
+  border: 1px red solid;
+}

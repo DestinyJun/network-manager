@@ -147,3 +147,7 @@ input[class="sequence"]{
 .closeBtn {
   background-color: #1F5752;
 }
+/*表单验证*/
+.hasError {
+  border: 1px red solid;
+}

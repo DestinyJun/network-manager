@@ -3,8 +3,9 @@ import {WellAddFormsInfoService} from '../../../shared/well-add-forms-info.servi
 import {ReqService} from '../../../shared/req.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {GlobalService, TextBox} from '../../../shared/global.service';
+import {GlobalService, TextBox, ValidMsg} from '../../../shared/global.service';
 import {CommonfunService} from '../../../shared/commonfun.service';
+import {UniversalValidators} from 'ngx-validators';
 
 @Component({
   selector: 'app-well-add',
@@ -25,7 +26,7 @@ export class WellAddComponent implements OnInit {
     flowOutManholelist: [],
     sensorInfoList: []
   };
-  public wellID: FormControl = new FormControl(); // 要实例化才能使用
+  public wellID: FormControl = new FormControl('', [Validators.required, UniversalValidators.maxLength(11)]); // 要实例化才能使用
   public modalRef: BsModalRef;
   public formValid = true;
   public allFormsValid = false;
@@ -58,89 +59,91 @@ export class WellAddComponent implements OnInit {
   ngOnInit() {
     // 井盖的
     this.wellCoverFormsBody =  {
-      manholeId: ['', Validators.required],
+      manholeId: [''],
       provinceRegionId: [''],
       cityRegionId: [''],
       countyRegionId: [''],
       townRegionId: [''],
-      sensorsize: ['', Validators.required],
-      material: ['', Validators.required],
-      gpsPosition: ['', Validators.required],
-      dataCollectorId: ['', Validators.required],
-      creatTime: ['', Validators.required],
-      gpsId: ['', Validators.required],
-      flowOutManholeNum: ['', Validators.required],
-      inFlowManholeNum: ['', Validators.required]
+      sensorsize: ['', [Validators.required, UniversalValidators.maxLength(5)]],
+      material: ['', [Validators.required, UniversalValidators.maxLength(12)]],
+      gpsPosition: ['', [Validators.required, UniversalValidators.maxLength(50)]],
+      dataCollectorId: ['', [Validators.required, UniversalValidators.maxLength(12)]],
+      creatTime: ['', [Validators.required]],
+      gpsId: ['', [Validators.required, UniversalValidators.maxLength(30)]],
+      flowOutManholeNum: ['', [Validators.required, UniversalValidators.maxLength(10)]],
+      inFlowManholeNum: ['', [Validators.required, UniversalValidators.maxLength(10)]]
     };
     this.wellCoverFormBodyHtml = [
-      // new TextBox('井ID', 'manholeId', [[]], 'text', '), ',
-      // new TextBox('省地区ID', 'provinceRegionId', [[]], 'text', '), ',
-      // new TextBox('市地区ID', 'cityRegionId', [[]], 'text', '), ',
-      // new TextBox('（县/区）地区ID', 'countyRegionId', [[]], 'text', '), ',
-      // new TextBox('（镇/乡）地区ID', 'townRegionId', [[]], 'text', '), ',
-      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '长度不超过5位', ''),
-      new TextBox('材质', 'material', [[]], 'text', '长度不超过12位，中文不超过6位', ''),
-      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '长度不超过50位', ''),
-      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '长度不超过12位', ''),
-      new TextBox('创建时间', 'creatTime', [[]], 'date', '', ''),
-      new TextBox('GPSID', 'gpsId', [[]], 'text', '输入经纬度，以英文逗号分隔，长度不超过30位', ''),
-      new TextBox('进井数量', 'inFlowManholeNum', [[]], 'text', '输入经纬度，以英文逗号分隔，长度不超过30位', ''),
-      new TextBox('出井数量', 'flowOutManholeNum', [[]], 'text', '输入经纬度，以英文逗号分隔，长度不超过30位', ''),
+      // new TextBox('井ID', 'manholeId', [new ValidMsg',, ' 'text', '), ',
+      // new TextBox('省地区ID', 'provinceRegionId', [new ValidMsg',, ' 'text', '), ',
+      // new TextBox('市地区ID', 'cityRegionId', [new ValidMsg',, ' 'text', '), ',
+      // new TextBox('（县/区）地区ID', 'countyRegionId', [new ValidMsg',, ' 'text', '), ',
+      // new TextBox('（镇/乡）地区ID', 'townRegionId', [new ValidMsg',, ' 'text', '), ',
+      new TextBox('传感器个数', 'sensorsize', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不超过5位')], 'text', '', ''),
+      new TextBox('材质', 'material', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不超过12位，中文不超过6位')], 'text', '', ''),
+      new TextBox('GPS对应地址', 'gpsPosition', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不超过50位')], 'text', '', ''),
+      new TextBox('数据收集器', 'dataCollectorId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不超过12位')], 'text', '', ''),
+      new TextBox('创建时间', 'creatTime', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'date', '', ''),
+      new TextBox('GPSID', 'gpsId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '输入经纬度，以英文逗号分隔，长度不超过30位')], 'text', '', ''),
+      new TextBox('进井数量', 'inFlowManholeNum', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '输入经纬度，以英文逗号分隔，长度不超过30位')], 'text', '', ''),
+      new TextBox('出井数量', 'flowOutManholeNum', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '输入经纬度，以英文逗号分隔，长度不超过30位')], 'text', '', ''),
     ];
     // 进井
     this.enterFormsBody = {
-      manholeId: ['', Validators.required],
-      inFlowRelationId: ['', Validators.required],
-      inFlowPipeId: ['', Validators.required],
-      inFlowPipeRadius: ['', Validators.required],
-      inFlowPipeSlope: ['', Validators.required],
-      inFlowPipeLength: ['', Validators.required],
+      manholeId: [''],
+      inFlowRelationId: ['', [Validators.required, UniversalValidators.maxLength(11)]],
+      inFlowPipeId: ['', [Validators.required, UniversalValidators.maxLength(20)]],
+      inFlowPipeRadius: ['', [Validators.required, UniversalValidators.maxLength(10)]],
+      inFlowPipeSlope: ['', [Validators.required, UniversalValidators.maxLength(10)]],
+      inFlowPipeLength: ['', [Validators.required, UniversalValidators.maxLength(10)]],
       modeId: [[]]
     };
     this.enterFormBodyHtml = [
-      // new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '长度不超过11位', ''),
-      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '长度不超过20位', ''),
-      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '长度不超过10位', ''),
-      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '长度不超过10位', ''),
-      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '长度不超过10位', ''),
+      // new TextBox('井ID', 'manholeId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过5位')], 'text', '', ''),
+      new TextBox('进井ID', 'inFlowRelationId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过11位')], 'text', '', ''),
+      new TextBox('进井管道ID', 'inFlowPipeId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过20位')], 'text', '', ''),
+      new TextBox('进井管道半径', 'inFlowPipeRadius', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过10位')], 'text', '', ''),
+      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过10位')], 'text', '', ''),
+      new TextBox('进井管道长度', 'inFlowPipeLength', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过10位')], 'text', '', ''),
+      // new TextBox('模块ID', 'model', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过5位')], 'text', '), ',
     ];
     // 出井
     this.outFormsBody = {
-      manholeId: ['', Validators.required],
-      flowOutRelationId: ['', Validators.required],
-      flowOutPipeId: ['', Validators.required],
-      flowOutPipeRadius: ['', Validators.required],
-      flowOutPipeSlope: ['', Validators.required],
-      flowOutPipeLength: ['', Validators.required],
-      modeId: [[]]
+      manholeId: [''],
+      flowOutRelationId: ['', [Validators.required, UniversalValidators.maxLength(11)]],
+      flowOutPipeId: ['', [Validators.required, UniversalValidators.maxLength(20)]],
+      flowOutPipeRadius: ['', [Validators.required, UniversalValidators.maxLength(10)]],
+      flowOutPipeSlope: ['', [Validators.required, UniversalValidators.maxLength(10)]],
+      flowOutPipeLength: ['', [Validators.required, UniversalValidators.maxLength(10)]],
+      modeId: ['']
     };
     this.outFormBodyHtml = [
-      // new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '长度不超过11位', ''),
-      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '长度不超过20位', ''),
-      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '长度不超过10位', ''),
-      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '长度不超过10位', ''),
-      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '长度不超过10位', ''),
+      // new TextBox('井ID', 'manholeId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过5位')], 'text', '', ''),
+      new TextBox('出井ID', 'flowOutRelationId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过11位')], 'text', '', ''),
+      new TextBox('出井管道ID', 'flowOutPipeId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过20位')], 'text', '', ''),
+      new TextBox('出井管道半径', 'flowOutPipeRadius', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过10位')], 'text', '', ''),
+      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过10位')], 'text', '', ''),
+      new TextBox('出井管道长度', 'flowOutPipeLength', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过10位')], 'text', '', ''),
+      // new TextBox('模块ID', 'model', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '长度不能超过5位')], 'text', '), ',
     ];
     // 传感器
     this.sensorsFormsBody = {
-      initialManholeId: [{value: '', disabled: true}, Validators.required],
-      sensormode: ['', Validators.required],
-      modeId: ['', Validators.required],
-      hight: ['', Validators.required],
-      modePlace: ['', Validators.required],
-      conduitId: ['', Validators.required],
-      dataCollectorId: ['', Validators.required],
+      initialManholeId: [{value: '', disabled: true}, [Validators.required, UniversalValidators.maxLength(11)]],
+      sensormode: ['', [Validators.required, UniversalValidators.maxLength(5)]],
+      modeId: ['', [Validators.required, UniversalValidators.maxLength(5)]],
+      hight: ['', [Validators.required, UniversalValidators.maxLength(20)]],
+      modePlace: ['', [Validators.required, UniversalValidators.maxLength(1)]],
+      conduitId: ['', [Validators.required, UniversalValidators.maxLength(20)]],
+      dataCollectorId: ['', [Validators.required, UniversalValidators.maxLength(12)]],
     };
     this.sensorsFormBodyHtml = [
-      // new TextBox('井ID', 'initialManholeId', [[]], 'text', '', ''),
-      new TextBox('传感器所属模式', 'sensormode', [[]], 'text', '长度不能超过5位的整数', ''),
-      new TextBox('模块ID', 'modeId', [[]], 'text', '长度不能超过5位的整数', ''),
-      new TextBox('高度', 'hight', [[]], 'text', '长度不能超过20位', ''),
-      new TextBox('传感器在模块中的位置', 'modePlace', [[]], 'text', '长度为1位', ''),
-      new TextBox('导管ID', 'conduitId', [[]], 'text', '长度不能超过20位', ''),
-      new TextBox('数据收集器ID', 'dataCollectorId', [[]], 'text', '长度不能超过12位', '')
+      // new TextBox('井ID', 'initialManholeId', [new ValidMsg',, ' 'text', '', ''),
+      new TextBox('传感器所属模式', 'sensormode', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'text', '长度不能超过5位的整数', ''),
+      new TextBox('模块ID', 'modeId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'text', '长度不能超过5位的整数', ''),
+      new TextBox('高度', 'hight', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'text', '长度不能超过20位', ''),
+      new TextBox('传感器在模块中的位置', 'modePlace', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'text', '长度为1位', ''),
+      new TextBox('导管ID', 'conduitId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'text', '长度不能超过20位', ''),
+      new TextBox('数据收集器ID', 'dataCollectorId', [new ValidMsg('required', '必填项'), new ValidMsg('maxLength', '')], 'text', '长度不能超过12位', '')
     ];
     // 井ID保持一致
     this.wellCoverForm = this.fb.group(this.wellCoverFormsBody);
@@ -403,5 +406,9 @@ export class WellAddComponent implements OnInit {
         tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
       }
     }
+  }
+  // 清除屏幕
+  public cleanScreen(): void {
+
   }
 }

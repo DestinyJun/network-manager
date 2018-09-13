@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ReqService} from '../../../shared/req.service';
 import {CommonfunService} from '../../../shared/commonfun.service';
-import {TextBox} from '../../../shared/global.service';
+import {TextBox, ValidMsg} from '../../../shared/global.service';
 
 @Component({
   selector: 'app-well-detail-info',
@@ -42,50 +42,50 @@ export class WellDetailInfoComponent implements OnInit {
     });
     // 井盖详情
     this.wellCoverDetail = [
-      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('省地区ID', 'provinceRegionId', [[]], 'text', '', ''),
-      new TextBox('市地区ID', 'cityRegionId', [[]], 'text', '', ''),
-      new TextBox('（县/区）地区ID', 'countyRegionId', [[]], 'text', '', ''),
-      new TextBox('（镇/乡）地区ID', 'townRegionId', [[]], 'text', '', ''),
-      new TextBox('传感器个数', 'sensorsize', [[]], 'text', '', ''),
-      new TextBox('材质', 'material', [[]], 'text', '', ''),
-      new TextBox('GPS对应地址', 'gpsPosition', [[]], 'text', '', ''),
-      new TextBox('数据收集器', 'dataCollectorId', [[]], 'text', '', ''),
-      new TextBox('创建时间', 'creatTime', [[]], 'text', '', ''),
-      new TextBox('GPSID', 'gpsId', [[]], 'text', '', ''),
-      new TextBox('进井个数', 'inFlowManholeNum', [[]], 'text', '', ''),
-      new TextBox('出井个数', 'flowOutManholeNum', [[]], 'text', '', ''),
-      new TextBox('井高度', 'high', [[]], 'text', '', ''),
+      new TextBox('井ID', 'manholeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('省地区ID', 'provinceRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('市地区ID', 'cityRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('（县/区）地区ID', 'countyRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('（镇/乡）地区ID', 'townRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('传感器个数', 'sensorsize', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('材质', 'material', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('GPS对应地址', 'gpsPosition', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('数据收集器', 'dataCollectorId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('创建时间', 'creatTime', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('GPSID', 'gpsId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('进井个数', 'inFlowManholeNum', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('出井个数', 'flowOutManholeNum', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('井高度', 'high', [new ValidMsg('', '')], 'text', '', ''),
     ];
     // 进井详情
     this.enterWellDetail = [
-      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('进井ID', 'inFlowRelationId', [[]], 'text', '', ''),
-      new TextBox('进井管道ID', 'inFlowPipeId', [[]], 'text', '', ''),
-      new TextBox('进井管道半径', 'inFlowPipeRadius', [[]], 'text', '', 'cm'),
-      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [[]], 'text', '', '度'),
-      new TextBox('进井管道长度', 'inFlowPipeLength', [[]], 'text', '', 'm'),
-      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
+      new TextBox('井ID', 'manholeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('进井ID', 'inFlowRelationId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('进井管道ID', 'inFlowPipeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('进井管道半径', 'inFlowPipeRadius', [new ValidMsg('', '')], 'text', '', 'cm'),
+      new TextBox('进井管道倾斜度', 'inFlowPipeSlope', [new ValidMsg('', '')], 'text', '', '度'),
+      new TextBox('进井管道长度', 'inFlowPipeLength', [new ValidMsg('', '')], 'text', '', 'm'),
+      new TextBox('模块ID', 'modeId', [new ValidMsg('', '')], 'text', '', ''),
     ];
     // 出井详情
     this.outWellDetail = [
-      new TextBox('井ID', 'manholeId', [[]], 'text', '', ''),
-      new TextBox('出井ID', 'flowOutRelationId', [[]], 'text', '', ''),
-      new TextBox('出井管道ID', 'flowOutPipeId', [[]], 'text', '', ''),
-      new TextBox('出井管道半径', 'flowOutPipeRadius', [[]], 'text', '', 'cm'),
-      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [[]], 'text', '', '度'),
-      new TextBox('出井管道长度', 'flowOutPipeLength', [[]], 'text', '', 'm'),
-      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
+      new TextBox('井ID', 'manholeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('出井ID', 'flowOutRelationId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('出井管道ID', 'flowOutPipeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('出井管道半径', 'flowOutPipeRadius', [new ValidMsg('', '')], 'text', '', 'cm'),
+      new TextBox('出井管道倾斜度', 'flowOutPipeSlope', [new ValidMsg('', '')], 'text', '', '度'),
+      new TextBox('出井管道长度', 'flowOutPipeLength', [new ValidMsg('', '')], 'text', '', 'm'),
+      new TextBox('模块ID', 'modeId', [new ValidMsg('', '')], 'text', '', ''),
     ];
     // 传感器详情
     this.sensorsDetail = [
-      new TextBox('井ID', 'initialManholeId', [[]], 'text', '', ''),
-      new TextBox('传感器所属模式', 'sensormode', [[]], 'text', '', ''),
-      new TextBox('模块ID', 'modeId', [[]], 'text', '', ''),
-      new TextBox('高度', 'hight', [[]], 'text', '', ''),
-      new TextBox('传感器在模块中的位置', 'modePlace', [[]], 'text', '', ''),
-      new TextBox('导管ID', 'conduitId', [[]], 'text', '', ''),
-      new TextBox('数据收集器ID', 'dataCollectorId', [[]], 'text', '', '')
+      new TextBox('井ID', 'initialManholeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('传感器所属模式', 'sensormode', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('模块ID', 'modeId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('高度', 'hight', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('传感器在模块中的位置', 'modePlace', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('导管ID', 'conduitId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('数据收集器ID', 'dataCollectorId', [new ValidMsg('', '')], 'text', '', '')
     ];
     this.isFillInWellId = true;
   }

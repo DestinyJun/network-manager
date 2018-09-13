@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {TextBox, UsePageQueryUser, UserInfo} from '../../shared/global.service';
+import {TextBox, UsePageQueryUser, UserInfo, ValidMsg} from '../../shared/global.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ReqService} from '../../shared/req.service';
@@ -38,21 +38,21 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.pageBody = new UsePageQueryUser('', 1, 10, '', '', '', '');
     this.fields = [
-      new TextBox('身份证号码', 'idCardNo', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('账号', 'username', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('密码', 'password', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('用户性别', 'gender', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('用户年纪', 'age', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('用户电话', 'phone', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('用户住址', 'address', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('姓名', 'name', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('账号是否锁定', 'locked', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('角色id', 'roleId', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('省地区id', 'provinceRegionId', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('市地区Id', 'cityRegionId', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('（县/区）地区Id', 'countyRegionId', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('（镇或者乡）地区Id', 'townRegionId', [['required', '此项为必填']], 'text', '', ''),
-      new TextBox('管辖地区名称', 'managementArea', [['required', '此项为必填']], 'text', '', ''),
+      new TextBox('身份证号码', 'idCardNo', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('账号', 'username', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('密码', 'password', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('用户性别', 'gender', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('用户年纪', 'age', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('用户电话', 'phone', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('用户住址', 'address', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('姓名', 'name', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('账号是否锁定', 'locked', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('角色id', 'roleId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('省地区id', 'provinceRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('市地区Id', 'cityRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('（县/区）地区Id', 'countyRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('（镇或者乡）地区Id', 'townRegionId', [new ValidMsg('', '')], 'text', '', ''),
+      new TextBox('管辖地区名称', 'managementArea', [new ValidMsg('', '')], 'text', '', ''),
     ];
     //  增加模态框表单
     this.userAddForm = this.fb.group({
