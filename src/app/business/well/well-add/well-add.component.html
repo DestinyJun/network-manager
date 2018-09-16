@@ -54,7 +54,7 @@
               <div class="form-group pull-left" *ngFor="let f of enterFormBodyHtml; let i  = index">
                 <label>{{f.name}}:</label>
                 <input type="{{f.type}}" formControlName="{{f.content}}"
-                       [class.hasError]="!form.get(field.content).valid && form.get(f.content).touched">
+                       [class.hasError]="!form.get(f.content).valid && form.get(f.content).touched">
                 <div [hidden]="form.get(f.content).untouched">
                   <span *ngFor="let valid of f.valids"><span *ngIf="form.get(f.content).hasError(valid.validField)">{{valid.msg}}</span></span>
                 </div>
@@ -106,7 +106,7 @@
               <div class="form-group pull-left" *ngFor="let f of outFormBodyHtml">
                 <label>{{f.name}}:</label>
                 <input type="{{f.type}}" formControlName="{{f.content}}"
-                       [class.hasError]="!form.get(field.content).valid && form.get(f.content).touched">
+                       [class.hasError]="!form.get(f.content).valid && form.get(f.content).touched">
                 <div [hidden]="form.get(f.content).untouched">
                   <span *ngFor="let valid of f.valids"><span *ngIf="form.get(f.content).hasError(valid.validField)">{{valid.msg}}</span></span>
                 </div>
@@ -158,7 +158,7 @@
               <div class="form-group pull-left" *ngFor="let f of sensorsFormBodyHtml">
                 <label>{{f.name}}:</label>
                 <input type="{{f.type}}" formControlName="{{f.content}}"
-                       [class.hasError]="!form.get(field.content).valid && form.get(f.content).touched">
+                       [class.hasError]="!form.get(f.content).valid && form.get(f.content).touched">
                 <div [hidden]="form.get(f.content).untouched">
                   <span *ngFor="let valid of f.valids"><span *ngIf="form.get(f.content).hasError(valid.validField)">{{valid.msg}}</span></span>
                 </div>

@@ -126,6 +126,7 @@ export class WellBaseAddComponent implements OnInit {
     this.wellID.valueChanges
       .debounceTime(1000)
       .subscribe(value => {
+        // console.log(value);
       this.wellCoverForm.patchValue({manholeId: value});
       this.enterFormsBody.manholeId[0] = value;
       this.outFormsBody.manholeId[0] = value;
@@ -335,10 +336,6 @@ export class WellBaseAddComponent implements OnInit {
           }else {
             this.statusConfig.msg = '未知错误';
           }
-          setTimeout(() => {
-            this.statusConfig.finish = false;
-            this.statusConfig.msg = '';
-          }, 1600);
         });
       }
     }

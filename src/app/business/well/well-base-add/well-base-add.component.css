@@ -150,7 +150,9 @@ input[class="sequence"]{
 .form-group {
   padding-bottom: 15px;
 }
-
+form > div {
+  float: left;
+}
 
 /*地区选择组件*/
 .region {

@@ -421,15 +421,16 @@ export class WellModifyComponent implements OnInit {
     }
     // 验证进井全部表单
     if (this.enterForms.length > 0) {
-      if (this.enterForms[this.enterForms.length - 1].valid) {
-        enter = true;
-        for (let i = 0; i < this.enterForms.length; i++) {
-          this.wellDeatilInfo.inFlowManholelist.push(this.enterForms[i].value);
+      for (let i = 0; i < this.enterForms.length; i++) {
+        if (this.enterForms[i].valid) {
+          enter = true;
+            this.wellDeatilInfo.inFlowManholelist.push(this.enterForms[i].value);
+        } else {
+          enter = false;
+          this.allFormsValid = true;
+          this.validAfterFocus('.enterWell');
+          break;
         }
-      } else {
-        enter = false;
-        this.allFormsValid = true;
-        this.validAfterFocus('.enterWell');
       }
     } else {
       enter = true;
@@ -437,15 +438,15 @@ export class WellModifyComponent implements OnInit {
     }
     // 验证出井全部表单
     if (this.outForms.length > 0) {
-      if (this.outForms[this.outForms.length - 1].valid) {
-        out = true;
-        for (let i = 0; i < this.outForms.length; i++) {
-          this.wellDeatilInfo.flowOutManholelist.push(this.outForms[i].value);
+      for (let i = 0; i < this.outForms.length; i++) {
+        if (this.outForms[i].valid) {
+          out = true;
+            this.wellDeatilInfo.flowOutManholelist.push(this.outForms[i].value);
+        } else {
+          out = false;
+          this.allFormsValid = true;
+          this.validAfterFocus('.outWell');
         }
-      } else {
-        out = false;
-        this.allFormsValid = true;
-        this.validAfterFocus('.outWell');
       }
     } else {
       out = true;
@@ -454,15 +455,16 @@ export class WellModifyComponent implements OnInit {
 
     // 验证传感器全部表单
     if (this.sensorsForms.length > 0) {
-      if (this.sensorsForms[this.sensorsForms.length - 1].valid) {
-        sensor = true;
-        for (let i = 0; i < this.sensorsForms.length; i++) {
-          this.wellDeatilInfo.sensorInfoList.push(this.sensorsForms[i].value);
+      for (let i = 0; i < this.sensorsForms.length; i++) {
+        if (this.sensorsForms[i].valid) {
+          sensor = true;
+            this.wellDeatilInfo.sensorInfoList.push(this.sensorsForms[i].value);
+        } else {
+          sensor = false;
+          this.allFormsValid = true;
+          this.validAfterFocus('.sensors');
+          break;
         }
-      } else {
-        sensor = false;
-        this.allFormsValid = true;
-        this.validAfterFocus('.sensors');
       }
     } else {
       sensor = true;
@@ -482,9 +484,6 @@ export class WellModifyComponent implements OnInit {
           if (Number(value.state) === 10) {
             this.statusConfig.msg = '';
             this.statusConfig.finish = true;
-            setTimeout(() => {
-              this.statusConfig.finish = false;
-            }, 1000);
           }else if (Number(value.state) === 10) {
             this.statusConfig.msg = '更新失败';
           }else {

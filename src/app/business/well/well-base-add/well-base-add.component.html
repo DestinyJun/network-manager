@@ -21,7 +21,7 @@
        <div class="container-fluid">
          <div class="row">
            <form class="form-inline" [formGroup]="wellCoverForm">
-             <div class="form-group col-xs-3">
+             <div class="form-group">
                <label>井ID:</label>
                <input type="text" [formControl]="wellID" autofocus
                       [class.hasError]="!wellID.valid && wellID.touched">
@@ -30,7 +30,7 @@
                   <span *ngIf="wellID.hasError('maxLength')">长度不能超过11位</span>
                </div>
              </div>
-             <div class="form-group col-xs-3" *ngFor="let field of wellCoverFormBodyHtml">
+             <div class="form-group" *ngFor="let field of wellCoverFormBodyHtml">
                <label>{{field.name}}&nbsp;:&nbsp;</label>
                <input type="{{field.type}}" formControlName="{{field.content}}"
                       [class.hasError]="!wellCoverForm.get(field.content).valid && wellCoverForm.get(field.content).touched">

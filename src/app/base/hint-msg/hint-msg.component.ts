@@ -19,13 +19,7 @@ export class HintMsgComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.statusConfig);
-    // console.log('waiting：' + changes['waiting'].previousValue);
-    // console.log('waiting：' + changes['waiting'].currentValue);
-    // console.log('waiting：' + changes['waiting'].firstChange);
-    // console.log('finish：' + changes['finish'].previousValue);
-    // console.log('finish：' + changes['finish'].currentValue);
-    // console.log('finish：' + changes['finish'].firstChange);
+    // console.log(this.statusConfig);
   }
 
 

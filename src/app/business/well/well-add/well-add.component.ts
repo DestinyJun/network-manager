@@ -47,6 +47,7 @@ export class WellAddComponent implements OnInit {
   private sensorsFormsBody: any;
   public sensorsFormBodyHtml: Array<TextBox> = [];
   public sensorsForms: Array<FormGroup> = [];
+
   constructor(
     private fb: FormBuilder,
     private sessionStorage: GlobalService,
@@ -54,11 +55,12 @@ export class WellAddComponent implements OnInit {
     private commonfun: CommonfunService,
     private wellAddFormsInfo: WellAddFormsInfoService,
     private req: ReqService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     // 井盖的
-    this.wellCoverFormsBody =  {
+    this.wellCoverFormsBody = {
       manholeId: [''],
       provinceRegionId: [''],
       cityRegionId: [''],
@@ -150,6 +152,7 @@ export class WellAddComponent implements OnInit {
     this.wellID.valueChanges
       .debounceTime(1000)
       .subscribe(value => {
+        console.log(value);
         this.wellCoverForm.patchValue({manholeId: value});
         this.enterFormsBody.manholeId[0] = value;
         this.outFormsBody.manholeId[0] = value;
@@ -171,10 +174,12 @@ export class WellAddComponent implements OnInit {
         }
       });
   }
+
   // 获取地区ID
   public getRegionInfo(e): void {
     this.wellCoverForm.patchValue(e);
   }
+
   // 井tabs选项
   public changeBgColor(e, content, form): void {
     const parent = e.srcElement.parentNode.parentElement;
@@ -182,10 +187,10 @@ export class WellAddComponent implements OnInit {
     if (form.length >= 0) {
       if (form.length === 0) {
         this.formValid = true;
-      }else {
+      } else {
         if (form[form.length - 1].valid) {
           this.formValid = true;
-        }else {
+        } else {
           this.formValid = false;
         }
       }
@@ -202,20 +207,23 @@ export class WellAddComponent implements OnInit {
     for (let i = 0; i < parent.children.length - 1; ++i) {
       if (parent.children[i].children[0] === e.target) {
         e.target.style.backgroundColor = '#37606C';
-      }else {
+      } else {
         parent.children[i].children[0].style.backgroundColor = 'rgba(0,0,0,0.5)';
       }
     }
   }
+
   /**
    *  动态增加model输入框
    * */
   public openSelModelId(e): void {
     e.srcElement.parentNode.parentNode.lastElementChild.style.display = 'block';
   }
+
   public closeSelModelId(e): void {
     e.srcElement.parentNode.parentNode.parentNode.style.display = 'none';
   }
+
   public addModelId(e): void {
     // 向当前模块Id增加框的添加一个输入框，同时自动获取焦点
     const groups = e.srcElement.parentNode.children;
@@ -232,14 +240,15 @@ export class WellAddComponent implements OnInit {
     form_group.appendChild(input);
     for (let j = 0; j < groups.length; j++) {
       if (groups[j].className === 'modelBody') {
-        label.innerHTML  = '模块Id' + (groups[j].children.length + 1) + ':';
+        label.innerHTML = '模块Id' + (groups[j].children.length + 1) + ':';
         groups[j].appendChild(form_group);
       }
     }
   }
+
   public saveCurrentModelId(form, e): void {
     console.log(form);
-    const content  = e.srcElement.parentNode.parentNode;
+    const content = e.srcElement.parentNode.parentNode;
     const values = [];
     for (let j = 0; j < content.children.length; j++) {
       if (content.children[j].className === 'modelBody') {
@@ -252,6 +261,7 @@ export class WellAddComponent implements OnInit {
     }
     form.patchValue({modeId: values});
   }
+
   /**
    *  进井和出井操作
    * */
@@ -262,17 +272,18 @@ export class WellAddComponent implements OnInit {
       this[forms + this[forms].length] = this.fb.group(this[forms + 'Body']);
       this[forms].push(this[forms + this[forms].length]);
       this.formValid = false;
-    }else {
+    } else {
       if (this[forms][this[forms].length - 1].valid) {
         this[forms + this[forms].length] = this.fb.group(this[forms + 'Body']);
         this[forms].push(this[forms + this[forms].length]);
         this.formValid = false;
-      }else {
+      } else {
         this.modalRef = this.modalService.show(template);
         this.formValid = false;
       }
     }
   }
+
   // 删除表
   public deleteForm(forms, form): void {
     forms.splice(forms.indexOf(form), 1);
@@ -280,6 +291,7 @@ export class WellAddComponent implements OnInit {
       this.formValid = true;
     }
   }
+
   /**
    * 提交井的的全部表单信息
    * */
@@ -310,50 +322,53 @@ export class WellAddComponent implements OnInit {
     }
     // 验证进井全部表单
     if (this.enterForms.length > 0) {
-      if (this.enterForms[this.enterForms.length - 1].valid) {
-        enter = true;
-        for (let i = 0; i < this.enterForms.length; i++) {
-          this.wellDetailInfo.inFlowManholelist.push(this.enterForms[i].value);
+      for (let i = 0; i < this.enterForms.length; i++) {
+        if (this.enterForms[i].valid) {
+          enter = true;
+            this.wellDetailInfo.inFlowManholelist.push(this.enterForms[i].value);
+        } else {
+          enter = false;
+          this.allFormsValid = true;
+          this.validAfterFocus('.enterWell');
+          break;
         }
-      }else {
-        enter = false;
-        this.allFormsValid = true;
-        this.validAfterFocus('.enterWell');
       }
-    }else {
+    } else {
       enter = true;
       this.wellDetailInfo.inFlowManholelist = [];
     }
     // 验证出井全部表单
     if (this.outForms.length > 0) {
-      if (this.outForms[this.outForms.length - 1].valid) {
-        out = true;
-        for (let i = 0; i < this.outForms.length; i++) {
+    for (let i = 0; i < this.outForms.length; i++) {
+        if (this.outForms[i].valid) {
+          out = true;
           this.wellDetailInfo.flowOutManholelist.push(this.outForms[i].value);
+        } else {
+          out = false;
+          this.allFormsValid = true;
+          this.validAfterFocus('.outWell');
+          break;
         }
-      }else {
-        out = false;
-        this.allFormsValid = true;
-        this.validAfterFocus('.outWell');
-      }
-    }else {
+    }
+    } else {
       out = true;
       this.wellDetailInfo.flowOutManholelist = [];
     }
 
     // 验证传感器全部表单
     if (this.sensorsForms.length > 0) {
-      if (this.sensorsForms[this.sensorsForms.length - 1].valid) {
-        sensor = true;
-        for (let i = 0; i < this.sensorsForms.length; i++) {
+      for (let i = 0; i < this.sensorsForms.length; i++) {
+        if (this.sensorsForms[i].valid) {
+          sensor = true;
           this.wellDetailInfo.sensorInfoList.push(this.sensorsForms[i].value);
+        } else {
+          sensor = false;
+          this.allFormsValid = true;
+          this.validAfterFocus('.sensors');
+          break;
         }
-      }else {
-        sensor = false;
-        this.allFormsValid = true;
-        this.validAfterFocus('.sensors');
       }
-    }else {
+    } else {
       sensor = true;
       this.wellDetailInfo.sensorInfoList = [];
     }
@@ -361,7 +376,7 @@ export class WellAddComponent implements OnInit {
     if (cover && enter && out && sensor) {
       if (this.wellCoverForm.get('cityRegionId').value === '') {
         this.validRegion = true;
-      }else {
+      } else {
         this.statusConfig.waiting = true;
         this.req.addWell(this.wellDetailInfo).then(value => {
           this.statusConfig.waiting = false;
@@ -371,20 +386,18 @@ export class WellAddComponent implements OnInit {
           if (Number(value.start) === 10) {
             this.statusConfig.msg = '';
             this.statusConfig.finish = true;
-            setTimeout(() => {
-              this.statusConfig.finish = false;
-            }, 1000);
-          }else if (Number(value.start) === 11) {
+          } else if (Number(value.start) === 11) {
             this.statusConfig.msg = '添加失败';
-          }else if (Number(value.start) === 12) {
+          } else if (Number(value.start) === 12) {
             this.statusConfig.msg = '井Id已存在';
-          }else {
+          } else {
             this.statusConfig.msg = '未知错误';
           }
         });
       }
     }
   }
+
   // 表单在验证之后会获取焦点
   public validAfterFocus(className: string): void {
     const tabs = document.querySelector('.wellTabsMenu');
@@ -402,13 +415,19 @@ export class WellAddComponent implements OnInit {
     for (let i = 0; i < tabs.children.length; ++i) {
       if (i === single) {
         tabs.children[i].children[0]['style'].backgroundColor = '#37606C';
-      }else {
+      } else {
         tabs.children[i].children[0]['style'].backgroundColor = 'rgba(0,0,0,0.5)';
       }
     }
   }
+
   // 清除屏幕
   public cleanScreen(): void {
-
+    this.statusConfig.waiting = false;
+    this.statusConfig.finish = false;
+    this.statusConfig.err = false;
+    this.statusConfig.msg = '';
+    this.validRegion = false;
+    this.allFormsValid = false;
   }
 }
